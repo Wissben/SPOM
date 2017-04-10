@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Selector</class>
+ <widget class="QWidget" name="Selector">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>659</width>
+    <height>380</height>
+   </rect>
+  </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>Selector</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="SelectGroup">
+     <property name="minimumSize">
+      <size>
+       <width>442</width>
+       <height>265</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Selection</string>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+     <widget class="QRadioButton" name="gradiantOublieux">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>442</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>gradiant morophologique oublieux</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="moyenneRecurssive">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>442</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Moyenne récurssive</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="moyenneArith">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>442</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Moyenne arithmétique</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="moyenneSD">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>120</y>
+        <width>442</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Moyenne Sigma-Delta</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="SAP">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>150</y>
+        <width>442</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>SAP</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>190</y>
+        <width>181</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QSlider" name="horizontalSlider">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="alphaValue"/>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="alpha">
+         <property name="text">
+          <string>α</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>190</y>
+        <width>181</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QSpinBox" name="multipleChooser">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="multiple">
+         <property name="text">
+          <string>Multiple</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="quitSelector">
+     <property name="text">
+      <string>Quit</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
