@@ -116,14 +116,21 @@
         <number>0</number>
        </property>
        <item>
+        <widget class="QLCDNumber" name="alphaValue">
+         <property name="smallDecimalPoint">
+          <bool>false</bool>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Filled</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QSlider" name="horizontalSlider">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
-       </item>
-       <item>
-        <widget class="QLCDNumber" name="alphaValue"/>
        </item>
        <item alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="alpha">

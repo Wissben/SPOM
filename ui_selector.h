@@ -10,20 +10,20 @@
 #define UI_SELECTOR_H
 
 #include <QtCore/QVariant>
-#include <QAction>
-#include <QApplication>
-#include <QButtonGroup>
-#include <QGridLayout>
-#include <QGroupBox>
-#include <QHeaderView>
-#include <QLCDNumber>
-#include <QLabel>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QSlider>
-#include <QSpinBox>
-#include <QVBoxLayout>
-#include <QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLCDNumber>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSlider>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -39,8 +39,8 @@ public:
     QRadioButton *SAP;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout_5;
-    QSlider *horizontalSlider;
     QLCDNumber *alphaValue;
+    QSlider *horizontalSlider;
     QLabel *alpha;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout_2;
@@ -51,62 +51,64 @@ public:
     void setupUi(QWidget *Selector)
     {
         if (Selector->objectName().isEmpty())
-            Selector->setObjectName(QString("Selector"));
+            Selector->setObjectName(QStringLiteral("Selector"));
         Selector->setEnabled(true);
         Selector->resize(659, 380);
         Selector->setCursor(QCursor(Qt::PointingHandCursor));
         verticalLayout = new QVBoxLayout(Selector);
-        verticalLayout->setObjectName(QString("verticalLayout"));
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         SelectGroup = new QGroupBox(Selector);
-        SelectGroup->setObjectName(QString("SelectGroup"));
+        SelectGroup->setObjectName(QStringLiteral("SelectGroup"));
         SelectGroup->setMinimumSize(QSize(442, 265));
         SelectGroup->setFlat(true);
         gradiantOublieux = new QRadioButton(SelectGroup);
-        gradiantOublieux->setObjectName(QString("gradiantOublieux"));
+        gradiantOublieux->setObjectName(QStringLiteral("gradiantOublieux"));
         gradiantOublieux->setGeometry(QRect(10, 30, 442, 24));
         moyenneRecurssive = new QRadioButton(SelectGroup);
-        moyenneRecurssive->setObjectName(QString("moyenneRecurssive"));
+        moyenneRecurssive->setObjectName(QStringLiteral("moyenneRecurssive"));
         moyenneRecurssive->setGeometry(QRect(10, 60, 442, 24));
         moyenneArith = new QRadioButton(SelectGroup);
-        moyenneArith->setObjectName(QString("moyenneArith"));
+        moyenneArith->setObjectName(QStringLiteral("moyenneArith"));
         moyenneArith->setGeometry(QRect(10, 90, 442, 24));
         moyenneSD = new QRadioButton(SelectGroup);
-        moyenneSD->setObjectName(QString("moyenneSD"));
+        moyenneSD->setObjectName(QStringLiteral("moyenneSD"));
         moyenneSD->setGeometry(QRect(10, 120, 442, 24));
         SAP = new QRadioButton(SelectGroup);
-        SAP->setObjectName(QString("SAP"));
+        SAP->setObjectName(QStringLiteral("SAP"));
         SAP->setGeometry(QRect(10, 150, 442, 24));
         verticalLayoutWidget = new QWidget(SelectGroup);
-        verticalLayoutWidget->setObjectName(QString("verticalLayoutWidget"));
+        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(50, 190, 181, 71));
         verticalLayout_5 = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout_5->setSpacing(6);
-        verticalLayout_5->setObjectName(QString("verticalLayout_5"));
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        alphaValue = new QLCDNumber(verticalLayoutWidget);
+        alphaValue->setObjectName(QStringLiteral("alphaValue"));
+        alphaValue->setSmallDecimalPoint(false);
+        alphaValue->setSegmentStyle(QLCDNumber::Filled);
+
+        verticalLayout_5->addWidget(alphaValue);
+
         horizontalSlider = new QSlider(verticalLayoutWidget);
-        horizontalSlider->setObjectName(QString("horizontalSlider"));
+        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
         horizontalSlider->setOrientation(Qt::Horizontal);
 
         verticalLayout_5->addWidget(horizontalSlider);
 
-        alphaValue = new QLCDNumber(verticalLayoutWidget);
-        alphaValue->setObjectName(QString("alphaValue"));
-
-        verticalLayout_5->addWidget(alphaValue);
-
         alpha = new QLabel(verticalLayoutWidget);
-        alpha->setObjectName(QString("alpha"));
+        alpha->setObjectName(QStringLiteral("alpha"));
 
         verticalLayout_5->addWidget(alpha, 0, Qt::AlignHCenter);
 
         gridLayoutWidget = new QWidget(SelectGroup);
-        gridLayoutWidget->setObjectName(QString("gridLayoutWidget"));
+        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(420, 190, 181, 71));
         gridLayout_2 = new QGridLayout(gridLayoutWidget);
-        gridLayout_2->setObjectName(QString("gridLayout_2"));
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
         multipleChooser = new QSpinBox(gridLayoutWidget);
-        multipleChooser->setObjectName(QString("multipleChooser"));
+        multipleChooser->setObjectName(QStringLiteral("multipleChooser"));
         multipleChooser->setMinimum(1);
         multipleChooser->setMaximum(10);
         multipleChooser->setSingleStep(1);
@@ -114,7 +116,7 @@ public:
         gridLayout_2->addWidget(multipleChooser, 0, 0, 1, 1);
 
         multiple = new QLabel(gridLayoutWidget);
-        multiple->setObjectName(QString("multiple"));
+        multiple->setObjectName(QStringLiteral("multiple"));
 
         gridLayout_2->addWidget(multiple, 1, 0, 1, 1, Qt::AlignHCenter);
 
@@ -122,7 +124,7 @@ public:
         verticalLayout->addWidget(SelectGroup);
 
         quitSelector = new QPushButton(Selector);
-        quitSelector->setObjectName(QString("quitSelector"));
+        quitSelector->setObjectName(QStringLiteral("quitSelector"));
 
         verticalLayout->addWidget(quitSelector);
 
