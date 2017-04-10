@@ -349,14 +349,15 @@ main.o: main.cpp mainwindow.h \
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		selector.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		method.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 selector.o: selector.cpp selector.h \
 		ui_selector.h \
-		method.h \
 		mainwindow.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		method.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o selector.o selector.cpp
 
 method.o: method.cpp method.h \

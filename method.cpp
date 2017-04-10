@@ -251,7 +251,6 @@ void Method::gradiantOublieux(string pathToVideo , float alphaDeb)
                 capture >> original;
                 if(original.empty())
                     break;
-                imshow("original", original);
                 //waitKey(1);
                 original.copyTo(X);
                 X.convertTo(X, CV_32FC3);
@@ -272,7 +271,8 @@ void Method::gradiantOublieux(string pathToVideo , float alphaDeb)
                 //cout << points;
                 //cv::dilate(finMask, finMask, Mat());
                 finMask.convertTo(finMask, CV_8U);
-                for (int i = 0; i < finMask.rows; i++)
+                fin=Method::getForeGroundRGB_8UC3(original,finMask);
+                /*for (int i = 0; i < finMask.rows; i++)
                 {
                     for (int j = 0; j < finMask.cols; j++)
                     {
@@ -286,6 +286,9 @@ void Method::gradiantOublieux(string pathToVideo , float alphaDeb)
                         }
                     }
                 }
+                */
+                Method::drawBoxesRGB_8UC3(&original,finMask);
+                /*
                 vector<vector<Point> > contours;
                 vector<Vec4i> hierarchy;
                 Mat fingray;
@@ -333,9 +336,9 @@ void Method::gradiantOublieux(string pathToVideo , float alphaDeb)
 
                     rectangle(fin,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
                 }
+                */
 
-                namedWindow("Contours", CV_WINDOW_AUTOSIZE);
-                imshow("Contours", drawing);
+                //imshow("Contours", drawing);
             }
             else
             {
@@ -343,15 +346,11 @@ void Method::gradiantOublieux(string pathToVideo , float alphaDeb)
                 break;
             }
 
-
+            imshow("original", original);
             imshow("fin", finMask);
             imshow("FINAL", fin);
             waitKey(0);
             //QWidget *q = (QWidget*) cvGetWindowHandle("fin");
-            //if(!q->isVisible())
-            //{
-            //    return;
-            //}
         }
         capture.release();
     }
@@ -543,16 +542,19 @@ void Method::moyenne_Arith(std::string path )
     Mat tmp;
     Mat X;
     Mat foreGround;
+    VideoCapture v(path);
+    Mat backGroundGray;
+    Mat original;
+    double Rnorme;
+    Mat foreGroundGray;
+
+
     tmp = Method::getBackGroundRGB_8UC3(path);
     tmp.convertTo(tmp, CV_8UC3);
     imshow("final2", tmp);
     waitKey(0);
-    VideoCapture v(path);
-    Mat backGroundGray;
     cvtColor(tmp, backGroundGray, COLOR_BGR2GRAY);
     backGroundGray.convertTo(backGroundGray, CV_32F);
-    double Rnorme;
-    Mat original;
     Mat diff = Mat::zeros(tmp.rows,tmp.cols,CV_32F);
     while (v.get(CV_CAP_PROP_POS_FRAMES) < v.get(CAP_PROP_FRAME_COUNT))
     {
@@ -567,20 +569,13 @@ void Method::moyenne_Arith(std::string path )
             absdiff(X, backGroundGray, diff);
             threshold(diff, diff, 30, 255, THRESH_BINARY);
             cv::erode(diff, diff, Mat());
-            // cv::erode(diff, diff, Mat());
             cv::dilate(diff, diff, Mat());
-            //cv::dilate(diff, diff, Mat());
-            imshow("original", original);
             diff.convertTo(diff,CV_8U);
             foreGround = Method::getForeGroundRGB_8UC3(original,diff);
-            diff.convertTo(diff,CV_32F);
-            imshow("hhh",foreGround);
-            //cout << foreGround;
             foreGround.convertTo(foreGround, CV_32FC3);
-            Mat foreGroundGray;
             cvtColor(foreGround, foreGroundGray, COLOR_BGR2GRAY);
             foreGroundGray.convertTo(foreGroundGray, CV_32F);
-            /*
+
             for (int i = 0; i < foreGround.rows; i++)
             {
                 for (int j = 0; j < foreGround.cols; j++)
@@ -607,48 +602,10 @@ void Method::moyenne_Arith(std::string path )
                     }
                 }
             }
-            */
+
             foreGround.convertTo(foreGround, CV_8UC3);
-            vector<vector<Point> > contours;
-            vector<Vec4i> hierarchy;
-            Mat diffGray;
-            diff.copyTo(diffGray);
-            //cvtColor(finMask, fingray, COLOR_BGR2GRAY);
-            diffGray.convertTo(diffGray, CV_8UC1);
-            Canny(diffGray, diffGray, 30, 30 * 2, 3);
-            findContours(diffGray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_TC89_KCOS, Point(0,0));
-            //cout << contours.at(0) << "\nend\n";
-            for (int i = 0; i < contours.size(); ++i)
-            {
-                Point p=(contours.at(i)).at(0);
-                int xMax=p.x;
-                int yMax=p.y;
-                int xMin=p.x;
-                int yMin=p.y;
-                for (int j = 0; j < contours.at(i).size(); ++j)
-                {
-                    Point current=(contours.at(i)).at(j);
-                    if(current.x>xMax)
-                    {
-                        xMax=current.x;
-                    }
-                    if(current.y>yMax)
-                    {
-                        yMax=current.y;
-                    }
-                    if(current.x<xMin)
-                    {
-                        xMin=current.x;
-                    }
-                    if(current.y<yMin)
-                    {
-                        yMin=current.y;
-                    }
-                }
-
-                rectangle(foreGround,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
-            }
-
+            Method::drawBoxesRGB_8UC3(&original,diff);
+            imshow("original", original);
             imshow("foreground", foreGround);
             diff.convertTo(diff, CV_8U);
             imshow("diff", diff);
@@ -798,6 +755,7 @@ void Method::SAP(string path, int multiple)
             /*
             vector<vector<Point> > contours;
             vector<Vec4i> hierarchy;
+            vector<Rect> rectangles;
             Mat diffGray;
             mask.convertTo(diffGray,COLOR_BGR2GRAY);
             diffGray.convertTo(diffGray, CV_8UC1);
@@ -835,8 +793,27 @@ void Method::SAP(string path, int multiple)
                         yMin=current.y;
                     }
                 }
+                Rect x(Point(xMin,yMax),Point(xMax,yMin));
+                rectangles.push_back(x);
+                //rectangle(Icpy,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
+            }
+            for (int i = 0; i < rectangles.size(); i++)
+            {
+                for (int j = 0; j < rectangles.size(); j++)
+                {
+                   if(i!=j)
+                   {
+                       bool intersect = ((rectangles.at(i) & rectangles.at(j) ).area()>0);
+                       if(intersect)
+                       {
+                           rectangles.at(i) = rectangles.at(i) | rectangles.at(j) ;
+                           //rectangles.erase(rectangles.begin()+j);
 
-                rectangle(Icpy,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
+                       }
+                   }
+
+                }
+              rectangle(Icpy,rectangles.at(i),Scalar(0,0,255));
             }
             */
             imshow("original",Icpy);
@@ -1048,10 +1025,11 @@ cv::Mat Method::getForeGroundRGB_8UC3(cv::Mat image , cv::Mat mask)
 
 }
 
- void Method::drawBoxesRGB_8UC3(cv::Mat* image,cv::Mat mask)
+void Method::drawBoxesRGB_8UC3(cv::Mat* image,cv::Mat mask)
 {
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
+    vector<Rect> rectangles;
     Mat diffGray;
     mask.convertTo(diffGray,COLOR_BGR2GRAY);
     diffGray.convertTo(diffGray, CV_8UC1);
@@ -1086,7 +1064,28 @@ cv::Mat Method::getForeGroundRGB_8UC3(cv::Mat image , cv::Mat mask)
             }
         }
 
-        rectangle(*image,Point(xMin,yMin),Point(xMax,yMax),Scalar(0,0,255));
+        Rect x(Point(xMin,yMax),Point(xMax,yMin));
+        rectangles.push_back(x);
+        //rectangle(Icpy,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
     }
+    for (int i = 0; i < rectangles.size(); i++)
+    {
+        for (int j = 0; j < rectangles.size(); j++)
+        {
+           if(i!=j)
+           {
+               bool intersect = ((rectangles.at(i) & rectangles.at(j) ).area()>0);
+               if(intersect)
+               {
+                   rectangles.at(i) = rectangles.at(i) | rectangles.at(j) ;
+                   //rectangles.erase(rectangles.begin()+j);
+
+               }
+           }
+
+        }
+      rectangle(*image,rectangles.at(i),Scalar(0,0,255));
+    }
+
 }
 
