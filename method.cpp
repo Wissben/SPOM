@@ -39,7 +39,7 @@ void Method::moyenne_Reccur(string path, float alpha)
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
-    while (vc.get(CV_CAP_PROP_POS_FRAMES)< vc.get(CAP_PROP_FRAME_COUNT))
+    while (vc.get(CV_CAP_PROP_POS_FRAMES)< vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
         //M= alpha*I+(1-alpha)M1 ;
         vc >> I; // Lire le frame courant dans l'image I
@@ -72,7 +72,7 @@ void Method::moyenne_Reccur(string path, float alpha)
     waitKey(0);
     cvtColor(M, M, COLOR_BGR2GRAY);
     VideoCapture v(path);
-    while (v.get(CV_CAP_PROP_POS_FRAMES) <= v.get(CAP_PROP_FRAME_COUNT))
+    while (v.get(CV_CAP_PROP_POS_FRAMES) <= v.get(CV_CAP_PROP_FRAME_COUNT))
     {
         Mat foreground = Mat::zeros(M.rows,M.cols,CV_8UC3);
         v >> original;
@@ -179,7 +179,7 @@ void Method::laplace(string path)
     }
     for (;;)
     {
-        while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CAP_PROP_FRAME_COUNT))
+        while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CV_CAP_PROP_FRAME_COUNT))
         {
             vc >> diff;
             cvtColor(diff, diff, COLOR_BGR2GRAY);
@@ -227,7 +227,7 @@ void Method::gradiantOublieux(string pathToVideo , float alphaDeb)
         Mat previous;
         X.copyTo(previous);
         Mat diff;
-        while (capture.get(CV_CAP_PROP_POS_FRAMES)<capture.get(CAP_PROP_FRAME_COUNT))
+        while (capture.get(CV_CAP_PROP_POS_FRAMES)<capture.get(CV_CAP_PROP_FRAME_COUNT))
         {
             Mat finMask;
             if (!X.empty() && !M.empty() && !m.empty() && !original.empty() )
@@ -376,9 +376,9 @@ void Method::sigmaDelta(string path)
     X.convertTo(X, CV_32FC3);
     X.copyTo(M);
     //// get the average
-    while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CAP_PROP_FRAME_COUNT))
+    while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
-        //cout << vc.get(CV_CAP_PROP_POS_FRAMES) << "/" << vc.get(CAP_PROP_FRAME_COUNT) << endl;
+        //cout << vc.get(CV_CAP_PROP_POS_FRAMES) << "/" << vc.get(CV_CAP_PROP_FRAME_COUNT) << endl;
         vc >> X;
         if (!X.empty() && !M.empty())
         {
@@ -394,7 +394,7 @@ void Method::sigmaDelta(string path)
         }
 
     }
-    M /= vc.get(CAP_PROP_FRAME_COUNT);
+    M /= vc.get(CV_CAP_PROP_FRAME_COUNT);
     M.convertTo(M,CV_8UC3);
     cvtColor(M, M, COLOR_BGR2GRAY);
     vc.release();
@@ -556,7 +556,7 @@ void Method::moyenne_Arith(std::string path )
     cvtColor(tmp, backGroundGray, COLOR_BGR2GRAY);
     backGroundGray.convertTo(backGroundGray, CV_32F);
     Mat diff = Mat::zeros(tmp.rows,tmp.cols,CV_32F);
-    while (v.get(CV_CAP_PROP_POS_FRAMES) < v.get(CAP_PROP_FRAME_COUNT))
+    while (v.get(CV_CAP_PROP_POS_FRAMES) < v.get(CV_CAP_PROP_FRAME_COUNT))
     {
         v >> X;
         if (!X.empty())
@@ -565,7 +565,7 @@ void Method::moyenne_Arith(std::string path )
             X.copyTo(original);
             cvtColor(X, X, COLOR_BGR2GRAY);
             X.convertTo(X, CV_32F);
-            cout << v.get(CV_CAP_PROP_POS_FRAMES) << "/" << v.get(CAP_PROP_FRAME_COUNT) << endl;
+            cout << v.get(CV_CAP_PROP_POS_FRAMES) << "/" << v.get(CV_CAP_PROP_FRAME_COUNT) << endl;
             absdiff(X, backGroundGray, diff);
             threshold(diff, diff, 30, 255, THRESH_BINARY);
             cv::erode(diff, diff, Mat());
@@ -636,7 +636,7 @@ void Method::SAP(string path, int multiple)
     Mat SC;
     Mat S;
     int threshSum=0;
-    int N=vc.get(CAP_PROP_FRAME_COUNT);
+    int N=vc.get(CV_CAP_PROP_FRAME_COUNT);
     Mat sigma;
     Mat mask;
     Mat Icpy;
@@ -652,7 +652,7 @@ void Method::SAP(string path, int multiple)
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
-    while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CAP_PROP_FRAME_COUNT))
+    while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
 
         vc >> I;
@@ -710,7 +710,7 @@ void Method::SAP(string path, int multiple)
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
-    while (capt.get(CV_CAP_PROP_POS_FRAMES) < capt.get(CAP_PROP_FRAME_COUNT))
+    while (capt.get(CV_CAP_PROP_POS_FRAMES) < capt.get(CV_CAP_PROP_FRAME_COUNT))
     {
         capt >> I;
         if (!I.empty())
@@ -982,7 +982,7 @@ cv::Mat Method::getBackGroundRGB_8UC3(std::string path)
     X.convertTo(X, CV_32FC3);
     X.copyTo(M);
     //// get the average
-    while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CAP_PROP_FRAME_COUNT))
+    while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
         vc >> X;
         if (!X.empty() && !M.empty())
@@ -997,7 +997,7 @@ cv::Mat Method::getBackGroundRGB_8UC3(std::string path)
         }
 
     }
-    M /= vc.get(CAP_PROP_FRAME_COUNT);
+    M /= vc.get(CV_CAP_PROP_FRAME_COUNT);
     M.convertTo(M,CV_8UC3);
     vc.release();
     return M;

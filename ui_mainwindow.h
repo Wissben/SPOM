@@ -10,14 +10,14 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QAction>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QHeaderView>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QWidget>
+#include <QAction>
+#include <QApplication>
+#include <QButtonGroup>
+#include <QHeaderView>
+#include <QMainWindow>
+#include <QPushButton>
+#include <QStatusBar>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -32,23 +32,23 @@ public:
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName(QStringLiteral("MainWindow"));
+            MainWindow->setObjectName(QString("MainWindow"));
         MainWindow->resize(705, 394);
         MainWindow->setAutoFillBackground(false);
-        MainWindow->setStyleSheet(QStringLiteral(""));
+        MainWindow->setStyleSheet(QString(""));
         centralWidget = new QWidget(MainWindow);
-        centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        centralWidget->setObjectName(QString("centralWidget"));
         pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setObjectName(QString("pushButton"));
         pushButton->setGeometry(QRect(220, 140, 251, 71));
         pushButton->setCursor(QCursor(Qt::ArrowCursor));
         pushButton->setAutoFillBackground(true);
         pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setObjectName(QString("pushButton_2"));
         pushButton_2->setGeometry(QRect(590, 330, 111, 41));
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
-        statusBar->setObjectName(QStringLiteral("statusBar"));
+        statusBar->setObjectName(QString("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);
