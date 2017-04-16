@@ -19,7 +19,7 @@ Method::Method()
 }
 
 
-void Method::moyenne_Reccur(string path, float alpha)
+void Method::moyenne_Reccur(string path, double alpha)
 {
     int thresh = 30; // variable pour le seuil
     VideoCapture vc(path); // objet de la classe VideoCapture qui permettra de lire la video
@@ -27,10 +27,8 @@ void Method::moyenne_Reccur(string path, float alpha)
     int initY=500; // position initiale sur Y
     Mat M = Mat::zeros(1, 1, CV_32FC3); // Objet de la classe Mat qui contiendra la moyenne finale
     Mat I = Mat::zeros(1, 1, CV_32FC3); // Objet de la classe Mat qui contiendra l'image courante
-    Mat V = Mat::zeros(1,1,CV_64FC3);
     Mat temp; //Objet de la classe Mat qui contiendra une image temporaire
     vc >> M; // on lit le premier frame et on le met dans la matrice M
-    M.copyTo(V);
     M.convertTo(M, CV_64FC3);// convertir la matrice pour que chaque element soit de type Vec3d c'est a dire un vecteur de 3 nombre double
     //    M = alpha*M; // ini
     //    M.copyTo(M1);
@@ -52,18 +50,10 @@ void Method::moyenne_Reccur(string path, float alpha)
         I.convertTo(I, CV_64FC3); //convertir la matrice pour que chaque element soit de type Vec3d c'est a dire un vecteur de 3 nombre double
         //cout << I;
         M = alpha*I + (1 - alpha)*M; // La formule pour calculer la moyenne reccursivement
-        //V = alpha*V + (1 - alpha)*(M - I)*(M - I);
-        //M = alpha*(I-M)+M;
-        //M.convertTo(M, CV_32FC3);
-        //cvtColor(M, M, COLOR_BGR2HSV);
-        //cvtColor(I, I, COLOR_BGR2HSV);
         M.convertTo(temp, CV_8UC3);//convertir la matrice pour que chaque element soit de type Vec3b c'est a dire un vecteur de 3 nombre entier non signés
         imshow("M", M); // afficher l'image
         M.convertTo(M, CV_64FC3); // reconvertir l'image pour la réutilisation dans l'ittération suivante
     }
-    //cv::sqrt(V,V);
-    //V.convertTo(V,CV_8UC3);
-    //cvtColor(V,V,COLOR_BGR2GRAY);
     vc.release(); // dès qu'on termine le parcours de la vidéo on libère l'objet VideoCapture
     Mat original = Mat::zeros(M.rows,M.cols,CV_8UC3);//Matrice qui contiendra l'image original
     M.convertTo(M, CV_8UC3);//conversion
@@ -90,6 +80,8 @@ void Method::moyenne_Reccur(string path, float alpha)
         //cv::dilate(I,I,Mat());
         original.convertTo(original,CV_8UC3);
         I.convertTo(I,CV_8U);
+        foreground=Method::getForeGroundRGB_8UC3(original,I);
+        /*
         for (int i = 0; i < I.rows; i++) {
             for (int j = 0; j < I.cols; j++) {
 
@@ -103,6 +95,10 @@ void Method::moyenne_Reccur(string path, float alpha)
 
             }
         }
+        */
+        Method::drawBoxesRGB_8UC3(&original,I);
+        Method::drawBoxesRGB_8UC3(&foreground,I);
+        /*
         vector<vector<Point> > contours;
         vector<Vec4i> hierarchy;
         Mat Igray;
@@ -142,14 +138,8 @@ void Method::moyenne_Reccur(string path, float alpha)
 
             rectangle(foreground,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
         }
+        */
         imshow("forground",foreground);
-        //cv::erode(I, I,Mat());
-        //Laplacian(temp, neo, CV_16S, 1, 1, 0, BORDER_DEFAULT);
-        //convertScaleAbs(neo, neo);
-        //imshow("neo", neo);
-        //waitKey(1);
-        //cvtColor(neo, neo, COLOR_BGR2GRAY);
-        //bitwise_and(I, neo, neo);
         imshow("Masque", I);
         //cv::moveWindow("final",initX+2*original.cols,initY);
         waitKey(0);
@@ -199,7 +189,7 @@ void Method::laplace(string path)
 /////////////////////////////::
 
 
-void Method::gradiantOublieux(string pathToVideo , float alphaDeb)
+void Method::gradiantOublieux(string pathToVideo , double alphaDeb)
 {
 
     cout << "alpha:" << alphaDeb << endl;
@@ -349,7 +339,13 @@ void Method::gradiantOublieux(string pathToVideo , float alphaDeb)
             imshow("original", original);
             imshow("fin", finMask);
             imshow("FINAL", fin);
-            waitKey(0);
+
+            if(waitKey(0)=='\33')
+            {
+                destroyAllWindows();
+                return;
+
+            }
             //QWidget *q = (QWidget*) cvGetWindowHandle("fin");
         }
         capture.release();
@@ -551,8 +547,7 @@ void Method::moyenne_Arith(std::string path )
 
     tmp = Method::getBackGroundRGB_8UC3(path);
     tmp.convertTo(tmp, CV_8UC3);
-    imshow("final2", tmp);
-    waitKey(0);
+
     cvtColor(tmp, backGroundGray, COLOR_BGR2GRAY);
     backGroundGray.convertTo(backGroundGray, CV_32F);
     Mat diff = Mat::zeros(tmp.rows,tmp.cols,CV_32F);
@@ -609,7 +604,13 @@ void Method::moyenne_Arith(std::string path )
             imshow("foreground", foreGround);
             diff.convertTo(diff, CV_8U);
             imshow("diff", diff);
-            waitKey(0);
+            imshow("final2", tmp);
+            if(waitKey(0)=='\33')
+            {
+                destroyAllWindows();
+                return;
+
+            }
             diff.convertTo(diff, CV_32F);
 
         }
@@ -628,7 +629,7 @@ void Method::moyenne_Arith(std::string path )
 
 //////////////////
 
-void Method::SAP(string path, int multiple)
+void Method::SAP(string path, int multiple, double alpha)
 {
     VideoCapture vc(path);
     Mat I;
@@ -641,7 +642,6 @@ void Method::SAP(string path, int multiple)
     Mat mask;
     Mat Icpy;
     Mat oldMoy;
-
     vc >> I;
     Moy=Mat::zeros(I.size(),CV_32SC3);
     SC = Mat::zeros(I.size(),CV_32SC3);
@@ -684,7 +684,6 @@ void Method::SAP(string path, int multiple)
             break;
         }
     }
-
     sigma=Mat::zeros(Moy.size(),CV_32SC3);
 
     for (int i = 0; i < Moy.rows; ++i)
@@ -749,75 +748,31 @@ void Method::SAP(string path, int multiple)
             }
             I.convertTo(I,CV_8UC3);
             mask.convertTo(mask,CV_8UC3);
-
+            //cv::erode(mask,mask,Mat());
             cv::erode(mask,mask,Mat());
+            //cv::dilate(mask,mask,Mat());
             cv::dilate(mask,mask,Mat());
-
+            Mat maskGray;
+            cvtColor(mask,maskGray,COLOR_BGR2GRAY);
+            Mat foreGround = Mat::zeros(maskGray.rows,maskGray.cols,CV_8UC3);
             Method::drawBoxesRGB_8UC3(&Icpy,mask);
-            /*
-            vector<vector<Point> > contours;
-            vector<Vec4i> hierarchy;
-            vector<Rect> rectangles;
-            Mat diffGray;
-            mask.convertTo(diffGray,COLOR_BGR2GRAY);
-            diffGray.convertTo(diffGray, CV_8UC1);
-            threshSum/=mask.cols*mask.rows;
-            cout<< threshSum << endl;
-            //cout << "here" << endl;
-            Canny(mask, diffGray, threshSum, threshSum*2 , 3);
-            findContours(diffGray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_TC89_KCOS, Point(0,0));
-            //cout << contours.at(0) << "\nend\n";
-            for (int i = 0; i < contours.size(); ++i)
+            foreGround = Method::getForeGroundRGB_8UC3(I,maskGray);
+            /*for (int i = 0; i < maskGray.rows; i++)
             {
-                Point p=(contours.at(i)).at(0);
-                int xMax=p.x;
-                int yMax=p.y;
-                int xMin=p.x;
-                int yMin=p.y;
-                for (int j = 0; j < contours.at(i).size(); ++j)
+                for (int j = 0; j < maskGray.cols; j++)
                 {
 
-                    Point current=(contours.at(i)).at(j);
-                    if(current.x>xMax)
+                    if (maskGray.at<uchar>(i, j) ==255)
                     {
-                        xMax=current.x;
-                    }
-                    if(current.y>yMax)
-                    {
-                        yMax=current.y;
-                    }
-                    if(current.x<xMin)
-                    {
-                        xMin=current.x;
-                    }
-                    if(current.y<yMin)
-                    {
-                        yMin=current.y;
+                        foreGround.at<cv::Vec3b>(i, j)[0] = I.at<Vec3b>(i, j)[0];
+                        foreGround.at<cv::Vec3b>(i, j)[1] = I.at<Vec3b>(i, j)[1];
+                        foreGround.at<cv::Vec3b>(i, j)[2] = I.at<Vec3b>(i, j)[2];
+
                     }
                 }
-                Rect x(Point(xMin,yMax),Point(xMax,yMin));
-                rectangles.push_back(x);
-                //rectangle(Icpy,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
-            }
-            for (int i = 0; i < rectangles.size(); i++)
-            {
-                for (int j = 0; j < rectangles.size(); j++)
-                {
-                   if(i!=j)
-                   {
-                       bool intersect = ((rectangles.at(i) & rectangles.at(j) ).area()>0);
-                       if(intersect)
-                       {
-                           rectangles.at(i) = rectangles.at(i) | rectangles.at(j) ;
-                           //rectangles.erase(rectangles.begin()+j);
-
-                       }
-                   }
-
-                }
-              rectangle(Icpy,rectangles.at(i),Scalar(0,0,255));
             }
             */
+            Method::drawBoxesRGB_8UC3(&foreGround,mask);
             imshow("original",Icpy);
             imshow("mask",mask);
             Mat non_mask;
@@ -828,12 +783,11 @@ void Method::SAP(string path, int multiple)
             imshow("non mask",non_mask);
             //Moy.convertTo(Moy,CV_32FC3);
             I.convertTo(I,CV_64FC3);
-            double n=0.10f;
             Moy.convertTo(Moy,CV_64FC3);
             //bitwise_and(I,non_mask,I);
             Moy.copyTo(oldMoy);
             //Moy=(1-n)*Moy+n*I;
-            if((int)capt.get(CV_CAP_PROP_POS_FRAMES)%2==0)
+            /*if((int)capt.get(CV_CAP_PROP_POS_FRAMES)%2==0)
             {
                 //cout << (int)capt.get(CV_CAP_PROP_POS_FRAMES)%2<<endl;
                 for (int i = 0; i < Moy.rows; ++i)
@@ -843,22 +797,20 @@ void Method::SAP(string path, int multiple)
                         //cout << non_mask.at<double>(i,j) << endl;
                         if(non_mask.at<double>(i,j)==1)
                         {
-                            Moy.at<Vec3d>(i,j)[0]=(1-n)*Moy.at<Vec3d>(i,j)[0]+n*myAnd(I.at<Vec3d>(i,j)[0],non_mask.at<double>(i,j));
+                            Moy.at<Vec3d>(i,j)[0]=(1-alpha)*Moy.at<Vec3d>(i,j)[0]+alpha*myAnd(I.at<Vec3d>(i,j)[0],non_mask.at<double>(i,j));
                             //cout << Moy.at<Vec3d>(i,j)[0] << endl;
-                            Moy.at<Vec3d>(i,j)[1]=(1-n)*Moy.at<Vec3d>(i,j)[1]+n*myAnd(I.at<Vec3d>(i,j)[1],non_mask.at<double>(i,j));
-                            Moy.at<Vec3d>(i,j)[2]=(1-n)*Moy.at<Vec3d>(i,j)[2]+n*myAnd(I.at<Vec3d>(i,j)[2],non_mask.at<double>(i,j));
+                            Moy.at<Vec3d>(i,j)[1]=(1-alpha)*Moy.at<Vec3d>(i,j)[1]+alpha*myAnd(I.at<Vec3d>(i,j)[1],non_mask.at<double>(i,j));
+                            Moy.at<Vec3d>(i,j)[2]=(1-alpha)*Moy.at<Vec3d>(i,j)[2]+alpha*myAnd(I.at<Vec3d>(i,j)[2],non_mask.at<double>(i,j));
 
                         }
 
                     }
                 }
-            }
-            Mat diff;
-            absdiff(Moy,oldMoy,diff);
-            imshow("difference between the backgrounds",diff);
+            */
             mask.convertTo(mask,CV_32SC3);
             Moy.convertTo(Moy,CV_8UC3);
             imshow("new back",Moy);
+            imshow("foreground",foreGround);
             waitKey(0);
             Moy.convertTo(Moy,CV_32SC3);
 

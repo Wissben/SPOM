@@ -10,17 +10,17 @@ class Method
 public:
     Method();
 
-    static void moyenne_Reccur(std::string path, float alpha);
+    static void moyenne_Reccur(std::string path, double alpha);
 
     static void laplace(std::string path);
 
-    static void gradiantOublieux(std::string pathToVideo , float alphaDeb);
+    static void gradiantOublieux(std::string pathToVideo , double alphaDeb);
 
     static void sigmaDelta(std::string path);
 
     static void moyenne_Arith(std::string path );
 
-    static void SAP(std::string path, int multiple);
+    static void SAP(std::string path, int multiple, double alpha);
 
     static void SD2(std::string path,int mul);
 
