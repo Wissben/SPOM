@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
     mainwindow.cpp \
     selector.cpp \
-    method.cpp
+    method.cpp \
+    mymath.cpp
 
 HEADERS  += mainwindow.h \
     selector.h \
-    method.h
+    method.h \
+    mymath.h
 
 FORMS    += mainwindow.ui \
     selector.ui

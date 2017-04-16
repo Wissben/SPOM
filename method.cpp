@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include "mainwindow.h"
 #include <string>
+#include "mymath.h"
 using namespace   std;
 using namespace cv;
 
@@ -16,7 +17,6 @@ Method::Method()
 {
 
 }
-
 
 
 void Method::moyenne_Reccur(string path, float alpha)
@@ -640,6 +640,7 @@ void Method::SAP(string path, int multiple)
     Mat sigma;
     Mat mask;
     Mat Icpy;
+    Mat oldMoy;
 
     vc >> I;
     Moy=Mat::zeros(I.size(),CV_32SC3);
@@ -748,6 +749,7 @@ void Method::SAP(string path, int multiple)
             }
             I.convertTo(I,CV_8UC3);
             mask.convertTo(mask,CV_8UC3);
+
             cv::erode(mask,mask,Mat());
             cv::dilate(mask,mask,Mat());
 
@@ -826,22 +828,34 @@ void Method::SAP(string path, int multiple)
             imshow("non mask",non_mask);
             //Moy.convertTo(Moy,CV_32FC3);
             I.convertTo(I,CV_64FC3);
-            float n=0.25f;
+            double n=0.10f;
             Moy.convertTo(Moy,CV_64FC3);
-            bitwise_and(I,non_mask,I);
+            //bitwise_and(I,non_mask,I);
+            Moy.copyTo(oldMoy);
             //Moy=(1-n)*Moy+n*I;
-            //            for (int i = 0; i < Moy.rows; ++i)
-            //            {
-            //                for (int j = 0; j < Moy.cols; ++j)
-            //                {
+            if((int)capt.get(CV_CAP_PROP_POS_FRAMES)%2==0)
+            {
+                //cout << (int)capt.get(CV_CAP_PROP_POS_FRAMES)%2<<endl;
+                for (int i = 0; i < Moy.rows; ++i)
+                {
+                    for (int j = 0; j < Moy.cols; ++j)
+                    {
+                        //cout << non_mask.at<double>(i,j) << endl;
+                        if(non_mask.at<double>(i,j)==1)
+                        {
+                            Moy.at<Vec3d>(i,j)[0]=(1-n)*Moy.at<Vec3d>(i,j)[0]+n*myAnd(I.at<Vec3d>(i,j)[0],non_mask.at<double>(i,j));
+                            //cout << Moy.at<Vec3d>(i,j)[0] << endl;
+                            Moy.at<Vec3d>(i,j)[1]=(1-n)*Moy.at<Vec3d>(i,j)[1]+n*myAnd(I.at<Vec3d>(i,j)[1],non_mask.at<double>(i,j));
+                            Moy.at<Vec3d>(i,j)[2]=(1-n)*Moy.at<Vec3d>(i,j)[2]+n*myAnd(I.at<Vec3d>(i,j)[2],non_mask.at<double>(i,j));
 
-            //                    Moy.at<Vec3i>(i,j)[0]=(1-n)*Moy.at<Vec3i>(i,j)[0]+n*(I.at<Vec3i>(i,j)[0]*non_mask.at<int>(i,j));
-            //                    cout << n*(I.at<Vec3i>(i,j)[0]*non_mask.at<int>(i,j)) << endl;
-            //                    Moy.at<Vec3i>(i,j)[1]=(1-n)*Moy.at<Vec3i>(i,j)[1]+n*(I.at<Vec3i>(i,j)[1]*non_mask.at<int>(i,j));
-            //                    Moy.at<Vec3i>(i,j)[2]=(1-n)*Moy.at<Vec3i>(i,j)[2]+n*(I.at<Vec3i>(i,j)[2]*non_mask.at<int>(i,j));
+                        }
 
-            //                }
-            //            }
+                    }
+                }
+            }
+            Mat diff;
+            absdiff(Moy,oldMoy,diff);
+            imshow("difference between the backgrounds",diff);
             mask.convertTo(mask,CV_32SC3);
             Moy.convertTo(Moy,CV_8UC3);
             imshow("new back",Moy);
@@ -868,26 +882,32 @@ void Method::SD2(std::string path,int mul)
     uchar Vmin =2;
     uchar Vmax =0;
     int N= mul;
-
-
-    Mat M = Method::getBackGroundRGB_8UC3(path);
-    M.convertTo(M,CV_8UC3);
-    cvtColor(M, M, COLOR_BGR2GRAY);
-    namedWindow("BackGround",WINDOW_AUTOSIZE);
-    imshow("BackGround",M);
-    moveWindow("BackGround",100,0);
-    waitKey(0);
-    ///////////////////
+    Mat I;
+    Mat M;
+//    Mat M = Method::getBackGroundRGB_8UC3(path);
+//    M.convertTo(M,CV_8UC3);
+//    cvtColor(M, M, COLOR_BGR2GRAY);
+//    namedWindow("BackGround",WINDOW_AUTOSIZE);
+//    imshow("BackGround",M);
+//    moveWindow("BackGround",100,0);
+//    waitKey(0);
+//    ///////////////////
     VideoCapture capt(path);
     if (!capt.isOpened())
     {
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
+    capt >> I;
+    if(!I.empty())
+    {
+        I.copyTo(M);
+        cvtColor(M,M,COLOR_BGR2GRAY);
+
+    }
     Mat delta;// = Mat::zeros(M.rows, M.cols, CV_8U);
-    Mat I;
     Mat O = Mat::zeros(M.rows,M.cols,CV_8U);
-    Mat V = Mat::zeros(M.rows,M.cols,CV_8U);
+    Mat V = Mat::ones(M.rows,M.cols,CV_8U);
     Mat E = Mat::zeros(M.rows,M.cols,CV_8U);
     while (capt.get(CV_CAP_PROP_POS_FRAMES) < capt.get(CV_CAP_PROP_FRAME_COUNT))
     {
@@ -895,7 +915,7 @@ void Method::SD2(std::string path,int mul)
         if (!I.empty())
         {
             I.copyTo(original);
-            moveWindow("Originale",500,-250);
+            //moveWindow("Originale",500,-250);
             cvtColor(I, I, COLOR_BGR2GRAY);
             Vmax = 255;
             //cout << I.channels() << endl;

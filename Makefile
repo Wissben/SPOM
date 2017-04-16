@@ -51,12 +51,14 @@ OBJECTS_DIR   = ./
 SOURCES       = main.cpp \
 		mainwindow.cpp \
 		selector.cpp \
-		method.cpp moc_mainwindow.cpp \
+		method.cpp \
+		mymath.cpp moc_mainwindow.cpp \
 		moc_selector.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		selector.o \
 		method.o \
+		mymath.o \
 		moc_mainwindow.o \
 		moc_selector.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -117,10 +119,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		Test2.pro mainwindow.h \
 		selector.h \
-		method.h main.cpp \
+		method.h \
+		mymath.h main.cpp \
 		mainwindow.cpp \
 		selector.cpp \
-		method.cpp
+		method.cpp \
+		mymath.cpp
 QMAKE_TARGET  = Test2
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = Test2
@@ -286,8 +290,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h selector.h method.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp selector.cpp method.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h selector.h method.h mymath.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp selector.cpp method.cpp mymath.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui selector.ui $(DISTDIR)/
 
 
@@ -362,8 +366,12 @@ selector.o: selector.cpp selector.h \
 
 method.o: method.cpp method.h \
 		mainwindow.h \
-		selector.h
+		selector.h \
+		mymath.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o method.o method.cpp
+
+mymath.o: mymath.cpp mymath.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mymath.o mymath.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
