@@ -55,7 +55,7 @@ public:
         if (Selector->objectName().isEmpty())
             Selector->setObjectName(QStringLiteral("Selector"));
         Selector->setEnabled(true);
-        Selector->resize(679, 475);
+        Selector->resize(1366, 768);
         Selector->setCursor(QCursor(Qt::PointingHandCursor));
         verticalLayout = new QVBoxLayout(Selector);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));

@@ -141,6 +141,6 @@ void Selector::on_SAP_toggled(bool checked)
 void Selector::on_quitSelector_clicked()
 {
     this->close();
-
+    exit(EXIT_SUCCESS);
 }
 

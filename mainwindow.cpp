@@ -51,7 +51,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-
+    this->hide();
     this->selector.show();
 
 
