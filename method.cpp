@@ -380,7 +380,7 @@ void Method::sigmaDelta(string path)
 
 ///////////////////////////
 
-void Method::moyenne_Arith(std::string path )
+void Method::moyenne_Arith(std::string path ,Selector*s )
 {
     Mat tmp;
     Mat X;
@@ -392,7 +392,7 @@ void Method::moyenne_Arith(std::string path )
     Mat foreGroundGray;
 
 
-    tmp = Method::getBackGroundRGB_8UC3(path);
+    tmp = Method::getBackGroundRGB_8UC3(path,s);
     tmp.convertTo(tmp, CV_8UC3);
 
     cvtColor(tmp, backGroundGray, COLOR_BGR2GRAY);
@@ -810,11 +810,15 @@ void Method::SD2(std::string path,int mul)
 }
 
 
-cv::Mat Method::getBackGroundRGB_8UC3(std::string path)
+cv::Mat Method::getBackGroundRGB_8UC3(std::string path,Selector* s)
 {
     VideoCapture vc(path);
     Mat X;
     Mat M;
+    int max = vc.get(CV_CAP_PROP_FRAME_COUNT);
+    int frame;
+    int p;
+
     if (!vc.isOpened())// check if we succeeded
     {
         cout << "Error while opening video " << endl;
@@ -826,6 +830,9 @@ cv::Mat Method::getBackGroundRGB_8UC3(std::string path)
     //// get the average
     while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
+        frame = vc.get(CV_CAP_PROP_POS_FRAMES);
+        p=(int) frame*100/max;
+        s->ui->backgroundProgress->setValue(p);
         vc >> X;
         if (!X.empty() && !M.empty())
         {
@@ -839,6 +846,14 @@ cv::Mat Method::getBackGroundRGB_8UC3(std::string path)
         }
 
     }
+    //cheat begin
+
+    if(s->ui->backgroundProgress->value()<100)
+    {
+        s->ui->backgroundProgress->setValue(100);
+    }
+
+    //cheat end
     M /= vc.get(CV_CAP_PROP_FRAME_COUNT);
     M.convertTo(M,CV_8UC3);
     vc.release();

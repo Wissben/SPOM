@@ -18,13 +18,13 @@ public:
 
     static void sigmaDelta(std::string path);
 
-    static void moyenne_Arith(std::string path );
+    static void moyenne_Arith(std::string path ,Selector* s);
 
     static void SAP(std::string path, int multiple, double alpha,Selector* s);
 
     static void SD2(std::string path,int mul);
 
-    static cv::Mat getBackGroundRGB_8UC3(std::string path);
+    static cv::Mat getBackGroundRGB_8UC3(std::string path,Selector* s);
 
     static cv::Mat getForeGroundRGB_8UC3(cv::Mat image , cv::Mat mask);
 

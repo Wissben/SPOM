@@ -105,7 +105,7 @@ void Selector::on_moyenneArith_toggled(bool checked)
         QString filename = QFileDialog::getOpenFileName(this,
             tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
         if(filename !=NULL)
-         Method::moyenne_Arith(filename.toStdString());
+         Method::moyenne_Arith(filename.toStdString(),this);
     }
 }
 
