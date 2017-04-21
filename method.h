@@ -12,7 +12,7 @@ class Method
 public:
     Method();
 
-    static void moyenne_Reccur(std::string path, double alpha);
+    static void moyenne_Reccur(std::string path, double alpha,Selector* s);
 
     static void gradiantOublieux(std::string pathToVideo , double alphaDeb);
 

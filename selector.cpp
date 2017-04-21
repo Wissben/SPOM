@@ -91,7 +91,7 @@ void Selector::on_moyenneRecurssive_toggled(bool checked)
         QString filename = QFileDialog::getOpenFileName(this,
             tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
         if(filename !=NULL)
-        Method::moyenne_Reccur(filename.toStdString(),(float) ui->horizontalSlider->value()/1000);
+        Method::moyenne_Reccur(filename.toStdString(),(float) ui->horizontalSlider->value()/1000,this);
     }
 
 }

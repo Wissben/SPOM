@@ -20,7 +20,7 @@ Method::Method()
 }
 
 
-void Method::moyenne_Reccur(string path, double alpha)
+void Method::moyenne_Reccur(string path, double alpha,Selector* s)
 {
     VideoCapture vc(path); // objet de la classe VideoCapture qui permettra de lire la video
     int initX=20; //position initiale sur X
@@ -32,13 +32,19 @@ void Method::moyenne_Reccur(string path, double alpha)
     M.convertTo(M, CV_64FC3);// convertir la matrice pour que chaque element soit de type Vec3d c'est a dire un vecteur de 3 nombre double
     //    M = alpha*M; // ini
     //    M.copyTo(M1);
+    int max = vc.get(CV_CAP_PROP_FRAME_COUNT);
+    int frame;
+    int p;
     if (!vc.isOpened())// check if we succeeded
     {
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
-    while (vc.get(CV_CAP_PROP_POS_FRAMES)< vc.get(CV_CAP_PROP_FRAME_COUNT))
+    while (vc.get(CV_CAP_PROP_POS_FRAMES)<= vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
+        frame = vc.get(CV_CAP_PROP_POS_FRAMES);
+        p=(int) frame*100/max;
+        s->ui->backgroundProgress->setValue(p);
         //M= alpha*I+(1-alpha)M1 ;
         vc >> I; // Lire le frame courant dans l'image I
         //cout << I;
@@ -50,16 +56,23 @@ void Method::moyenne_Reccur(string path, double alpha)
         I.convertTo(I, CV_64FC3); //convertir la matrice pour que chaque element soit de type Vec3d c'est a dire un vecteur de 3 nombre double
         //cout << I;
         M = alpha*I + (1 - alpha)*M; // La formule pour calculer la moyenne reccursivement
-        M.convertTo(temp, CV_8UC3);//convertir la matrice pour que chaque element soit de type Vec3b c'est a dire un vecteur de 3 nombre entier non signés
-        imshow("M", M); // afficher l'image
         M.convertTo(M, CV_64FC3); // reconvertir l'image pour la réutilisation dans l'ittération suivante
     }
+
+    //cheat begin
+    if(s->ui->backgroundProgress->value()<100)
+    {
+        s->ui->backgroundProgress->setValue(100);
+    }
+    //cheat end
+
+
     vc.release(); // dès qu'on termine le parcours de la vidéo on libère l'objet VideoCapture
     Mat original = Mat::zeros(M.rows,M.cols,CV_8UC3);//Matrice qui contiendra l'image original
     M.convertTo(M, CV_8UC3);//conversion en elements de type vecteur d'un char 8 bits non signé
-    imshow("backGround", M);//Affichage de la matrice M
-    moveWindow("backGround",initX+original.cols,initY);
-    waitKey(0);
+    //imshow("backGround", M);//Affichage de la matrice M
+    //moveWindow("backGround",initX+original.cols,initY);
+    //waitKey(0);
     cvtColor(M, M, COLOR_BGR2GRAY);//Convertion de l'espace de couleur de la matrice M de RGB en GrayScale
     VideoCapture v(path);//Creation d'un autre objet de lecture de video.
     while (v.get(CV_CAP_PROP_POS_FRAMES) <= v.get(CV_CAP_PROP_FRAME_COUNT)) // Tant que la video n'est pas finie
@@ -73,7 +86,7 @@ void Method::moyenne_Reccur(string path, double alpha)
         moveWindow("Original",initX,initY);
         cvtColor(I, I, COLOR_BGR2GRAY);
         absdiff(I, M, I);//equivalent a I=M-I
-        threshold(I, I, 45, 255, THRESH_BINARY);//Suillage statique d'une valeur d'intensité = 45
+        threshold(I, I, 50, 255, THRESH_BINARY);//Suillage statique d'une valeur d'intensité = 45
         cv::erode(I,I,Mat());//Une erosion
         cv::dilate(I,I,Mat());//Une dilatation
         //cv::erode(I,I,Mat());
@@ -93,8 +106,12 @@ void Method::moyenne_Reccur(string path, double alpha)
         }
     }
     v.release();
-    destroyAllWindows();
-    
+    if(waitKey(0)=='\33')
+    {
+        destroyAllWindows();
+        return;
+
+    }
 }
 
 
@@ -127,7 +144,7 @@ void Method::gradiantOublieux(string pathToVideo , double alpha)
         X.copyTo(M);
         X.copyTo(m);
         Mat diff;
-        while (capture.get(CV_CAP_PROP_POS_FRAMES)<capture.get(CV_CAP_PROP_FRAME_COUNT))
+        while (capture.get(CV_CAP_PROP_POS_FRAMES)<=capture.get(CV_CAP_PROP_FRAME_COUNT))
         {
             capture >> original;
             Mat mask;
@@ -196,9 +213,12 @@ void Method::gradiantOublieux(string pathToVideo , double alpha)
 
         }
         capture.release();
+        if(waitKey(0)=='\33')
+        {
+            destroyAllWindows();
+            return;
 
-    destroyAllWindows();
-    
+        }
 }
 
 //////////////////////
@@ -219,7 +239,7 @@ void Method::sigmaDelta(string path)
     X.convertTo(X, CV_32FC3);
     X.copyTo(M);
     //// get the average
-    while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CV_CAP_PROP_FRAME_COUNT))
+    while (vc.get(CV_CAP_PROP_POS_FRAMES) <= vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
         //cout << vc.get(CV_CAP_PROP_POS_FRAMES) << "/" << vc.get(CV_CAP_PROP_FRAME_COUNT) << endl;
         vc >> X;
@@ -262,7 +282,7 @@ void Method::sigmaDelta(string path)
     capt >> M0;
     cvtColor(M0,M0,COLOR_BGR2GRAY);
     M0.convertTo(M0,CV_8SC1);
-    while (capt.get(CV_CAP_PROP_POS_FRAMES) < capt.get(CV_CAP_PROP_FRAME_COUNT))
+    while (capt.get(CV_CAP_PROP_POS_FRAMES) <= capt.get(CV_CAP_PROP_FRAME_COUNT))
     {
         capt >> I;
         if (!I.empty())
@@ -373,8 +393,12 @@ void Method::sigmaDelta(string path)
             break;
         }
     }
-    destroyAllWindows();
-    
+    if(waitKey(0)=='\33')
+    {
+        destroyAllWindows();
+        return;
+
+    }
 }
 
 
@@ -398,7 +422,7 @@ void Method::moyenne_Arith(std::string path ,Selector*s )
     cvtColor(tmp, backGroundGray, COLOR_BGR2GRAY);
     backGroundGray.convertTo(backGroundGray, CV_32F);
     Mat diff = Mat::zeros(tmp.rows,tmp.cols,CV_32F);
-    while (v.get(CV_CAP_PROP_POS_FRAMES) < v.get(CV_CAP_PROP_FRAME_COUNT))
+    while (v.get(CV_CAP_PROP_POS_FRAMES) <= v.get(CV_CAP_PROP_FRAME_COUNT))
     {
         v >> X;
         if (!X.empty())
@@ -468,7 +492,12 @@ void Method::moyenne_Arith(std::string path ,Selector*s )
         }
     }
     v.release();
-    destroyAllWindows();
+    if(waitKey(0)=='\33')
+    {
+        destroyAllWindows();
+        return;
+
+    }
     
 }
 
@@ -572,7 +601,7 @@ void Method::SAP(string path, int multiple, double alpha,Selector* s)
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
-    while (capt.get(CV_CAP_PROP_POS_FRAMES) < capt.get(CV_CAP_PROP_FRAME_COUNT))
+    while (capt.get(CV_CAP_PROP_POS_FRAMES) <= capt.get(CV_CAP_PROP_FRAME_COUNT))
     {
         capt >> I;
         if (!I.empty())
@@ -688,6 +717,13 @@ void Method::SAP(string path, int multiple, double alpha,Selector* s)
         }
     }
     capt.release();
+    destroyAllWindows();
+    if(waitKey(0)=='\33')
+    {
+        destroyAllWindows();
+        return;
+
+    }
 }
 
 
@@ -726,7 +762,7 @@ void Method::SD2(std::string path,int mul)
     Mat O = Mat::zeros(M.rows,M.cols,CV_8U);
     Mat V = Mat::ones(M.rows,M.cols,CV_8U);
     Mat E = Mat::zeros(M.rows,M.cols,CV_8U);
-    while (capt.get(CV_CAP_PROP_POS_FRAMES) < capt.get(CV_CAP_PROP_FRAME_COUNT))
+    while (capt.get(CV_CAP_PROP_POS_FRAMES) <= capt.get(CV_CAP_PROP_FRAME_COUNT))
     {
         capt >> I;
         if (!I.empty())
@@ -805,8 +841,12 @@ void Method::SD2(std::string path,int mul)
             break;
         }
     }
-    destroyAllWindows();
+    if(waitKey(0)=='\33')
+    {
+        destroyAllWindows();
+        return;
 
+    }
 }
 
 
@@ -828,7 +868,7 @@ cv::Mat Method::getBackGroundRGB_8UC3(std::string path,Selector* s)
     X.convertTo(X, CV_32FC3);
     X.copyTo(M);
     //// get the average
-    while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CV_CAP_PROP_FRAME_COUNT))
+    while (vc.get(CV_CAP_PROP_POS_FRAMES) <= vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
         frame = vc.get(CV_CAP_PROP_POS_FRAMES);
         p=(int) frame*100/max;
@@ -846,14 +886,16 @@ cv::Mat Method::getBackGroundRGB_8UC3(std::string path,Selector* s)
         }
 
     }
-    //cheat begin
 
+
+    //cheat begin
     if(s->ui->backgroundProgress->value()<100)
     {
         s->ui->backgroundProgress->setValue(100);
     }
-
     //cheat end
+
+
     M /= vc.get(CV_CAP_PROP_FRAME_COUNT);
     M.convertTo(M,CV_8UC3);
     vc.release();
@@ -934,8 +976,7 @@ void Method::drawBoxesRGB_8UC3(cv::Mat* image,cv::Mat mask)
                bool intersect = ((rectangles.at(i) & rectangles.at(j) ).area()>0);
                if(intersect)
                {
-                   rectangles.at(i) = rectangles.at(i) | rectangles.at(j) ;
-                   //rectangles.erase(rectangles.begin()+j);
+                   rectangles.at(i) = rectangles.at(i) | rectangles.at(j);
 
                }
            }
