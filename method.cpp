@@ -21,7 +21,6 @@ Method::Method()
 
 void Method::moyenne_Reccur(string path, double alpha)
 {
-    int thresh = 30; // variable pour le seuil
     VideoCapture vc(path); // objet de la classe VideoCapture qui permettra de lire la video
     int initX=20; //position initiale sur X
     int initY=500; // position initiale sur Y
@@ -56,93 +55,41 @@ void Method::moyenne_Reccur(string path, double alpha)
     }
     vc.release(); // dès qu'on termine le parcours de la vidéo on libère l'objet VideoCapture
     Mat original = Mat::zeros(M.rows,M.cols,CV_8UC3);//Matrice qui contiendra l'image original
-    M.convertTo(M, CV_8UC3);//conversion
-    imshow("backGround", M);
+    M.convertTo(M, CV_8UC3);//conversion en elements de type vecteur d'un char 8 bits non signé
+    imshow("backGround", M);//Affichage de la matrice M
     moveWindow("backGround",initX+original.cols,initY);
     waitKey(0);
-    cvtColor(M, M, COLOR_BGR2GRAY);
-    VideoCapture v(path);
-    while (v.get(CV_CAP_PROP_POS_FRAMES) <= v.get(CV_CAP_PROP_FRAME_COUNT))
+    cvtColor(M, M, COLOR_BGR2GRAY);//Convertion de l'espace de couleur de la matrice M de RGB en GrayScale
+    VideoCapture v(path);//Creation d'un autre objet de lecture de video.
+    while (v.get(CV_CAP_PROP_POS_FRAMES) <= v.get(CV_CAP_PROP_FRAME_COUNT)) // Tant que la video n'est pas finie
     {
         Mat foreground = Mat::zeros(M.rows,M.cols,CV_8UC3);
         v >> original;
         if (original.empty())
-            break;
-        original.copyTo(I);
+            break;//Si le frame est vide on sort de la boucle
+        original.copyTo(I);//Copie de l'image originale pour de futurs traitements
         imshow("Original", original);
         moveWindow("Original",initX,initY);
         cvtColor(I, I, COLOR_BGR2GRAY);
-        absdiff(I, M, I);
-        threshold(I, I, 45, 255, THRESH_BINARY);
-        cv::erode(I,I,Mat());
-        cv::dilate(I,I,Mat());
+        absdiff(I, M, I);//equivalent a I=M-I
+        threshold(I, I, 45, 255, THRESH_BINARY);//Suillage statique d'une valeur d'intensité = 45
+        cv::erode(I,I,Mat());//Une erosion
+        cv::dilate(I,I,Mat());//Une dilatation
         //cv::erode(I,I,Mat());
         //cv::dilate(I,I,Mat());
-        original.convertTo(original,CV_8UC3);
+        original.convertTo(original,CV_8UC3);//Dunno what to do with that maybe it's useless
         I.convertTo(I,CV_8U);
-        foreground=Method::getForeGroundRGB_8UC3(original,I);
-        /*
-        for (int i = 0; i < I.rows; i++) {
-            for (int j = 0; j < I.cols; j++) {
-
-                if (I.at<uchar>(i,j)==255)
-                {
-                    foreground.at<Vec3b>(i,j)[0]=original.at<Vec3b>(i,j)[0];
-                    foreground.at<Vec3b>(i,j)[1]=original.at<Vec3b>(i,j)[1];
-                    foreground.at<Vec3b>(i,j)[2]=original.at<Vec3b>(i,j)[2];
-
-                }
-
-            }
-        }
-        */
-        Method::drawBoxesRGB_8UC3(&original,I);
-        Method::drawBoxesRGB_8UC3(&foreground,I);
-        /*
-        vector<vector<Point> > contours;
-        vector<Vec4i> hierarchy;
-        Mat Igray;
-        I.copyTo(Igray);
-        //cvtColor(finMask, fingray, COLOR_BGR2GRAY);
-        Igray.convertTo(Igray, CV_8UC1);
-        Canny(Igray, Igray, 30, 30 * 2, 3);
-        findContours(Igray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_TC89_KCOS, Point(0,0));
-        //cout << contours.at(0) << "\nend\n";
-        for (int i = 0; i < contours.size(); ++i)
-        {
-            Point p=(contours.at(i)).at(0);
-            int xMax=p.x;
-            int yMax=p.y;
-            int xMin=p.x;
-            int yMin=p.y;
-            for (int j = 0; j < contours.at(i).size(); ++j)
-            {
-                Point current=(contours.at(i)).at(j);
-                if(current.x>xMax)
-                {
-                    xMax=current.x;
-                }
-                if(current.y>yMax)
-                {
-                    yMax=current.y;
-                }
-                if(current.x<xMin)
-                {
-                    xMin=current.x;
-                }
-                if(current.y<yMin)
-                {
-                    yMin=current.y;
-                }
-            }
-
-            rectangle(foreground,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
-        }
-        */
+        foreground=Method::getForeGroundRGB_8UC3(original,I); // Appel a la fonction qui retourne l'avant plan
+        Method::drawBoxesRGB_8UC3(&original,I);//Appel a la methode qui permet de dessiner les boites englobantes
+        Method::drawBoxesRGB_8UC3(&foreground,I);//Appel a la methode qui permet de dessiner les boites englobantes
         imshow("forground",foreground);
         imshow("Masque", I);
-        //cv::moveWindow("final",initX+2*original.cols,initY);
-        waitKey(0);
+        if(waitKey(0)=='\33')
+        {
+            destroyAllWindows();
+            return;
+
+        }
     }
     v.release();
     destroyAllWindows();
@@ -151,184 +98,77 @@ void Method::moyenne_Reccur(string path, double alpha)
 
 
 //////////////////////////
-
-
-void Method::laplace(string path)
-{
-    Mat diff;
-    int kernel_size = 1;
-    int scale = 1;
-    int delta = 0;
-    int ddepth = CV_16S;
-    VideoCapture vc(path);
-
-    if (!vc.isOpened())// check if we succeeded
-    {
-        cout << "Error while opening video " << endl;
-        exit(EXIT_FAILURE);
-    }
-    for (;;)
-    {
-        while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CV_CAP_PROP_FRAME_COUNT))
-        {
-            vc >> diff;
-            cvtColor(diff, diff, COLOR_BGR2GRAY);
-            Mat abs;
-            Laplacian(diff, abs, ddepth, kernel_size, scale, delta, BORDER_DEFAULT);
-            convertScaleAbs(abs, abs);
-            imshow("", abs);
-            waitKey(1);
-        }
-        vc.release();
-    }
-    destroyAllWindows();
-    
-}
-
-
 /////////////////////////////::
 
 
-void Method::gradiantOublieux(string pathToVideo , double alphaDeb)
+void Method::gradiantOublieux(string pathToVideo , double alpha)
 {
 
-    cout << "alpha:" << alphaDeb << endl;
-    Mat X, Y, M, m, prev;// = Mat::zeros(1, 1, CV_32FC3), M = Mat::zeros(1, 1, CV_32FC3), m = Mat::zeros(1, 1, CV_32FC3), Y = Mat::zeros(1, 1, CV_32FC3), Prev = Mat::zeros(1, 1, CV_32FC3);
+    cout << "alpha:" << alpha << endl;
+    Mat X, Y, M, m, prev;
     Mat original;
-    int cpt = 0;
-    double alpha = alphaDeb;
-    bool pause = false;
-    while (1)
-    {
-        alpha = alphaDeb;
-        VideoCapture capture(pathToVideo); // open the video specified in the variable pathToVideo
-        if (!capture.isOpened())// check if we succeeded
+    VideoCapture capture(pathToVideo); // open the video specified in the variable pathToVideo
+        if (!capture.isOpened())// check if there is an error
         {
             cout << "Error while opening video " << endl;
+            exit(EXIT_FAILURE);//We exit the program if we can't
+        }
+        //otherwise we continue
+        capture >> original;//We read the first frame and store it in original
+        if(original.empty())//if the frame is empty we break out of the loop
+        {
+            cout << "ERROR EMPTY FRAME"<<endl;
+            cerr << "BREAKING"<< endl;
             exit(EXIT_FAILURE);
         }
-        capture >> original;
-        if(original.empty())
-            break;
         original.copyTo(X);
-        Mat fin;// = Mat::zeros(X.rows, X.cols, CV_8UC3);
+        Mat foreGround;
         X.copyTo(M);
         X.copyTo(m);
-        Mat previous;
-        X.copyTo(previous);
         Mat diff;
         while (capture.get(CV_CAP_PROP_POS_FRAMES)<capture.get(CV_CAP_PROP_FRAME_COUNT))
         {
-            Mat finMask;
-            if (!X.empty() && !M.empty() && !m.empty() && !original.empty() )
+            capture >> original;
+            Mat mask;
+            if (!original.empty() )
             {
-                fin = Mat::zeros(X.rows, X.cols, CV_8UC3);
-                //begin Successive substraction
-                Mat Xgray;
-                capture >> Xgray;
-                if(Xgray.empty())
-                    break;
-                diff = Xgray - previous;
-                cvtColor(diff, diff, COLOR_BGR2GRAY);
-                threshold(diff, diff, 40, 255, THRESH_BINARY);
-                imshow("diff", diff);
-                moveWindow("diff",100,100);
-                Xgray.copyTo(previous);
-                //end Successive substraction
-
-
+                foreGround = Mat::zeros(X.rows, X.cols, CV_8UC3);
                 //begin main function
-                capture >> original;
-                if(original.empty())
-                    break;
-                //waitKey(1);
                 original.copyTo(X);
+
+                //conversions begin
                 X.convertTo(X, CV_32FC3);
                 M.convertTo(M, CV_32FC3);
                 m.convertTo(m, CV_32FC3);
+                //conversions end
+
+                //Process begin
                 Mat maxM;
                 maxM = max(X, M);
                 M = alpha*X + (1 - alpha)*maxM;
                 Mat minm;
                 minm = min(X, m);
                 m = alpha*X + (1 - alpha)*minm;
-                finMask = M - m;
-                cvtColor(finMask, finMask, COLOR_BGR2GRAY);
+                mask = M - m;
+                //Process end
+
+                //Thresholding begin
+                cvtColor(mask, mask, COLOR_BGR2GRAY);
                 double min, max;
-                cv::minMaxLoc(finMask, &min, &max);
-                threshold(finMask, finMask, 40, 255, THRESH_BINARY);
-                //vector<Point2f> points = { Point(0,0),Point(1,0),Point(1,1) };
-                //cout << points;
-                //cv::dilate(finMask, finMask, Mat());
-                finMask.convertTo(finMask, CV_8U);
-                fin=Method::getForeGroundRGB_8UC3(original,finMask);
-                /*for (int i = 0; i < finMask.rows; i++)
-                {
-                    for (int j = 0; j < finMask.cols; j++)
-                    {
+                cv::minMaxLoc(mask, &min, &max);//function that returns the max and min value of every pixel's intensity in an Mat object
+                double dynamicThresh = (max+min)/2;//the dynamicThresh is the average of the max and min values that we calculated earlier
+                threshold(mask, mask, dynamicThresh, 255, THRESH_BINARY);
+                //Thresholding end
 
-                        if (finMask.at<uchar>(i, j) ==255)
-                        {
-                            fin.at<cv::Vec3b>(i, j)[0] = original.at<Vec3b>(i, j)[0];
-                            fin.at<cv::Vec3b>(i, j)[1] = original.at<Vec3b>(i, j)[1];
-                            fin.at<cv::Vec3b>(i, j)[2] = original.at<Vec3b>(i, j)[2];
+                //Post-processing being
+                mask.convertTo(mask, CV_8U);
+                foreGround=Method::getForeGroundRGB_8UC3(original,mask);//We get the foreground with the function getForeGroundRGB_8UC3
+                Method::drawBoxesRGB_8UC3(&original,mask);//we draw the englobing boxes with the function drawBoxesRGB_8UC3
+                //Post-processing end
 
-                        }
-                    }
-                }
-                */
-                Method::drawBoxesRGB_8UC3(&original,finMask);
-                /*
-                vector<vector<Point> > contours;
-                vector<Vec4i> hierarchy;
-                Mat fingray;
-                finMask.copyTo(fingray);
-                //cvtColor(finMask, fingray, COLOR_BGR2GRAY);
-                fingray.convertTo(fingray, CV_8UC1);
-                Canny(fingray, fingray, 30, 30 * 2, 3);
-                findContours(fingray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_TC89_KCOS, Point(0, 0));
-                //cout << contours.at(0) << "\nend\n";
-                Mat drawing = Mat::zeros(fin.size(), CV_8UC3);
-                RNG rng(12345);
-                for (int i = 0; i< contours.size(); i++)
-                {
-                    Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
-                    drawContours(drawing, contours, i, color, 2, 8, hierarchy, 0, Point());
-                }
 
-                for (int var = 0; var < contours.size(); ++var)
-                {
-                    Point p=(contours.at(var)).at(0);
-                    int xMax=p.x;
-                    int yMax=p.y;
-                    int xMin=p.x;
-                    int yMin=p.y;
-                    for (int j = 0; j < contours.at(var).size(); ++j)
-                    {
-                        Point current=(contours.at(var)).at(j);
-                        if(current.x>xMax)
-                        {
-                            xMax=current.x;
-                        }
-                        if(current.y>yMax)
-                        {
-                            yMax=current.y;
-                        }
-                        if(current.x<xMin)
-                        {
-                            xMin=current.x;
-                        }
-                        if(current.y<yMin)
-                        {
-                            yMin=current.y;
-                        }
-                    }
 
-                    rectangle(fin,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
-                }
-                */
 
-                //imshow("Contours", drawing);
             }
             else
             {
@@ -336,9 +176,15 @@ void Method::gradiantOublieux(string pathToVideo , double alphaDeb)
                 break;
             }
 
+
+
+            //Display begin
             imshow("original", original);
-            imshow("fin", finMask);
-            imshow("FINAL", fin);
+            imshow("Mask", mask);
+            imshow("ForeGround",foreGround);
+            //Display end
+
+
 
             if(waitKey(0)=='\33')
             {
@@ -346,10 +192,10 @@ void Method::gradiantOublieux(string pathToVideo , double alphaDeb)
                 return;
 
             }
-            //QWidget *q = (QWidget*) cvGetWindowHandle("fin");
+
         }
         capture.release();
-    }
+
     destroyAllWindows();
     
 }
@@ -483,14 +329,14 @@ void Method::sigmaDelta(string path)
             Canny(diffGray, diffGray, 30, 30 * 2, 3);
             findContours(diffGray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_TC89_KCOS, Point(0,0));
             //cout << contours.at(0) << "\nend\n";
-            for (int i = 0; i < contours.size(); ++i)
+            for (unsigned int i = 0; i < contours.size(); ++i)
             {
                 Point p=(contours.at(i)).at(0);
                 int xMax=p.x;
                 int yMax=p.y;
                 int xMin=p.x;
                 int yMin=p.y;
-                for (int j = 0; j < contours.at(i).size(); ++j)
+                for (unsigned int j = 0; j < contours.at(i).size(); ++j)
                 {
                     Point current=(contours.at(i)).at(j);
                     if(current.x>xMax)
@@ -922,8 +768,8 @@ void Method::SD2(std::string path,int mul)
 
             Method::drawBoxesRGB_8UC3(&original,E);
 
-            imshow("M(t)",M);
-            imshow("V",V);
+            //imshow("M(t)",M);
+            //imshow("V",V);
             imshow("D",E);
             imshow("Original",original);
             waitKey(0);
@@ -1008,14 +854,14 @@ void Method::drawBoxesRGB_8UC3(cv::Mat* image,cv::Mat mask)
     Canny(mask, diffGray, 30, 30 * 2, 3);
     findContours(diffGray, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_TC89_KCOS, Point(0,0));
     //cout << contours.at(0) << "\nend\n";
-    for (int i = 0; i < contours.size(); ++i)
+    for (unsigned int i = 0; i < contours.size(); ++i)
     {
         Point p=(contours.at(i)).at(0);
         int xMax=p.x;
         int yMax=p.y;
         int xMin=p.x;
         int yMin=p.y;
-        for (int j = 0; j < contours.at(i).size(); ++j)
+        for (unsigned int j = 0; j < contours.at(i).size(); ++j)
         {
             Point current=(contours.at(i)).at(j);
             if(current.x>xMax)
@@ -1040,9 +886,9 @@ void Method::drawBoxesRGB_8UC3(cv::Mat* image,cv::Mat mask)
         rectangles.push_back(x);
         //rectangle(Icpy,Point(xMin,yMin),Point(xMax,yMax),Scalar(127));
     }
-    for (int i = 0; i < rectangles.size(); i++)
+    for (unsigned int i = 0; i < rectangles.size(); i++)
     {
-        for (int j = 0; j < rectangles.size(); j++)
+        for (unsigned int j = 0; j < rectangles.size(); j++)
         {
            if(i!=j)
            {

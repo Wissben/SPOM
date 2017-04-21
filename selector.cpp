@@ -46,7 +46,7 @@ Selector::Selector(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Selector)
 {
-    QPixmap bkgnd("backgrouds/bggris.png");
+    QPixmap bkgnd("backgrouds/bgblue.png");
         bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
         QPalette palette;
         palette.setBrush(QPalette::Background, bkgnd);

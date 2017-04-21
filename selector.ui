@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>659</width>
-    <height>380</height>
+    <height>384</height>
    </rect>
   </property>
   <property name="cursor">
@@ -42,6 +42,9 @@
         <width>442</width>
         <height>24</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::WheelFocus</enum>
       </property>
       <property name="text">
        <string>gradiant morophologique oublieux</string>
@@ -119,6 +122,9 @@
         <widget class="QLCDNumber" name="alphaValue">
          <property name="smallDecimalPoint">
           <bool>false</bool>
+         </property>
+         <property name="mode">
+          <enum>QLCDNumber::Dec</enum>
          </property>
          <property name="segmentStyle">
           <enum>QLCDNumber::Filled</enum>

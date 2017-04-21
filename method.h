@@ -12,8 +12,6 @@ public:
 
     static void moyenne_Reccur(std::string path, double alpha);
 
-    static void laplace(std::string path);
-
     static void gradiantOublieux(std::string pathToVideo , double alphaDeb);
 
     static void sigmaDelta(std::string path);
