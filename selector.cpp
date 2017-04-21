@@ -38,6 +38,7 @@
 #include <QSpinBox>
 #include "method.h"
 #include "selector.h"
+#include <QWidget>
 
 using namespace std;
 using namespace cv;
@@ -58,6 +59,7 @@ Selector::Selector(QWidget *parent) :
     ui->multipleChooser->setValue(1);
     ui->alphaValue->setPalette(Qt::black);
     ui->alphaValue->display(50);
+    ui->backgroundProgress->setValue(0);
     /***************************/
     QObject::connect(ui->horizontalSlider,SIGNAL(valueChanged(int)),ui->alphaValue,SLOT(display(int)));
 }
@@ -131,7 +133,7 @@ void Selector::on_SAP_toggled(bool checked)
         QString filename = QFileDialog::getOpenFileName(this,
             tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
         if(filename !=NULL)
-        Method::SAP(filename.toStdString(),ui->multipleChooser->value(),(float) ui->horizontalSlider->value()/1000);
+        Method::SAP(filename.toStdString(),ui->multipleChooser->value(),(float) ui->horizontalSlider->value()/1000,this);
 
     }
 }
@@ -141,3 +143,4 @@ void Selector::on_quitSelector_clicked()
     this->close();
 
 }
+

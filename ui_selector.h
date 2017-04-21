@@ -18,6 +18,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSlider>
@@ -46,6 +47,7 @@ public:
     QGridLayout *gridLayout_2;
     QSpinBox *multipleChooser;
     QLabel *multiple;
+    QProgressBar *backgroundProgress;
     QPushButton *quitSelector;
 
     void setupUi(QWidget *Selector)
@@ -53,7 +55,7 @@ public:
         if (Selector->objectName().isEmpty())
             Selector->setObjectName(QStringLiteral("Selector"));
         Selector->setEnabled(true);
-        Selector->resize(659, 384);
+        Selector->resize(679, 475);
         Selector->setCursor(QCursor(Qt::PointingHandCursor));
         verticalLayout = new QVBoxLayout(Selector);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -64,6 +66,7 @@ public:
         gradiantOublieux = new QRadioButton(SelectGroup);
         gradiantOublieux->setObjectName(QStringLiteral("gradiantOublieux"));
         gradiantOublieux->setGeometry(QRect(10, 30, 442, 24));
+        gradiantOublieux->setFocusPolicy(Qt::WheelFocus);
         moyenneRecurssive = new QRadioButton(SelectGroup);
         moyenneRecurssive->setObjectName(QStringLiteral("moyenneRecurssive"));
         moyenneRecurssive->setGeometry(QRect(10, 60, 442, 24));
@@ -86,6 +89,7 @@ public:
         alphaValue = new QLCDNumber(verticalLayoutWidget);
         alphaValue->setObjectName(QStringLiteral("alphaValue"));
         alphaValue->setSmallDecimalPoint(false);
+        alphaValue->setMode(QLCDNumber::Dec);
         alphaValue->setSegmentStyle(QLCDNumber::Filled);
 
         verticalLayout_5->addWidget(alphaValue);
@@ -120,6 +124,12 @@ public:
 
         gridLayout_2->addWidget(multiple, 1, 0, 1, 1, Qt::AlignHCenter);
 
+        backgroundProgress = new QProgressBar(SelectGroup);
+        backgroundProgress->setObjectName(QStringLiteral("backgroundProgress"));
+        backgroundProgress->setGeometry(QRect(110, 330, 441, 23));
+        backgroundProgress->setValue(0);
+        backgroundProgress->setOrientation(Qt::Horizontal);
+        backgroundProgress->setInvertedAppearance(false);
 
         verticalLayout->addWidget(SelectGroup);
 

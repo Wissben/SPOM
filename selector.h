@@ -36,7 +36,7 @@ private slots:
 
     void on_gradiantOublieux_clicked();
 
-private:
+public :
     Ui::Selector *ui;
 };
 

@@ -4,6 +4,8 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/opencv.hpp"
 #include "opencv2/highgui.hpp"
+#include "selector.h"
+#include "ui_selector.h"
 
 class Method
 {
@@ -18,7 +20,7 @@ public:
 
     static void moyenne_Arith(std::string path );
 
-    static void SAP(std::string path, int multiple, double alpha);
+    static void SAP(std::string path, int multiple, double alpha,Selector* s);
 
     static void SD2(std::string path,int mul);
 

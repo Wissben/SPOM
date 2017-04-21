@@ -54,6 +54,7 @@ void MainWindow::on_pushButton_clicked()
 
     this->selector.show();
 
+
 }
 
 void MainWindow::on_pushButton_2_clicked()

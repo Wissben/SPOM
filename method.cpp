@@ -10,6 +10,7 @@
 #include "mainwindow.h"
 #include <string>
 #include "mymath.h"
+#include <ui_selector.h>
 using namespace   std;
 using namespace cv;
 
@@ -475,7 +476,7 @@ void Method::moyenne_Arith(std::string path )
 
 //////////////////
 
-void Method::SAP(string path, int multiple, double alpha)
+void Method::SAP(string path, int multiple, double alpha,Selector* s)
 {
     VideoCapture vc(path);
     Mat I;
@@ -492,15 +493,20 @@ void Method::SAP(string path, int multiple, double alpha)
     Moy=Mat::zeros(I.size(),CV_32SC3);
     SC = Mat::zeros(I.size(),CV_32SC3);
     S=Mat::zeros(I.size(),CV_32SC3);
-
+    int max = vc.get(CV_CAP_PROP_FRAME_COUNT);
+    int frame;
+    int p;
 
     if (!vc.isOpened())// check if we succeeded
     {
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
-    while (vc.get(CV_CAP_PROP_POS_FRAMES) < vc.get(CV_CAP_PROP_FRAME_COUNT))
+    while (vc.get(CV_CAP_PROP_POS_FRAMES) <= vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
+        frame = vc.get(CV_CAP_PROP_POS_FRAMES);
+        p=(int) frame*100/max;
+        s->ui->backgroundProgress->setValue(p);
 
         vc >> I;
         I.convertTo(I, CV_32SC3);
@@ -530,6 +536,16 @@ void Method::SAP(string path, int multiple, double alpha)
             break;
         }
     }
+
+
+    //cheat begin
+    if(s->ui->backgroundProgress->value()<100)
+    {
+        s->ui->backgroundProgress->setValue(100);
+    }
+    //cheat end
+
+
     sigma=Mat::zeros(Moy.size(),CV_32SC3);
 
     for (int i = 0; i < Moy.rows; ++i)
@@ -547,7 +563,7 @@ void Method::SAP(string path, int multiple, double alpha)
     }
     vc.release();
     Moy.convertTo(Moy,CV_8UC3);
-    imshow("MoyenneCoulour",Moy);
+    //imshow("MoyenneCoulour",Moy);
     Moy.convertTo(Moy,CV_32SC3);
     mask = Mat::zeros(Moy.size(),CV_32SC3);
     VideoCapture capt(path);
@@ -626,7 +642,6 @@ void Method::SAP(string path, int multiple, double alpha)
             threshold(non_mask,non_mask,1,1,THRESH_BINARY);
             //cout << non_mask;
             non_mask.convertTo(non_mask,CV_64FC3);
-            imshow("non mask",non_mask);
             //Moy.convertTo(Moy,CV_32FC3);
             I.convertTo(I,CV_64FC3);
             Moy.convertTo(Moy,CV_64FC3);
@@ -655,9 +670,13 @@ void Method::SAP(string path, int multiple, double alpha)
             */
             mask.convertTo(mask,CV_32SC3);
             Moy.convertTo(Moy,CV_8UC3);
-            imshow("new back",Moy);
             imshow("foreground",foreGround);
-            waitKey(0);
+            if(waitKey(0)=='\33')
+            {
+                destroyAllWindows();
+                return;
+
+            }
             Moy.convertTo(Moy,CV_32SC3);
 
 
@@ -772,8 +791,13 @@ void Method::SD2(std::string path,int mul)
             //imshow("V",V);
             imshow("D",E);
             imshow("Original",original);
-            waitKey(0);
             cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
+            if(waitKey(0)=='\33')
+            {
+                destroyAllWindows();
+                return;
+
+            }
         }
         else
         {
