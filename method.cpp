@@ -11,6 +11,7 @@
 #include <string>
 #include "mymath.h"
 #include <ui_selector.h>
+
 using namespace   std;
 using namespace cv;
 
@@ -27,9 +28,10 @@ void Method::moyenne_Reccur(string path, double alpha,Selector* s)
     int initY=500; // position initiale sur Y
     Mat M = Mat::zeros(1, 1, CV_32FC3); // Objet de la classe Mat qui contiendra la moyenne finale
     Mat I = Mat::zeros(1, 1, CV_32FC3); // Objet de la classe Mat qui contiendra l'image courante
-    Mat temp; //Objet de la classe Mat qui contiendra une image temporaire
+    vector<Mat> images;
     vc >> M; // on lit le premier frame et on le met dans la matrice M
     M.convertTo(M, CV_64FC3);// convertir la matrice pour que chaque element soit de type Vec3d c'est a dire un vecteur de 3 nombre double
+
     //    M = alpha*M; // ini
     //    M.copyTo(M1);
     int max = vc.get(CV_CAP_PROP_FRAME_COUNT);
@@ -82,8 +84,8 @@ void Method::moyenne_Reccur(string path, double alpha,Selector* s)
         if (original.empty())
             break;//Si le frame est vide on sort de la boucle
         original.copyTo(I);//Copie de l'image originale pour de futurs traitements
-        imshow("Original", original);
-        moveWindow("Original",initX,initY);
+//        imshow("Original", original);
+//        moveWindow("Original",initX,initY);
         cvtColor(I, I, COLOR_BGR2GRAY);
         absdiff(I, M, I);//equivalent a I=M-I
         threshold(I, I, 50, 255, THRESH_BINARY);//Suillage statique d'une valeur d'intensité = 45
@@ -93,11 +95,18 @@ void Method::moyenne_Reccur(string path, double alpha,Selector* s)
         //cv::dilate(I,I,Mat());
         original.convertTo(original,CV_8UC3);//Dunno what to do with that maybe it's useless
         I.convertTo(I,CV_8U);
+        Mat I8UC3;
+        cvtColor(I,I8UC3,COLOR_GRAY2BGR);
+        I8UC3.convertTo(I8UC3,CV_8UC3);
         foreground=Method::getForeGroundRGB_8UC3(original,I); // Appel a la fonction qui retourne l'avant plan
         Method::drawBoxesRGB_8UC3(&original,I);//Appel a la methode qui permet de dessiner les boites englobantes
         Method::drawBoxesRGB_8UC3(&foreground,I);//Appel a la methode qui permet de dessiner les boites englobantes
-        imshow("forground",foreground);
-        imshow("Masque", I);
+        images.push_back(original);
+        images.push_back(foreground);
+        images.push_back(I8UC3);
+        showMultipleImage_8UC3(images,"Results");
+        //imshow("forground",foreground);
+        //imshow("Masque", I);
         if(waitKey(0)=='\33')
         {
             destroyAllWindows();
@@ -125,6 +134,7 @@ void Method::gradiantOublieux(string pathToVideo , double alpha)
     cout << "alpha:" << alpha << endl;
     Mat X, Y, M, m, prev;
     Mat original;
+    vector<Mat> images;
     VideoCapture capture(pathToVideo); // open the video specified in the variable pathToVideo
         if (!capture.isOpened())// check if there is an error
         {
@@ -150,6 +160,7 @@ void Method::gradiantOublieux(string pathToVideo , double alpha)
             Mat mask;
             if (!original.empty() )
             {
+                images.push_back(original);
                 foreGround = Mat::zeros(X.rows, X.cols, CV_8UC3);
                 //begin main function
                 original.copyTo(X);
@@ -176,12 +187,18 @@ void Method::gradiantOublieux(string pathToVideo , double alpha)
                 cv::minMaxLoc(mask, &min, &max);//function that returns the max and min value of every pixel's intensity in an Mat object
                 double dynamicThresh = (max+min)/2;//the dynamicThresh is the average of the max and min values that we calculated earlier
                 threshold(mask, mask, dynamicThresh, 255, THRESH_BINARY);
+                Mat mask8UC3;
+                cvtColor(mask,mask8UC3,COLOR_GRAY2BGR);
+                mask8UC3.convertTo(mask8UC3,CV_8UC3);
                 //Thresholding end
 
                 //Post-processing being
                 mask.convertTo(mask, CV_8U);
                 foreGround=Method::getForeGroundRGB_8UC3(original,mask);//We get the foreground with the function getForeGroundRGB_8UC3
                 Method::drawBoxesRGB_8UC3(&original,mask);//we draw the englobing boxes with the function drawBoxesRGB_8UC3
+                images.push_back(foreGround);
+                images.push_back(mask8UC3);
+                Method::showMultipleImage_8UC3(images,"Results");
                 //Post-processing end
 
 
@@ -196,11 +213,11 @@ void Method::gradiantOublieux(string pathToVideo , double alpha)
 
 
 
-            //Display begin
-            imshow("original", original);
-            imshow("Mask", mask);
-            imshow("ForeGround",foreGround);
-            //Display end
+//            //Display begin
+//            imshow("original", original);
+//            imshow("Mask", mask);
+//            imshow("ForeGround",foreGround);
+//            //Display end
 
 
 
@@ -414,7 +431,7 @@ void Method::moyenne_Arith(std::string path ,Selector*s )
     Mat original;
     double Rnorme;
     Mat foreGroundGray;
-
+    vector<Mat> images;
 
     tmp = Method::getBackGroundRGB_8UC3(path,s);
     tmp.convertTo(tmp, CV_8UC3);
@@ -427,7 +444,8 @@ void Method::moyenne_Arith(std::string path ,Selector*s )
         v >> X;
         if (!X.empty())
         {
-
+            //Mat nonShadow = Method::shadowRemoval_HSV(&X,tmp,s);
+            //imshow("nonshadow",nonShadow);
             X.copyTo(original);
             cvtColor(X, X, COLOR_BGR2GRAY);
             X.convertTo(X, CV_32F);
@@ -454,10 +472,10 @@ void Method::moyenne_Arith(std::string path ,Selector*s )
                     {
                         double CD = abs(foreGroundGray.at<float>(i, j) -backGroundGray.at<float>(i, j));
                         //cout << "CD = " << CD << endl;
-                        if (CD < 45)
+                        if (CD < 1)
                         {
                             double BD = (double) ((foreGroundGray.at<float>(i, j)*backGroundGray.at<float>(i, j)) / pow(backGroundGray.at<float>(i, j), 2));
-                            //cout << "BD = " << BD << endl;
+                            cout << "BD = " << BD << endl;
                             if (BD < 1.25f || BD > 1.5f)
                             {
                                 foreGround.at<Vec3f>(i, j)[0]=0;
@@ -471,11 +489,17 @@ void Method::moyenne_Arith(std::string path ,Selector*s )
 
             foreGround.convertTo(foreGround, CV_8UC3);
             Method::drawBoxesRGB_8UC3(&original,diff);
-            imshow("original", original);
-            imshow("foreground", foreGround);
-            diff.convertTo(diff, CV_8U);
-            imshow("diff", diff);
-            imshow("final2", tmp);
+            Mat diff8UC3;
+            cvtColor(diff,diff8UC3,COLOR_GRAY2BGR);
+            images.push_back(original);
+            images.push_back(foreGround);
+            images.push_back(diff8UC3);
+            showMultipleImage_8UC3(images,"Results");
+            //images.clear();
+//            imshow("original", original);
+//            imshow("foreground", foreGround);
+//            imshow("diff", diff);
+//            imshow("final2", tmp);
             if(waitKey(0)=='\33')
             {
                 destroyAllWindows();
@@ -525,6 +549,7 @@ void Method::SAP(string path, int multiple, double alpha,Selector* s)
     int max = vc.get(CV_CAP_PROP_FRAME_COUNT);
     int frame;
     int p;
+    vector<Mat> images;
 
     if (!vc.isOpened())// check if we succeeded
     {
@@ -609,6 +634,7 @@ void Method::SAP(string path, int multiple, double alpha,Selector* s)
             //           Mat IGray;
             //Mat Icpy;
             I.copyTo(Icpy);
+            images.push_back(Icpy);
             I.convertTo(I,CV_32SC3);
             for (int i = 0; i < I.rows; ++i)
             {
@@ -639,33 +665,21 @@ void Method::SAP(string path, int multiple, double alpha,Selector* s)
             }
             I.convertTo(I,CV_8UC3);
             mask.convertTo(mask,CV_8UC3);
-            //cv::erode(mask,mask,Mat());
             cv::erode(mask,mask,Mat());
-            //cv::dilate(mask,mask,Mat());
+            cv::erode(mask,mask,Mat());
+            cv::dilate(mask,mask,Mat());
             cv::dilate(mask,mask,Mat());
             Mat maskGray;
             cvtColor(mask,maskGray,COLOR_BGR2GRAY);
             Mat foreGround = Mat::zeros(maskGray.rows,maskGray.cols,CV_8UC3);
             Method::drawBoxesRGB_8UC3(&Icpy,mask);
             foreGround = Method::getForeGroundRGB_8UC3(I,maskGray);
-            /*for (int i = 0; i < maskGray.rows; i++)
-            {
-                for (int j = 0; j < maskGray.cols; j++)
-                {
-
-                    if (maskGray.at<uchar>(i, j) ==255)
-                    {
-                        foreGround.at<cv::Vec3b>(i, j)[0] = I.at<Vec3b>(i, j)[0];
-                        foreGround.at<cv::Vec3b>(i, j)[1] = I.at<Vec3b>(i, j)[1];
-                        foreGround.at<cv::Vec3b>(i, j)[2] = I.at<Vec3b>(i, j)[2];
-
-                    }
-                }
-            }
-            */
+            /////
             Method::drawBoxesRGB_8UC3(&foreGround,mask);
-            imshow("original",Icpy);
-            imshow("mask",mask);
+            images.push_back(foreGround);
+            images.push_back(mask);
+            //imshow("original",Icpy);
+            //imshow("mask",mask);
             Mat non_mask;
             bitwise_not(mask,non_mask);
             threshold(non_mask,non_mask,1,1,THRESH_BINARY);
@@ -677,29 +691,12 @@ void Method::SAP(string path, int multiple, double alpha,Selector* s)
             //bitwise_and(I,non_mask,I);
             Moy.copyTo(oldMoy);
             //Moy=(1-n)*Moy+n*I;
-            /*if((int)capt.get(CV_CAP_PROP_POS_FRAMES)%2==0)
-            {
-                //cout << (int)capt.get(CV_CAP_PROP_POS_FRAMES)%2<<endl;
-                for (int i = 0; i < Moy.rows; ++i)
-                {
-                    for (int j = 0; j < Moy.cols; ++j)
-                    {
-                        //cout << non_mask.at<double>(i,j) << endl;
-                        if(non_mask.at<double>(i,j)==1)
-                        {
-                            Moy.at<Vec3d>(i,j)[0]=(1-alpha)*Moy.at<Vec3d>(i,j)[0]+alpha*myAnd(I.at<Vec3d>(i,j)[0],non_mask.at<double>(i,j));
-                            //cout << Moy.at<Vec3d>(i,j)[0] << endl;
-                            Moy.at<Vec3d>(i,j)[1]=(1-alpha)*Moy.at<Vec3d>(i,j)[1]+alpha*myAnd(I.at<Vec3d>(i,j)[1],non_mask.at<double>(i,j));
-                            Moy.at<Vec3d>(i,j)[2]=(1-alpha)*Moy.at<Vec3d>(i,j)[2]+alpha*myAnd(I.at<Vec3d>(i,j)[2],non_mask.at<double>(i,j));
-
-                        }
-
-                    }
-                }
-            */
+            ////
             mask.convertTo(mask,CV_32SC3);
             Moy.convertTo(Moy,CV_8UC3);
-            imshow("foreground",foreGround);
+            //imshow("foreground",foreGround);
+            Method::showMultipleImage_8UC3(images,"Results");
+            images.clear();
             if(waitKey(0)=='\33')
             {
                 destroyAllWindows();
@@ -762,11 +759,14 @@ void Method::SD2(std::string path,int mul)
     Mat O = Mat::zeros(M.rows,M.cols,CV_8U);
     Mat V = Mat::ones(M.rows,M.cols,CV_8U);
     Mat E = Mat::zeros(M.rows,M.cols,CV_8U);
+    Mat foreGround = Mat::zeros(M.rows,M.cols,CV_8UC3);
+    vector<Mat> images;
     while (capt.get(CV_CAP_PROP_POS_FRAMES) <= capt.get(CV_CAP_PROP_FRAME_COUNT))
     {
         capt >> I;
         if (!I.empty())
         {
+
             I.copyTo(original);
             //moveWindow("Originale",500,-250);
             cvtColor(I, I, COLOR_BGR2GRAY);
@@ -822,11 +822,17 @@ void Method::SD2(std::string path,int mul)
             cv::dilate(E,E,Mat());
 
             Method::drawBoxesRGB_8UC3(&original,E);
-
+            foreGround=Method::getForeGroundRGB_8UC3(original,E);
+            Method::drawBoxesRGB_8UC3(&foreGround,E);
+            images.push_back(original);
+            images.push_back(foreGround);
             //imshow("M(t)",M);
             //imshow("V",V);
-            imshow("D",E);
-            imshow("Original",original);
+            Mat E8UC3;
+            cvtColor(E,E8UC3,COLOR_GRAY2BGR);
+            E8UC3.convertTo(E8UC3,CV_8UC3);
+            images.push_back(E8UC3);
+            showMultipleImage_8UC3(images,"Results");
             cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
             if(waitKey(0)=='\33')
             {
@@ -984,6 +990,104 @@ void Method::drawBoxesRGB_8UC3(cv::Mat* image,cv::Mat mask)
         }
       rectangle(*image,rectangles.at(i),Scalar(0,0,255));
     }
+
+}
+
+cv::Mat Method::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Selector* s)
+{
+    Mat imageHSV=Mat::zeros(image->rows,image->cols,CV_32FC3);
+    Mat backGroundHSV=Mat::zeros(backGround.rows,backGround.cols,CV_32FC3);
+    cvtColor(*image,imageHSV,CV_BGR2HSV);
+    imageHSV.convertTo(imageHSV,CV_32FC3);
+    cvtColor(backGround,backGroundHSV,CV_BGR2HSV);
+    backGroundHSV.convertTo(backGroundHSV,CV_32FC3);
+    int alpha=10;
+    int beta=50;
+    int ts=50;
+    int th=50;
+    for ( int i = 0; i < image->rows; i++)
+    {
+        for ( int j = 0; j < image->cols; j++)
+        {
+            Vec3b hsvImage = image->at<float>(i,j);
+            Vec3b hsvBackGround=backGround.at<float>(i,j);
+            uchar tmp = hsvImage.val[2];
+            //cout << tmp << endl;
+            //cout << (uchar) hsvImage.val[2] - hsvBackGround.val[2] << endl;
+            bool first=(hsvImage.val[2]/hsvBackGround.val[2] >= alpha)
+                      &&
+                      (hsvImage.val[2]/hsvBackGround.val[2] <= beta);
+            bool second=hsvImage.val[1]-hsvBackGround.val[1] <= ts;
+            bool third=hsvImage.val[0]-hsvBackGround.val[0] <= th;
+            if(first && second && third)
+            {
+                cout << "yes" << endl;
+                hsvImage.val[0]=0;
+                hsvImage.val[1]=0;
+                hsvImage.val[2]=0;
+
+            }
+        }
+    }
+    cvtColor(imageHSV,*image,COLOR_HSV2BGR);
+    imageHSV.convertTo(imageHSV,CV_8UC3);
+}
+
+
+
+void Method::showMultipleImage_8UC3(std::vector<cv::Mat> &images,char* windowName)
+{
+    //Image Reading
+    vector<IplImage*> iplImages;
+    for (int i = 0; i < images.size(); i++)
+    {
+        IplImage* tmp =  cvCreateImage(cvSize(images.at(i).cols,images.at(i).rows),8,3);
+        IplImage ipltemp = images.at(i);
+        cvCopy(&ipltemp,tmp);
+        iplImages.push_back(tmp);
+    }
+    cout << iplImages.size() << endl;
+//    IplImage* img1 = cvLoadImage( "ball.jpg" );
+//    IplImage* img2 = cvLoadImage( "ball.jpg" );
+//    IplImage* img3 = cvLoadImage( "ball.jpg" );
+//    IplImage* img4 = cvLoadImage( "ball.jpg" );
+    if(iplImages.empty())
+    {
+        cout << "ERROR EMPTY VECTOR" << endl;
+        return;
+    }
+
+    int dstWidth=iplImages.at(0)->width+iplImages.at(0)->width;
+    int dstHeight=iplImages.at(0)->height+iplImages.at(0)->height;
+
+    IplImage* dst=cvCreateImage(cvSize(dstWidth,dstHeight),IPL_DEPTH_8U,3);
+    cvZero(dst);
+    // Copy first image to dst
+    cvSetImageROI(dst, cvRect(0, 0,iplImages.at(0)->width,iplImages.at(0)->height) );
+    cvCopy(iplImages.at(0),dst,NULL);
+    cvResetImageROI(dst);
+
+    // Copy second image to dst
+    cvSetImageROI(dst, cvRect(iplImages.at(1)->width, 0,iplImages.at(1)->width,iplImages.at(1)->height) );
+    cvCopy(iplImages.at(1),dst,NULL);
+    cvResetImageROI(dst);
+
+    // Copy third image to dst
+    cvSetImageROI(dst, cvRect(0, iplImages.at(2)->height,iplImages.at(2)->width,iplImages.at(2)->height) );
+    cvCopy(iplImages.at(2),dst,NULL);
+    cvResetImageROI(dst);
+
+    // Copy fourth image to dst
+//    cvSetImageROI(dst, cvRect(img4->width, img4->height,img4->width,img4->height) );
+//    cvCopy(img4,dst,NULL);
+//    cvResetImageROI(dst);
+
+
+    cvNamedWindow( windowName, CV_WINDOW_AUTOSIZE );
+    cvShowImage(windowName, dst );
+    iplImages.clear();
+    images.clear();
+    //cvWaitKey(0);
 
 }
 

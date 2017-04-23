@@ -2,6 +2,9 @@
 #define SELECTOR_H
 
 #include <QWidget>
+#include <QImage>
+#include <QPainter>
+#include "opencv2/opencv.hpp"
 
 namespace Ui {
 class Selector;
@@ -14,6 +17,7 @@ class Selector : public QWidget
 public:
     explicit Selector(QWidget *parent = 0);
     ~Selector();
+
 
 private slots:
     void on_radioButton_toggled(bool checked);
@@ -35,6 +39,7 @@ private slots:
     void on_quitSelector_clicked();
 
     void on_gradiantOublieux_clicked();
+
 
 public :
     Ui::Selector *ui;

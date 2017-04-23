@@ -48,6 +48,8 @@ public:
     QSpinBox *multipleChooser;
     QLabel *multiple;
     QProgressBar *backgroundProgress;
+    QLabel *label;
+    QWidget *widget;
     QPushButton *quitSelector;
 
     void setupUi(QWidget *Selector)
@@ -130,6 +132,13 @@ public:
         backgroundProgress->setValue(0);
         backgroundProgress->setOrientation(Qt::Horizontal);
         backgroundProgress->setInvertedAppearance(false);
+        label = new QLabel(SelectGroup);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(110, 360, 441, 20));
+        label->setAlignment(Qt::AlignCenter);
+        widget = new QWidget(SelectGroup);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(670, 70, 561, 421));
 
         verticalLayout->addWidget(SelectGroup);
 
@@ -155,6 +164,7 @@ public:
         SAP->setText(QApplication::translate("Selector", "SAP", 0));
         alpha->setText(QApplication::translate("Selector", "\316\261", 0));
         multiple->setText(QApplication::translate("Selector", "Multiple", 0));
+        label->setText(QApplication::translate("Selector", "Backgrond processing progression", 0));
         quitSelector->setText(QApplication::translate("Selector", "Quit", 0));
     } // retranslateUi
 

@@ -348,13 +348,15 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 main.o: main.cpp mainwindow.h \
 		selector.h \
-		method.h
+		method.h \
+		ui_selector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		selector.h \
 		ui_mainwindow.h \
-		method.h
+		method.h \
+		ui_selector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 selector.o: selector.cpp selector.h \
@@ -365,8 +367,9 @@ selector.o: selector.cpp selector.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o selector.o selector.cpp
 
 method.o: method.cpp method.h \
-		mainwindow.h \
 		selector.h \
+		ui_selector.h \
+		mainwindow.h \
 		mymath.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o method.o method.cpp
 

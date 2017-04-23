@@ -30,6 +30,9 @@ public:
 
     static void drawBoxesRGB_8UC3(cv::Mat* image,cv::Mat mask);
 
+    static cv::Mat shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Selector* s);
+
+    static void showMultipleImage_8UC3(std::vector<cv::Mat>& images,char* windowName);
 
 };
 
