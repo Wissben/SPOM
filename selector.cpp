@@ -77,8 +77,8 @@ void Selector::on_gradiantOublieux_toggled(bool checked)
        ui->gradiantOublieux->setCheckable(true);
        QString filename = QFileDialog::getOpenFileName(this,
            tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
-       if(filename !=NULL)
-       Method::gradiantOublieux(filename.toStdString(),(float) ui->horizontalSlider->value()/1000);
+       //if(filename !=NULL)
+      // Method::gradiantOublieux(filename.toStdString(),(float) ui->horizontalSlider->value()/1000,);
    }
 }
 

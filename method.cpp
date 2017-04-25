@@ -11,7 +11,8 @@
 #include <string>
 #include "mymath.h"
 #include <ui_selector.h>
-
+#include "chooser.h"
+#include <ui_chooser.h>
 using namespace   std;
 using namespace cv;
 
@@ -128,7 +129,7 @@ void Method::moyenne_Reccur(string path, double alpha,Selector* s)
 /////////////////////////////::
 
 
-void Method::gradiantOublieux(string pathToVideo , double alpha)
+void Method::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
 {
 
     cout << "alpha:" << alpha << endl;
@@ -185,8 +186,8 @@ void Method::gradiantOublieux(string pathToVideo , double alpha)
                 cvtColor(mask, mask, COLOR_BGR2GRAY);
                 double min, max;
                 cv::minMaxLoc(mask, &min, &max);//function that returns the max and min value of every pixel's intensity in an Mat object
-                double dynamicThresh = (max+min)/2;//the dynamicThresh is the average of the max and min values that we calculated earlier
-                threshold(mask, mask, dynamicThresh, 255, THRESH_BINARY);
+                //double dynamicThresh = (max+min)/2;//the dynamicThresh is the average of the max and min values that we calculated earlier
+                threshold(mask, mask, 45, 255, THRESH_BINARY);
                 Mat mask8UC3;
                 cvtColor(mask,mask8UC3,COLOR_GRAY2BGR);
                 mask8UC3.convertTo(mask8UC3,CV_8UC3);
@@ -198,6 +199,9 @@ void Method::gradiantOublieux(string pathToVideo , double alpha)
                 Method::drawBoxesRGB_8UC3(&original,mask);//we draw the englobing boxes with the function drawBoxesRGB_8UC3
                 images.push_back(foreGround);
                 images.push_back(mask8UC3);
+                Mat tmp;
+                //cvtColor(original,tmp , CV_BGR2RGB);
+                //c->ui->image_label->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
                 Method::showMultipleImage_8UC3(images,"Results");
                 //Post-processing end
 

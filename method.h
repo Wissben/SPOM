@@ -6,6 +6,7 @@
 #include "opencv2/highgui.hpp"
 #include "selector.h"
 #include "ui_selector.h"
+#include "chooser.h"
 
 class Method
 {
@@ -14,7 +15,7 @@ public:
 
     static void moyenne_Reccur(std::string path, double alpha,Selector* s);
 
-    static void gradiantOublieux(std::string pathToVideo , double alphaDeb);
+    static void gradiantOublieux(std::string pathToVideo , double alphaDeb,Chooser* c);
 
     static void sigmaDelta(std::string path);
 
