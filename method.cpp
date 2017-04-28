@@ -108,6 +108,7 @@ void Method::moyenne_Reccur(string path, double alpha,Selector* s)
         showMultipleImage_8UC3(images,"Results");
         //imshow("forground",foreground);
         //imshow("Masque", I);
+        imshow("hist",hist(I8UC3));
         if(waitKey(0)=='\33')
         {
             destroyAllWindows();
@@ -132,7 +133,7 @@ void Method::moyenne_Reccur(string path, double alpha,Selector* s)
 void Method::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
 {
 
-    cout << "alpha:" << alpha << endl;
+    //cout << "alpha:" << alpha << endl;
     Mat X, Y, M, m, prev;
     Mat original;
     vector<Mat> images;
@@ -188,9 +189,11 @@ void Method::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
                 cv::minMaxLoc(mask, &min, &max);//function that returns the max and min value of every pixel's intensity in an Mat object
                 //double dynamicThresh = (max+min)/2;//the dynamicThresh is the average of the max and min values that we calculated earlier
                 threshold(mask, mask, 45, 255, THRESH_BINARY);
+
                 Mat mask8UC3;
                 cvtColor(mask,mask8UC3,COLOR_GRAY2BGR);
                 mask8UC3.convertTo(mask8UC3,CV_8UC3);
+                imshow("hist",hist(mask8UC3));
                 //Thresholding end
 
                 //Post-processing being
@@ -224,7 +227,7 @@ void Method::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
 //            //Display end
 
 
-
+            //waitKey(1);
             if(waitKey(0)=='\33')
             {
                 destroyAllWindows();
@@ -1050,7 +1053,7 @@ void Method::showMultipleImage_8UC3(std::vector<cv::Mat> &images,char* windowNam
         cvCopy(&ipltemp,tmp);
         iplImages.push_back(tmp);
     }
-    cout << iplImages.size() << endl;
+    //cout << iplImages.size() << endl;
 //    IplImage* img1 = cvLoadImage( "ball.jpg" );
 //    IplImage* img2 = cvLoadImage( "ball.jpg" );
 //    IplImage* img3 = cvLoadImage( "ball.jpg" );
@@ -1095,3 +1098,55 @@ void Method::showMultipleImage_8UC3(std::vector<cv::Mat> &images,char* windowNam
 
 }
 
+Mat Method::hist(Mat gray)
+{
+    bool affiche=true;
+    if(gray.channels()==3)
+        cvtColor(gray,gray,CV_BGR2GRAY);
+  //  namedWindow( "Gray", 1 );    imshow( "Gray", gray );
+
+
+        int histSize = 255;    // bin size
+        float range[] = { 0, 255 };
+        const float *ranges[] = { range };
+
+        MatND hist;
+        calcHist( &gray, 1, 0, Mat(), hist, 1, &histSize, ranges, true, false );
+
+        // Show the calculated histogram in command window
+        double total;
+        total = gray.rows * gray.cols;
+        for( int h = 0; h < histSize; h++ )
+             {
+                float binVal = hist.at<float>(h);
+                //cout<<" "<<binVal;
+             }
+
+        // Plot the histogram
+        int hist_w = 512; int hist_h = 400;
+        int bin_w = cvRound( (double) hist_w/histSize );
+
+        Mat histImage( hist_h, hist_w, CV_8UC1, Scalar( 0,0,0) );
+        normalize(hist, hist, 0, histImage.rows, NORM_MINMAX, -1, Mat() );
+
+        for( int i = 1; i < histSize; i++ )
+        {
+          line( histImage, Point( bin_w*(i-1), hist_h - cvRound(hist.at<float>(i-1)) ) ,
+                           Point( bin_w*(i), hist_h - cvRound(hist.at<float>(i)) ),
+                           Scalar( 255, 0, 0), 2, 8, 0  );
+        }
+
+        if(affiche == true)
+                   {
+            equalizeHist(histImage,histImage);
+                    namedWindow( "Result", 1 );    imshow( "Result", histImage );
+                     waitKey(5);
+                   }
+
+                   else
+                   {
+                     //cv::destroyAllWindows();
+                   }
+
+        return histImage;
+}

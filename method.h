@@ -35,6 +35,8 @@ public:
 
     static void showMultipleImage_8UC3(std::vector<cv::Mat>& images,char* windowName);
 
+    static cv::Mat hist(cv::Mat gray);
+
 };
 
 #endif // METHOD_H

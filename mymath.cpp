@@ -1,7 +1,7 @@
 #include "mymath.h"
 #include "math.h"
 #include <string>
-
+#include <sstream>
 
 double myAnd(double a, double b)
 {
@@ -29,3 +29,8 @@ std::string toString(int val)
     return khobz;
 }
 
+template <typename T> std::string tostr(const T& t) {
+   std::ostringstream os;
+   os<<t;
+   return os.str();
+}
