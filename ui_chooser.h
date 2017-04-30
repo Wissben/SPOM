@@ -16,6 +16,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpinBox>
@@ -39,6 +40,7 @@ public:
     QLabel *image_label;
     QWidget *tabMoyArith;
     QPushButton *arithChooser;
+    QProgressBar *backgroundProgressArith;
     QWidget *tabMoyRec;
     QPushButton *recChooser;
     QWidget *gridLayoutWidget_2;
@@ -46,6 +48,7 @@ public:
     QLabel *labelRecAlpha;
     QLabel *labelRecAlphaValue;
     QSlider *alphaChooserRec;
+    QProgressBar *backgroundProgressRec;
     QWidget *tabMoySD;
     QPushButton *SDChooser;
     QWidget *gridLayoutWidget_3;
@@ -61,12 +64,13 @@ public:
     QLabel *labelSAPMultiple;
     QLabel *labelSAPAlpha;
     QLabel *labelSAPAlphaValue;
+    QProgressBar *backgroundProgressSAP;
 
     void setupUi(QWidget *Chooser)
     {
         if (Chooser->objectName().isEmpty())
             Chooser->setObjectName(QStringLiteral("Chooser"));
-        Chooser->resize(713, 401);
+        Chooser->resize(1300, 1000);
         gridLayout_6 = new QGridLayout(Chooser);
         gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
         tabWidget = new QTabWidget(Chooser);
@@ -85,7 +89,7 @@ public:
         gridLayout->setContentsMargins(0, 0, 0, 0);
         alphaChooserGrad = new QSlider(gridLayoutWidget);
         alphaChooserGrad->setObjectName(QStringLiteral("alphaChooserGrad"));
-        alphaChooserGrad->setMaximum(999);
+        alphaChooserGrad->setMaximum(1000);
         alphaChooserGrad->setValue(400);
         alphaChooserGrad->setOrientation(Qt::Horizontal);
 
@@ -103,13 +107,17 @@ public:
 
         image_label = new QLabel(tabGradiantMorph);
         image_label->setObjectName(QStringLiteral("image_label"));
-        image_label->setGeometry(QRect(360, 40, 291, 251));
+        image_label->setGeometry(QRect(360, 40, 611, 441));
         tabWidget->addTab(tabGradiantMorph, QString());
         tabMoyArith = new QWidget();
         tabMoyArith->setObjectName(QStringLiteral("tabMoyArith"));
         arithChooser = new QPushButton(tabMoyArith);
         arithChooser->setObjectName(QStringLiteral("arithChooser"));
         arithChooser->setGeometry(QRect(30, 30, 141, 26));
+        backgroundProgressArith = new QProgressBar(tabMoyArith);
+        backgroundProgressArith->setObjectName(QStringLiteral("backgroundProgressArith"));
+        backgroundProgressArith->setGeometry(QRect(27, 130, 151, 23));
+        backgroundProgressArith->setValue(0);
         tabWidget->addTab(tabMoyArith, QString());
         tabMoyRec = new QWidget();
         tabMoyRec->setObjectName(QStringLiteral("tabMoyRec"));
@@ -118,7 +126,7 @@ public:
         recChooser->setGeometry(QRect(50, 60, 111, 26));
         gridLayoutWidget_2 = new QWidget(tabMoyRec);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(30, 110, 160, 61));
+        gridLayoutWidget_2->setGeometry(QRect(30, 110, 160, 97));
         gridLayout_2 = new QGridLayout(gridLayoutWidget_2);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -134,11 +142,17 @@ public:
 
         alphaChooserRec = new QSlider(gridLayoutWidget_2);
         alphaChooserRec->setObjectName(QStringLiteral("alphaChooserRec"));
-        alphaChooserRec->setMaximum(999);
+        alphaChooserRec->setMaximum(1000);
         alphaChooserRec->setValue(5);
         alphaChooserRec->setOrientation(Qt::Horizontal);
 
         gridLayout_2->addWidget(alphaChooserRec, 1, 0, 1, 1);
+
+        backgroundProgressRec = new QProgressBar(gridLayoutWidget_2);
+        backgroundProgressRec->setObjectName(QStringLiteral("backgroundProgressRec"));
+        backgroundProgressRec->setValue(0);
+
+        gridLayout_2->addWidget(backgroundProgressRec, 3, 0, 1, 1);
 
         tabWidget->addTab(tabMoyRec, QString());
         tabMoySD = new QWidget();
@@ -169,10 +183,10 @@ public:
         tabSAP->setObjectName(QStringLiteral("tabSAP"));
         SAPChooser = new QPushButton(tabSAP);
         SAPChooser->setObjectName(QStringLiteral("SAPChooser"));
-        SAPChooser->setGeometry(QRect(40, 50, 86, 26));
+        SAPChooser->setGeometry(QRect(40, 50, 111, 26));
         gridLayoutWidget_4 = new QWidget(tabSAP);
         gridLayoutWidget_4->setObjectName(QStringLiteral("gridLayoutWidget_4"));
-        gridLayoutWidget_4->setGeometry(QRect(20, 100, 160, 122));
+        gridLayoutWidget_4->setGeometry(QRect(20, 100, 160, 154));
         gridLayout_4 = new QGridLayout(gridLayoutWidget_4);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
         gridLayout_4->setContentsMargins(0, 0, 0, 0);
@@ -183,7 +197,7 @@ public:
 
         alphaChooserSAP = new QSlider(gridLayoutWidget_4);
         alphaChooserSAP->setObjectName(QStringLiteral("alphaChooserSAP"));
-        alphaChooserSAP->setMaximum(9);
+        alphaChooserSAP->setMaximum(1000);
         alphaChooserSAP->setOrientation(Qt::Horizontal);
 
         gridLayout_4->addWidget(alphaChooserSAP, 1, 0, 1, 1);
@@ -203,6 +217,12 @@ public:
 
         gridLayout_4->addWidget(labelSAPAlphaValue, 0, 0, 1, 1, Qt::AlignHCenter);
 
+        backgroundProgressSAP = new QProgressBar(gridLayoutWidget_4);
+        backgroundProgressSAP->setObjectName(QStringLiteral("backgroundProgressSAP"));
+        backgroundProgressSAP->setValue(0);
+
+        gridLayout_4->addWidget(backgroundProgressSAP, 6, 0, 1, 1);
+
         tabWidget->addTab(tabSAP, QString());
 
         gridLayout_6->addWidget(tabWidget, 0, 0, 1, 1);
@@ -210,7 +230,7 @@ public:
 
         retranslateUi(Chooser);
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Chooser);
@@ -233,7 +253,7 @@ public:
         SDChooser->setText(QApplication::translate("Chooser", "Choisir la video", 0));
         labelSDN->setText(QApplication::translate("Chooser", "N", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabMoySD), QApplication::translate("Chooser", "Moyenne \316\243-\342\210\206", 0));
-        SAPChooser->setText(QApplication::translate("Chooser", "PushButton", 0));
+        SAPChooser->setText(QApplication::translate("Chooser", "Choisir la video", 0));
 #ifndef QT_NO_TOOLTIP
         labelSAPMultiple->setToolTip(QApplication::translate("Chooser", "Parametre pour le seuillage", 0));
 #endif // QT_NO_TOOLTIP

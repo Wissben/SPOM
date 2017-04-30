@@ -64,7 +64,15 @@ Chooser::Chooser(QWidget *parent) :
     valueChanged=false;
 
     ui->labelGradAlpha->setToolTip("Alpha est le paramètre d'oublis");
+    
+    QTimer *timer = new QTimer(this);
+        connect(timer,SIGNAL(timeout()),this, SLOT(update()));
+        timer->start(20);
 
+}
+
+void update(){
+    
 }
 
 Chooser::~Chooser()
