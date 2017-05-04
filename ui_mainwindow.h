@@ -35,7 +35,7 @@ public:
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(1366, 768);
         MainWindow->setAutoFillBackground(false);
-        MainWindow->setStyleSheet(QString(""));
+        MainWindow->setStyleSheet(QStringLiteral(""));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         pushButton = new QPushButton(centralWidget);

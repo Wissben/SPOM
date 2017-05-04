@@ -37,10 +37,18 @@ public:
     QSlider *alphaChooserGrad;
     QLabel *labelGradAlpha;
     QLabel *labelGradAlphaValue;
-    QLabel *image_label;
+    QLabel *grad_image_label_original;
+    QPushButton *control;
+    QLabel *grad_image_label_mask;
+    QLabel *grad_image_label_foreground;
     QWidget *tabMoyArith;
     QPushButton *arithChooser;
     QProgressBar *backgroundProgressArith;
+    QPushButton *controlArith;
+    QLabel *arith_image_label_original;
+    QLabel *arith_image_label_foreground;
+    QLabel *arith_image_label_mask;
+    QLabel *arith_image_label_back;
     QWidget *tabMoyRec;
     QPushButton *recChooser;
     QWidget *gridLayoutWidget_2;
@@ -49,12 +57,19 @@ public:
     QLabel *labelRecAlphaValue;
     QSlider *alphaChooserRec;
     QProgressBar *backgroundProgressRec;
+    QLabel *rec_image_label_mask;
+    QLabel *rec_image_label_back;
+    QLabel *rec_image_label_foreground;
+    QLabel *rec_image_label_original;
     QWidget *tabMoySD;
     QPushButton *SDChooser;
     QWidget *gridLayoutWidget_3;
     QGridLayout *gridLayout_3;
     QSpinBox *NChooser;
     QLabel *labelSDN;
+    QLabel *SD_image_label_foreground;
+    QLabel *SD_image_label_original;
+    QLabel *SD_image_label_mask;
     QWidget *tabSAP;
     QPushButton *SAPChooser;
     QWidget *gridLayoutWidget_4;
@@ -65,6 +80,10 @@ public:
     QLabel *labelSAPAlpha;
     QLabel *labelSAPAlphaValue;
     QProgressBar *backgroundProgressSAP;
+    QLabel *SAP_image_label_foreground;
+    QLabel *SAP_image_label_bacK;
+    QLabel *SAP_image_label_mask;
+    QLabel *SAP_image_label_original;
 
     void setupUi(QWidget *Chooser)
     {
@@ -105,9 +124,23 @@ public:
 
         gridLayout->addWidget(labelGradAlphaValue, 0, 0, 1, 1, Qt::AlignHCenter);
 
-        image_label = new QLabel(tabGradiantMorph);
-        image_label->setObjectName(QStringLiteral("image_label"));
-        image_label->setGeometry(QRect(360, 40, 611, 441));
+        grad_image_label_original = new QLabel(tabGradiantMorph);
+        grad_image_label_original->setObjectName(QStringLiteral("grad_image_label_original"));
+        grad_image_label_original->setGeometry(QRect(350, 30, 320, 240));
+        grad_image_label_original->setScaledContents(true);
+        grad_image_label_original->setOpenExternalLinks(false);
+        control = new QPushButton(tabGradiantMorph);
+        control->setObjectName(QStringLiteral("control"));
+        control->setGeometry(QRect(50, 230, 86, 26));
+        QIcon icon;
+        icon.addFile(QStringLiteral("../../../AlarmRed.png"), QSize(), QIcon::Normal, QIcon::Off);
+        control->setIcon(icon);
+        grad_image_label_mask = new QLabel(tabGradiantMorph);
+        grad_image_label_mask->setObjectName(QStringLiteral("grad_image_label_mask"));
+        grad_image_label_mask->setGeometry(QRect(720, 30, 320, 240));
+        grad_image_label_foreground = new QLabel(tabGradiantMorph);
+        grad_image_label_foreground->setObjectName(QStringLiteral("grad_image_label_foreground"));
+        grad_image_label_foreground->setGeometry(QRect(535, 300, 320, 240));
         tabWidget->addTab(tabGradiantMorph, QString());
         tabMoyArith = new QWidget();
         tabMoyArith->setObjectName(QStringLiteral("tabMoyArith"));
@@ -118,6 +151,23 @@ public:
         backgroundProgressArith->setObjectName(QStringLiteral("backgroundProgressArith"));
         backgroundProgressArith->setGeometry(QRect(27, 130, 151, 23));
         backgroundProgressArith->setValue(0);
+        controlArith = new QPushButton(tabMoyArith);
+        controlArith->setObjectName(QStringLiteral("controlArith"));
+        controlArith->setGeometry(QRect(60, 220, 86, 26));
+        arith_image_label_original = new QLabel(tabMoyArith);
+        arith_image_label_original->setObjectName(QStringLiteral("arith_image_label_original"));
+        arith_image_label_original->setGeometry(QRect(380, 120, 320, 240));
+        arith_image_label_original->setScaledContents(true);
+        arith_image_label_original->setOpenExternalLinks(false);
+        arith_image_label_foreground = new QLabel(tabMoyArith);
+        arith_image_label_foreground->setObjectName(QStringLiteral("arith_image_label_foreground"));
+        arith_image_label_foreground->setGeometry(QRect(380, 390, 320, 240));
+        arith_image_label_mask = new QLabel(tabMoyArith);
+        arith_image_label_mask->setObjectName(QStringLiteral("arith_image_label_mask"));
+        arith_image_label_mask->setGeometry(QRect(750, 120, 320, 240));
+        arith_image_label_back = new QLabel(tabMoyArith);
+        arith_image_label_back->setObjectName(QStringLiteral("arith_image_label_back"));
+        arith_image_label_back->setGeometry(QRect(750, 390, 320, 240));
         tabWidget->addTab(tabMoyArith, QString());
         tabMoyRec = new QWidget();
         tabMoyRec->setObjectName(QStringLiteral("tabMoyRec"));
@@ -154,6 +204,20 @@ public:
 
         gridLayout_2->addWidget(backgroundProgressRec, 3, 0, 1, 1);
 
+        rec_image_label_mask = new QLabel(tabMoyRec);
+        rec_image_label_mask->setObjectName(QStringLiteral("rec_image_label_mask"));
+        rec_image_label_mask->setGeometry(QRect(750, 40, 320, 240));
+        rec_image_label_back = new QLabel(tabMoyRec);
+        rec_image_label_back->setObjectName(QStringLiteral("rec_image_label_back"));
+        rec_image_label_back->setGeometry(QRect(750, 310, 320, 240));
+        rec_image_label_foreground = new QLabel(tabMoyRec);
+        rec_image_label_foreground->setObjectName(QStringLiteral("rec_image_label_foreground"));
+        rec_image_label_foreground->setGeometry(QRect(380, 310, 320, 240));
+        rec_image_label_original = new QLabel(tabMoyRec);
+        rec_image_label_original->setObjectName(QStringLiteral("rec_image_label_original"));
+        rec_image_label_original->setGeometry(QRect(380, 40, 320, 240));
+        rec_image_label_original->setScaledContents(true);
+        rec_image_label_original->setOpenExternalLinks(false);
         tabWidget->addTab(tabMoyRec, QString());
         tabMoySD = new QWidget();
         tabMoySD->setObjectName(QStringLiteral("tabMoySD"));
@@ -178,6 +242,17 @@ public:
 
         gridLayout_3->addWidget(labelSDN, 1, 0, 1, 1, Qt::AlignHCenter);
 
+        SD_image_label_foreground = new QLabel(tabMoySD);
+        SD_image_label_foreground->setObjectName(QStringLiteral("SD_image_label_foreground"));
+        SD_image_label_foreground->setGeometry(QRect(585, 380, 320, 240));
+        SD_image_label_original = new QLabel(tabMoySD);
+        SD_image_label_original->setObjectName(QStringLiteral("SD_image_label_original"));
+        SD_image_label_original->setGeometry(QRect(400, 110, 320, 240));
+        SD_image_label_original->setScaledContents(true);
+        SD_image_label_original->setOpenExternalLinks(false);
+        SD_image_label_mask = new QLabel(tabMoySD);
+        SD_image_label_mask->setObjectName(QStringLiteral("SD_image_label_mask"));
+        SD_image_label_mask->setGeometry(QRect(770, 110, 320, 240));
         tabWidget->addTab(tabMoySD, QString());
         tabSAP = new QWidget();
         tabSAP->setObjectName(QStringLiteral("tabSAP"));
@@ -192,6 +267,9 @@ public:
         gridLayout_4->setContentsMargins(0, 0, 0, 0);
         multipleChooser = new QSpinBox(gridLayoutWidget_4);
         multipleChooser->setObjectName(QStringLiteral("multipleChooser"));
+        multipleChooser->setMinimum(1);
+        multipleChooser->setMaximum(8);
+        multipleChooser->setValue(1);
 
         gridLayout_4->addWidget(multipleChooser, 4, 0, 1, 1);
 
@@ -223,6 +301,20 @@ public:
 
         gridLayout_4->addWidget(backgroundProgressSAP, 6, 0, 1, 1);
 
+        SAP_image_label_foreground = new QLabel(tabSAP);
+        SAP_image_label_foreground->setObjectName(QStringLiteral("SAP_image_label_foreground"));
+        SAP_image_label_foreground->setGeometry(QRect(440, 430, 320, 240));
+        SAP_image_label_bacK = new QLabel(tabSAP);
+        SAP_image_label_bacK->setObjectName(QStringLiteral("SAP_image_label_bacK"));
+        SAP_image_label_bacK->setGeometry(QRect(810, 430, 320, 240));
+        SAP_image_label_mask = new QLabel(tabSAP);
+        SAP_image_label_mask->setObjectName(QStringLiteral("SAP_image_label_mask"));
+        SAP_image_label_mask->setGeometry(QRect(810, 160, 320, 240));
+        SAP_image_label_original = new QLabel(tabSAP);
+        SAP_image_label_original->setObjectName(QStringLiteral("SAP_image_label_original"));
+        SAP_image_label_original->setGeometry(QRect(440, 160, 320, 240));
+        SAP_image_label_original->setScaledContents(true);
+        SAP_image_label_original->setOpenExternalLinks(false);
         tabWidget->addTab(tabSAP, QString());
 
         gridLayout_6->addWidget(tabWidget, 0, 0, 1, 1);
@@ -230,7 +322,7 @@ public:
 
         retranslateUi(Chooser);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Chooser);
@@ -242,16 +334,31 @@ public:
         gradiantChooser->setText(QApplication::translate("Chooser", "Choisir la video", 0));
         labelGradAlpha->setText(QApplication::translate("Chooser", "alpha", 0));
         labelGradAlphaValue->setText(QString());
-        image_label->setText(QString());
+        grad_image_label_original->setText(QString());
+        control->setText(QString());
+        grad_image_label_mask->setText(QString());
+        grad_image_label_foreground->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabGradiantMorph), QApplication::translate("Chooser", "Gradiant mophologique oublieux", 0));
         arithChooser->setText(QApplication::translate("Chooser", "Choisir la video", 0));
+        controlArith->setText(QApplication::translate("Chooser", "Control", 0));
+        arith_image_label_original->setText(QString());
+        arith_image_label_foreground->setText(QString());
+        arith_image_label_mask->setText(QString());
+        arith_image_label_back->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabMoyArith), QApplication::translate("Chooser", "Moyenne arithm\303\251tique", 0));
         recChooser->setText(QApplication::translate("Chooser", "Choisir la video", 0));
         labelRecAlpha->setText(QApplication::translate("Chooser", "alpha", 0));
         labelRecAlphaValue->setText(QString());
+        rec_image_label_mask->setText(QString());
+        rec_image_label_back->setText(QString());
+        rec_image_label_foreground->setText(QString());
+        rec_image_label_original->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabMoyRec), QApplication::translate("Chooser", "Moyenne r\303\251cursive", 0));
         SDChooser->setText(QApplication::translate("Chooser", "Choisir la video", 0));
         labelSDN->setText(QApplication::translate("Chooser", "N", 0));
+        SD_image_label_foreground->setText(QString());
+        SD_image_label_original->setText(QString());
+        SD_image_label_mask->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabMoySD), QApplication::translate("Chooser", "Moyenne \316\243-\342\210\206", 0));
         SAPChooser->setText(QApplication::translate("Chooser", "Choisir la video", 0));
 #ifndef QT_NO_TOOLTIP
@@ -263,6 +370,10 @@ public:
 #endif // QT_NO_TOOLTIP
         labelSAPAlpha->setText(QApplication::translate("Chooser", "\316\267", 0));
         labelSAPAlphaValue->setText(QString());
+        SAP_image_label_foreground->setText(QString());
+        SAP_image_label_bacK->setText(QString());
+        SAP_image_label_mask->setText(QString());
+        SAP_image_label_original->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabSAP), QApplication::translate("Chooser", "SAP", 0));
     } // retranslateUi
 

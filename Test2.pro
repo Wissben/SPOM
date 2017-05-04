@@ -36,6 +36,6 @@ LIBS += `pkg-config --libs opencv`
 
 QMAKE += core
 QT += widgets
+QT += multimedia
+QT += multimediawidgets
 CONFIG += c++11
-
-

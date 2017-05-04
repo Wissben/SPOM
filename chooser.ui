@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabGradiantMorph">
       <property name="mouseTracking">
@@ -78,13 +78,62 @@
         </item>
        </layout>
       </widget>
-      <widget class="QLabel" name="image_label">
+      <widget class="QLabel" name="grad_image_label_original">
        <property name="geometry">
         <rect>
-         <x>360</x>
-         <y>40</y>
-         <width>611</width>
-         <height>441</height>
+         <x>350</x>
+         <y>30</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="openExternalLinks">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="control">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>230</y>
+         <width>86</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../AlarmRed.png</normaloff>../../../AlarmRed.png</iconset>
+       </property>
+      </widget>
+      <widget class="QLabel" name="grad_image_label_mask">
+       <property name="geometry">
+        <rect>
+         <x>720</x>
+         <y>30</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="grad_image_label_foreground">
+       <property name="geometry">
+        <rect>
+         <x>535</x>
+         <y>300</y>
+         <width>320</width>
+         <height>240</height>
         </rect>
        </property>
        <property name="text">
@@ -120,6 +169,77 @@
        </property>
        <property name="value">
         <number>0</number>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="controlArith">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>220</y>
+         <width>86</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Control</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="arith_image_label_original">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>120</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="openExternalLinks">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="arith_image_label_foreground">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>390</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="arith_image_label_mask">
+       <property name="geometry">
+        <rect>
+         <x>750</x>
+         <y>120</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="arith_image_label_back">
+       <property name="geometry">
+        <rect>
+         <x>750</x>
+         <y>390</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </widget>
@@ -186,6 +306,64 @@
         </item>
        </layout>
       </widget>
+      <widget class="QLabel" name="rec_image_label_mask">
+       <property name="geometry">
+        <rect>
+         <x>750</x>
+         <y>40</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="rec_image_label_back">
+       <property name="geometry">
+        <rect>
+         <x>750</x>
+         <y>310</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="rec_image_label_foreground">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>310</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="rec_image_label_original">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>40</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="openExternalLinks">
+        <bool>false</bool>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="tabMoySD">
       <attribute name="title">
@@ -233,6 +411,51 @@
         </item>
        </layout>
       </widget>
+      <widget class="QLabel" name="SD_image_label_foreground">
+       <property name="geometry">
+        <rect>
+         <x>585</x>
+         <y>380</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="SD_image_label_original">
+       <property name="geometry">
+        <rect>
+         <x>400</x>
+         <y>110</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="openExternalLinks">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="SD_image_label_mask">
+       <property name="geometry">
+        <rect>
+         <x>770</x>
+         <y>110</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="tabSAP">
       <attribute name="title">
@@ -262,7 +485,17 @@
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="4" column="0">
-         <widget class="QSpinBox" name="multipleChooser"/>
+         <widget class="QSpinBox" name="multipleChooser">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>8</number>
+          </property>
+          <property name="value">
+           <number>1</number>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QSlider" name="alphaChooserSAP">
@@ -309,6 +542,64 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QLabel" name="SAP_image_label_foreground">
+       <property name="geometry">
+        <rect>
+         <x>440</x>
+         <y>430</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="SAP_image_label_bacK">
+       <property name="geometry">
+        <rect>
+         <x>810</x>
+         <y>430</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="SAP_image_label_mask">
+       <property name="geometry">
+        <rect>
+         <x>810</x>
+         <y>160</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="SAP_image_label_original">
+       <property name="geometry">
+        <rect>
+         <x>440</x>
+         <y>160</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="openExternalLinks">
+        <bool>false</bool>
+       </property>
       </widget>
      </widget>
     </widget>

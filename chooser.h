@@ -8,6 +8,11 @@
 #include "opencv2/highgui.hpp"
 #include "selector.h"
 #include "qprogressbar.h"
+#include <QTimer>;
+#include <vector>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
+#include <QVideoWidget>
 #include <QTimer>
 namespace Ui {
 class Chooser;
@@ -38,11 +43,12 @@ public:
 
     static void drawBoxesRGB_8UC3(cv::Mat* image,cv::Mat mask);
 
-    static cv::Mat shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Selector* s);
+    static cv::Mat shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Chooser* c);
 
-    static void showMultipleImage_8UC3(std::vector<cv::Mat>& images,char* windowName);
+    static cv::Mat getMultipleImage_8UC3(std::vector<cv::Mat>& images,char* windowName,Chooser* c,bool background=false );
 
     static cv::Mat hist(cv::Mat gray);
+
 
 private slots:
     void on_gradiantMorph_clicked();
@@ -75,10 +81,60 @@ private slots:
 
     void on_SAPChooser_clicked(bool checked);
 
+    void on_pushButton_clicked(bool checked);
+
+    void on_control_clicked(bool checked);
+
+    void on_controlArith_clicked(bool checked);
+
+    void on_SDChooser_clicked(bool checked);
+
 public:
-    QTimer timer;
     Ui::Chooser *ui;
     bool valueChanged;
+    bool onPause;
+
+    std::vector<cv::Mat> gradFramesFore;
+    std::vector<cv::Mat> gradFramesMask;
+    std::vector<cv::Mat> gradFramesOriginal;
+    int gradIndex;
+
+    std::vector<cv::Mat> arithFramesFore;
+    std::vector<cv::Mat> arithFramesMask;
+    std::vector<cv::Mat> arithFramesOriginal;
+    std::vector<cv::Mat> arithFramesBack;
+    int arithIndex;
+
+    std::vector<cv::Mat> recFramesFore;
+    std::vector<cv::Mat> recFramesMask;
+    std::vector<cv::Mat> recFramesOriginal;
+    std::vector<cv::Mat> recFramesBack;
+    int recIndex;
+
+    std::vector<cv::Mat> SDFramesFore;
+    std::vector<cv::Mat> SDFramesMask;
+    std::vector<cv::Mat> SDFramesOriginal;
+    int SDIndex;
+
+    std::vector<cv::Mat> SAPFramesFore;
+    std::vector<cv::Mat> SAPFramesMask;
+    std::vector<cv::Mat> SAPFramesOriginal;
+    std::vector<cv::Mat> SAPFramesBack;
+    int SAPIndex;
+
+
+    QTimer* timerGrad;
+    QTimer* timerArith;
+    QImage original;
+
+public slots:
+    void updateGrad();
+    void updateRec();
+    void updateSD();
+    void updateSAP();
+    void updateArith();
+
+
 };
 
 #endif // CHOOSER_H

@@ -42,6 +42,15 @@ MainWindow::MainWindow(QWidget *parent) :
         palette.setBrush(QPalette::Background, bkgnd);
         this->setPalette(palette);
     //this->setStyleSheet("background: url(backgrouds/bggris.png);");
+        capWebcam.open(0);
+
+            if(capWebcam.isOpened())
+                cout << "webcam ok";
+
+
+            QTimer *tmrTimer = new QTimer(this);
+            connect(tmrTimer,SIGNAL(timeout()),this, SLOT(processFrameAndUpdateGUI()));
+            tmrTimer->start(20);
 }
 
 MainWindow::~MainWindow()
@@ -62,3 +71,12 @@ void MainWindow::on_pushButton_2_clicked()
     exit(EXIT_SUCCESS);
 }
 
+void MainWindow::processFrameAndUpdateGUI(){
+
+    capWebcam.read(matWebcam);
+    if(matWebcam.empty())
+        cout << "matWebcam empty";
+
+    QImage qimgWebcam(matWebcam.data,matWebcam.cols, matWebcam.step, QImage::Format_RGB888);
+    //ui->label->setPixmap(QPixmap::fromImage(qimgWebcam));
+}
