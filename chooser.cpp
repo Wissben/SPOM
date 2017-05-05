@@ -44,11 +44,8 @@
 #include "mymath.h"
 #include "qprogressbar.h"
 #include "qthread.h"
-#include <QMediaPlayer>
-#include <QMediaPlaylist>
-#include <QVideoWidget>
 #include <QTimer>
-
+#include <thread>
 
 using namespace std;
 using namespace cv;
@@ -83,6 +80,10 @@ Chooser::Chooser(QWidget *parent) :
 
     ui->control->setEnabled(false);
     ui->controlArith->setEnabled(false);
+    ui->controlRec->setEnabled(false);
+    ui->controlSD->setEnabled(false);
+    ui->controlSAP->setEnabled(false);
+
 
 }
 
@@ -130,21 +131,77 @@ void Chooser::on_alphaChooserRec_valueChanged(int value)
 
 void Chooser::on_recChooser_clicked()
 {
-
+    timerRec = new QTimer(this);
+    connect(timerRec,SIGNAL(timeout()),this,SLOT(updateRec()));
+    recFramesFore.clear();
+    recFramesMask.clear();
+    recFramesOriginal.clear();
+    recFramesBack.clear();
     QString filename = QFileDialog::getOpenFileName(this,
-                                                    tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
+                                                   tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
     if(filename !=NULL)
     {
         Chooser::moyenne_Reccur(filename.toStdString(),(float) ui->alphaChooserRec->value()/1000,this);
-        //ui->
+//        for (int i = 0; i < recFramesMask.size(); ++i) {
+//           imshow("hh",recFramesMask.at(i));
+//           waitKey(0);
+//        }
+        ui->controlRec->setEnabled(true);
+        timerRec->start(30);
     }
+
+
 }
 
 
 void Chooser::updateRec()
 {
 
+    if(recFramesFore.empty() || recFramesMask.empty() || recFramesOriginal.empty() || recFramesBack.empty())
+        return;
+            Mat tmp;
+            //tmp=gradFramesOriginal.at(gradIndex);
+            //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            tmp=recFramesFore.at(recIndex);
+            ui->rec_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+
+            tmp=recFramesMask.at(recIndex);
+            ui->rec_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            tmp=recFramesOriginal.at(recIndex);
+            ui->rec_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            tmp=recFramesBack.at(0);
+            ui->rec_image_label_back->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            //QThread::msleep(10);
+            //QTest::qSleep(100);
+
+    recIndex++;
+    if(recIndex>=recFramesFore.size() || recIndex>=recFramesOriginal.size() || recIndex>=recFramesMask.size() )
+    {
+        recIndex=0;
+        timerRec->stop();
+        ui->controlRec->setEnabled(true);
+    }
 }
+
+
+
+void Chooser::on_controlRec_clicked(bool checked)
+{
+    if(timerRec->isActive())
+    {
+        timerRec->stop();
+    }
+    else
+    {
+        timerRec->start(30);
+    }
+}
+
 
 
 void Chooser::on_gradiantChooser_clicked()
@@ -277,14 +334,14 @@ void Chooser::updateArith()
             tmp=arithFramesOriginal.at(arithIndex);
             ui->arith_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=arithFramesBack.at(arithIndex);
-            ui->arith_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+            tmp=arithFramesBack.at(0);
+            ui->arith_image_label_back->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
             //QThread::msleep(100);
             //QTest::qSleep(100);
 
     arithIndex++;
-    if(arithIndex>=arithFramesFore.size() || arithIndex>=arithFramesOriginal.size() || arithIndex>=arithFramesMask.size() || arithIndex>=arithFramesBack.size())
+    if(arithIndex>=arithFramesFore.size() || arithIndex>=arithFramesOriginal.size() || arithIndex>=arithFramesMask.size())
     {
         arithIndex=0;
         timerArith->stop();
@@ -307,28 +364,147 @@ void Chooser::on_controlArith_clicked(bool checked)
 
 
 
-void Chooser::on_SAPChooser_clicked(bool checked)
-{
-    QString filename = QFileDialog::getOpenFileName(this,
-                                                    tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
-    if(filename !=NULL)
-        Chooser::SAP(filename.toStdString(),ui->multipleChooser->value(),ui->alphaChooserSAP->value(),this);
-}
 
-void Chooser::updateSAP()
-{
-
-}
 
 void Chooser::on_SDChooser_clicked(bool checked)
 {
+    timerSD = new QTimer(this);
+    connect(timerSD,SIGNAL(timeout()),this,SLOT(updateSD()));
+    SDFramesFore.clear();
+    SDFramesMask.clear();
+    SDFramesOriginal.clear();
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
+    if(filename !=NULL)
+    {
+        Chooser::SD2(filename.toStdString(),ui->NChooser->value(),this);
 
+        ui->controlSD->setEnabled(true);
+        timerSD->start(30);
+    }
 }
 
 void Chooser::updateSD()
 {
+    if(SDFramesFore.empty() || SDFramesMask.empty() || SDFramesOriginal.empty())
+    {
+        return;
+    }
+            Mat tmp;
+            //tmp=gradFramesOriginal.at(gradIndex);
+            //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            tmp=SDFramesFore.at(SDIndex);
+            ui->SD_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            tmp=SDFramesMask.at(SDIndex);
+            ui->SD_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            tmp=SDFramesOriginal.at(SDIndex);
+            ui->SD_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+            //QThread::msleep(100);
+            //QTest::qSleep(100);
+
+    SDIndex++;
+    if(SDIndex>=SDFramesFore.size() || SDIndex>=SDFramesOriginal.size() || SDIndex>=SDFramesMask.size())
+    {
+        SDIndex=0;
+        timerSD->stop();
+        ui->controlSD->setEnabled(false);
+    }
+}
+
+
+void Chooser::on_controlSD_clicked(bool checked)
+{
+    if(timerSD->isActive())
+    {
+        timerSD->stop();
+    }
+    else
+    {
+        timerSD->start(30);
+    }
+}
+
+
+
+
+void Chooser::on_SAPChooser_clicked(bool checked)
+{
+    timerSAP = new QTimer(this);
+    connect(timerSAP,SIGNAL(timeout()),this,SLOT(updateSAP()));
+    SAPFramesFore.clear();
+    SAPFramesMask.clear();
+    SAPFramesOriginal.clear();
+    SAPFramesBack.clear();
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
+    if(filename !=NULL)
+    {
+        Chooser::SAP(filename.toStdString(),ui->multipleChooser->value(),ui->alphaChooserSAP->value(),this);
+//        for (int i = 0; i < SAPFramesMask.size(); ++i) {
+//           imshow("mask",SAPFramesMask.at(i));
+//           waitKey(0);
+//        }
+        ui->controlSAP->setEnabled(true);
+        timerSAP->start(30);
+    }
 
 }
+
+void Chooser::updateSAP()
+{
+    if(SAPFramesFore.empty() || SAPFramesMask.empty() || SAPFramesOriginal.empty() || SAPFramesBack.empty())
+    {
+        cout << "hna" << endl;
+        return;
+    }
+            Mat tmp;
+            //tmp=gradFramesOriginal.at(gradIndex);
+            //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            tmp=SAPFramesFore.at(SAPIndex);
+            ui->SAP_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+
+            tmp=SAPFramesMask.at(SAPIndex);
+            ui->SAP_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            tmp=SAPFramesOriginal.at(SAPIndex);
+            ui->SAP_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            tmp=SAPFramesBack.at(0);
+            ui->SAP_image_label_back->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+            //QThread::msleep(100);
+            //QTest::qSleep(100);
+
+    cout << "index :" << SAPIndex << endl;
+    SAPIndex++;
+    if(SAPIndex>=SAPFramesFore.size() || SAPIndex>=SAPFramesOriginal.size() || SAPIndex>=SAPFramesMask.size())
+    {
+        cout << SAPFramesFore.size() << endl << SAPFramesMask.size() << endl << SAPFramesOriginal.size() << endl << SAPFramesBack.size() << endl;
+        SAPIndex=0;
+        timerSAP->stop();
+        ui->controlSAP->setEnabled(false);
+    }
+}
+
+
+
+void Chooser::on_controlSAP_clicked(bool checked)
+{
+    if(timerSAP->isActive())
+    {
+        timerSAP->stop();
+    }
+    else
+    {
+        timerSAP->start(30);
+    }
+}
+
 
 /////////////////////////////////////
 /// function de traitements opencv///
@@ -400,6 +576,7 @@ void Chooser::moyenne_Reccur(string path, double alpha,Chooser* c)
     VideoCapture v(path);//Creation d'un autre objet de lecture de video.
     while (v.get(CV_CAP_PROP_POS_FRAMES) <= v.get(CV_CAP_PROP_FRAME_COUNT)) // Tant que la video n'est pas finie
     {
+        cout << v.get(CV_CAP_PROP_POS_FRAMES) << "/" << v.get(CV_CAP_PROP_FRAME_COUNT) << endl;
         Mat foreground = Mat::zeros(M.rows,M.cols,CV_8UC3);
         v >> original;
         if (original.empty())
@@ -422,27 +599,39 @@ void Chooser::moyenne_Reccur(string path, double alpha,Chooser* c)
         foreground=Chooser::getForeGroundRGB_8UC3(original,I); // Appel a la fonction qui retourne l'avant plan
         Chooser::drawBoxesRGB_8UC3(&original,I);//Appel a la methode qui permet de dessiner les boites englobantes
         Chooser::drawBoxesRGB_8UC3(&foreground,I);//Appel a la methode qui permet de dessiner les boites englobantes
-        images.push_back(original);
-        images.push_back(foreground);
-        images.push_back(I8UC3);
+
+        Mat originalRGB;
+        cvtColor(original,originalRGB,CV_BGR2RGB);
+        c->recFramesOriginal.push_back(originalRGB);
+
+        Mat foregroundRGB;
+        cvtColor(foreground,foregroundRGB,CV_BGR2RGB);
+        c->recFramesFore.push_back(foregroundRGB);
+
+        Mat maskRGB;
+        cvtColor(I8UC3,maskRGB,CV_BGR2RGB);
+        c->recFramesMask.push_back(maskRGB);
+
+//        images.push_back(original);
+//        images.push_back(foreground);
+//        images.push_back(I8UC3);
         //showMultipleImage_8UC3(images,"Results",c);
         //imshow("forground",foreground);
         //imshow("Masque", I);
-        imshow("hist",hist(I8UC3));
-        if(waitKey(0)=='\33')
-        {
-            destroyAllWindows();
-            return;
+//        if(waitKey(0)=='\33')
+//        {
+//            destroyAllWindows();
+//            return;
 
-        }
+//        }
     }
     v.release();
-    if(waitKey(0)=='\33')
-    {
-        destroyAllWindows();
-        return;
+//    if(waitKey(0)=='\33')
+//    {
+//        destroyAllWindows();
+//        return;
 
-    }
+//    }
 }
 
 
@@ -788,6 +977,13 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
     background = Chooser::getBackGroundRGB_8UC3(path,c->ui->backgroundProgressArith);
     background.convertTo(background, CV_8UC3);
 
+    Mat backRGB;
+    cvtColor(background,backRGB , CV_BGR2RGB);
+    c->arithFramesBack.push_back(backRGB);
+
+//    imshow("back",c->arithFramesBack.at(0));
+//    waitKey(0);
+
     cvtColor(background, backGroundGray, COLOR_BGR2GRAY);
     backGroundGray.convertTo(backGroundGray, CV_32F);
     Mat diff = Mat::zeros(background.rows,background.cols,CV_32F);
@@ -813,7 +1009,7 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
             foreGroundGray.convertTo(foreGroundGray, CV_32F);
             //original=shadowRemoval_HSV(&original,background,c);
             //imshow("without shadow ",original);
-            waitKey(0);
+            //waitKey(0);
 //            for (int i = 0; i < foreGround.rows; i++)
 //            {
 //                for (int j = 0; j < foreGround.cols; j++)
@@ -860,9 +1056,6 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
             cvtColor(foreGround,foreGroundRGB , CV_BGR2RGB);
             c->arithFramesFore.push_back(foreGroundRGB);
 
-            Mat backRGB;
-            cvtColor(background,backRGB , CV_BGR2RGB);
-            c->arithFramesBack.push_back(backRGB);
 
 
 //            Mat diff8UC3;
@@ -990,9 +1183,15 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
             sigma.at<Vec3i>(i,j)[1]=sqrt( SC.at<Vec3i>(i,j)[1]/N - pow(S.at<Vec3i>(i,j)[1]/N,2) );
             sigma.at<Vec3i>(i,j)[2]=sqrt( SC.at<Vec3i>(i,j)[2]/N - pow(S.at<Vec3i>(i,j)[2]/N,2) );
         }
+        QCoreApplication::processEvents();
     }
     vc.release();
     Moy.convertTo(Moy,CV_8UC3);
+
+    Mat MoyRGB;
+    cvtColor(Moy,MoyRGB,CV_BGR2RGB);
+    c->SAPFramesBack.push_back(MoyRGB);
+
     //imshow("MoyenneCoulour",Moy);
     Moy.convertTo(Moy,CV_32SC3);
     mask = Mat::zeros(Moy.size(),CV_32SC3);
@@ -1004,13 +1203,20 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
     }
     while (capt.get(CV_CAP_PROP_POS_FRAMES) <= capt.get(CV_CAP_PROP_FRAME_COUNT))
     {
+        cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
+        QCoreApplication::processEvents();
+
         capt >> I;
         if (!I.empty())
         {
             //           Mat IGray;
             //Mat Icpy;
             I.copyTo(Icpy);
-            images.push_back(Icpy);
+
+            Mat IRGB;
+            cvtColor(Icpy,IRGB,CV_BGR2RGB);
+            c->SAPFramesOriginal.push_back(IRGB);
+
             I.convertTo(I,CV_32SC3);
             for (int i = 0; i < I.rows; ++i)
             {
@@ -1052,9 +1258,18 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
             foreGround = Chooser::getForeGroundRGB_8UC3(I,maskGray);
             /////
             Chooser::drawBoxesRGB_8UC3(&foreGround,mask);
-            images.push_back(foreGround);
-            images.push_back(mask);
-            //imshow("original",Icpy);
+
+            Mat foreGroundRGB;
+            cvtColor(foreGround,foreGroundRGB,CV_BGR2RGB);
+            c->SAPFramesFore.push_back(foreGroundRGB);
+
+            Mat maskRGB;
+            cvtColor(mask,maskRGB,CV_BGR2RGB);
+            c->SAPFramesMask.push_back(maskRGB);
+
+//            images.push_back(foreGround);
+//            images.push_back(mask);
+//            //imshow("original",Icpy);
             //imshow("mask",mask);
             Mat non_mask;
             bitwise_not(mask,non_mask);
@@ -1067,18 +1282,21 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
             //bitwise_and(I,non_mask,I);
             Moy.copyTo(oldMoy);
             //Moy=(1-n)*Moy+n*I;
-            ////
+
+
             mask.convertTo(mask,CV_32SC3);
             Moy.convertTo(Moy,CV_8UC3);
+
+
+
             //imshow("foreground",foreGround);
             //Chooser::showMultipleImage_8UC3(images,"Results",c);
-            images.clear();
-            if(waitKey(0)=='\33')
-            {
-                destroyAllWindows();
-                return;
+//            if(waitKey(0)=='\33')
+//            {
+//                destroyAllWindows();
+//                return;
 
-            }
+//            }
             Moy.convertTo(Moy,CV_32SC3);
 
 
@@ -1090,18 +1308,18 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
         }
     }
     capt.release();
-    destroyAllWindows();
-    if(waitKey(0)=='\33')
-    {
-        destroyAllWindows();
-        return;
+    //destroyAllWindows();
+//    if(waitKey(0)=='\33')
+//    {
+//        destroyAllWindows();
+//        return;
 
-    }
+//    }
 }
 
 
 
-void Chooser::SD2(std::string path,int mul)
+void Chooser::SD2(std::string path,int mul,Chooser*c )
 {
     Mat X;
     Mat original;
@@ -1200,22 +1418,38 @@ void Chooser::SD2(std::string path,int mul)
             Chooser::drawBoxesRGB_8UC3(&original,E);
             foreGround=Chooser::getForeGroundRGB_8UC3(original,E);
             Chooser::drawBoxesRGB_8UC3(&foreGround,E);
-            images.push_back(original);
-            images.push_back(foreGround);
-            //imshow("M(t)",M);
+
+            Mat originalRGB;
+            cvtColor(original,originalRGB,CV_BGR2RGB);
+            c->SDFramesOriginal.push_back(originalRGB);
+
+            Mat foreGroundRGB;
+            cvtColor(foreGround,foreGroundRGB,CV_BGR2RGB);
+            c->SDFramesFore.push_back(foreGroundRGB);
+
+
+//            images.push_back(original);
+//            images.push_back(foreGround);
+//            //imshow("M(t)",M);
             //imshow("V",V);
             Mat E8UC3;
             cvtColor(E,E8UC3,COLOR_GRAY2BGR);
             E8UC3.convertTo(E8UC3,CV_8UC3);
-            images.push_back(E8UC3);
-            //showMultipleImage_8UC3(images,"Results");
-            cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
-            if(waitKey(0)=='\33')
-            {
-                destroyAllWindows();
-                return;
 
-            }
+            Mat maskRGB;
+            cvtColor(E8UC3,maskRGB,CV_BGR2RGB);
+            c->SDFramesMask.push_back(maskRGB);
+
+            //images.push_back(E8UC3);
+            cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
+
+
+//            if(waitKey(0)=='\33')
+//            {
+//                destroyAllWindows();
+//                return;
+
+//            }
         }
         else
         {
@@ -1223,12 +1457,12 @@ void Chooser::SD2(std::string path,int mul)
             break;
         }
     }
-    if(waitKey(0)=='\33')
-    {
-        destroyAllWindows();
-        return;
+//    if(waitKey(0)=='\33')
+//    {
+//        destroyAllWindows();
+//        return;
 
-    }
+//    }
 }
 
 
@@ -1659,7 +1893,6 @@ Mat Chooser::hist(Mat gray)
 
     return histImage;
 }
-
 
 
 

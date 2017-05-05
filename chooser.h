@@ -10,9 +10,6 @@
 #include "qprogressbar.h"
 #include <QTimer>;
 #include <vector>
-#include <QMediaPlayer>
-#include <QMediaPlaylist>
-#include <QVideoWidget>
 #include <QTimer>
 namespace Ui {
 class Chooser;
@@ -35,7 +32,7 @@ public:
 
     static void SAP(std::string path, int multiple, double alpha,Chooser* c);
 
-    static void SD2(std::string path,int mul);
+    static void SD2(std::string path,int mul,Chooser* c);
 
     static cv::Mat getBackGroundRGB_8UC3(std::string path,QProgressBar* s);
 
@@ -89,6 +86,12 @@ private slots:
 
     void on_SDChooser_clicked(bool checked);
 
+    void on_controlRec_clicked(bool checked);
+
+    void on_controlSD_clicked(bool checked);
+
+    void on_controlSAP_clicked(bool checked);
+
 public:
     Ui::Chooser *ui;
     bool valueChanged;
@@ -125,6 +128,9 @@ public:
 
     QTimer* timerGrad;
     QTimer* timerArith;
+    QTimer* timerRec;
+    QTimer* timerSD;
+    QTimer* timerSAP;
     QImage original;
 
 public slots:

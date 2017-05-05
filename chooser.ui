@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tabGradiantMorph">
       <property name="mouseTracking">
@@ -364,6 +364,19 @@
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QPushButton" name="controlRec">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>270</y>
+         <width>86</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>control</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="tabMoySD">
       <attribute name="title">
@@ -454,6 +467,19 @@
        </property>
        <property name="text">
         <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="controlSD">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>240</y>
+         <width>86</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>control</string>
        </property>
       </widget>
      </widget>
@@ -556,7 +582,7 @@
         <string/>
        </property>
       </widget>
-      <widget class="QLabel" name="SAP_image_label_bacK">
+      <widget class="QLabel" name="SAP_image_label_back">
        <property name="geometry">
         <rect>
          <x>810</x>
@@ -599,6 +625,19 @@
        </property>
        <property name="openExternalLinks">
         <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="controlSAP">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>320</y>
+         <width>86</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Control</string>
        </property>
       </widget>
      </widget>

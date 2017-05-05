@@ -61,6 +61,7 @@ public:
     QLabel *rec_image_label_back;
     QLabel *rec_image_label_foreground;
     QLabel *rec_image_label_original;
+    QPushButton *controlRec;
     QWidget *tabMoySD;
     QPushButton *SDChooser;
     QWidget *gridLayoutWidget_3;
@@ -70,6 +71,7 @@ public:
     QLabel *SD_image_label_foreground;
     QLabel *SD_image_label_original;
     QLabel *SD_image_label_mask;
+    QPushButton *controlSD;
     QWidget *tabSAP;
     QPushButton *SAPChooser;
     QWidget *gridLayoutWidget_4;
@@ -81,9 +83,10 @@ public:
     QLabel *labelSAPAlphaValue;
     QProgressBar *backgroundProgressSAP;
     QLabel *SAP_image_label_foreground;
-    QLabel *SAP_image_label_bacK;
+    QLabel *SAP_image_label_back;
     QLabel *SAP_image_label_mask;
     QLabel *SAP_image_label_original;
+    QPushButton *controlSAP;
 
     void setupUi(QWidget *Chooser)
     {
@@ -218,6 +221,9 @@ public:
         rec_image_label_original->setGeometry(QRect(380, 40, 320, 240));
         rec_image_label_original->setScaledContents(true);
         rec_image_label_original->setOpenExternalLinks(false);
+        controlRec = new QPushButton(tabMoyRec);
+        controlRec->setObjectName(QStringLiteral("controlRec"));
+        controlRec->setGeometry(QRect(70, 270, 86, 26));
         tabWidget->addTab(tabMoyRec, QString());
         tabMoySD = new QWidget();
         tabMoySD->setObjectName(QStringLiteral("tabMoySD"));
@@ -253,6 +259,9 @@ public:
         SD_image_label_mask = new QLabel(tabMoySD);
         SD_image_label_mask->setObjectName(QStringLiteral("SD_image_label_mask"));
         SD_image_label_mask->setGeometry(QRect(770, 110, 320, 240));
+        controlSD = new QPushButton(tabMoySD);
+        controlSD->setObjectName(QStringLiteral("controlSD"));
+        controlSD->setGeometry(QRect(60, 240, 86, 26));
         tabWidget->addTab(tabMoySD, QString());
         tabSAP = new QWidget();
         tabSAP->setObjectName(QStringLiteral("tabSAP"));
@@ -304,9 +313,9 @@ public:
         SAP_image_label_foreground = new QLabel(tabSAP);
         SAP_image_label_foreground->setObjectName(QStringLiteral("SAP_image_label_foreground"));
         SAP_image_label_foreground->setGeometry(QRect(440, 430, 320, 240));
-        SAP_image_label_bacK = new QLabel(tabSAP);
-        SAP_image_label_bacK->setObjectName(QStringLiteral("SAP_image_label_bacK"));
-        SAP_image_label_bacK->setGeometry(QRect(810, 430, 320, 240));
+        SAP_image_label_back = new QLabel(tabSAP);
+        SAP_image_label_back->setObjectName(QStringLiteral("SAP_image_label_back"));
+        SAP_image_label_back->setGeometry(QRect(810, 430, 320, 240));
         SAP_image_label_mask = new QLabel(tabSAP);
         SAP_image_label_mask->setObjectName(QStringLiteral("SAP_image_label_mask"));
         SAP_image_label_mask->setGeometry(QRect(810, 160, 320, 240));
@@ -315,6 +324,9 @@ public:
         SAP_image_label_original->setGeometry(QRect(440, 160, 320, 240));
         SAP_image_label_original->setScaledContents(true);
         SAP_image_label_original->setOpenExternalLinks(false);
+        controlSAP = new QPushButton(tabSAP);
+        controlSAP->setObjectName(QStringLiteral("controlSAP"));
+        controlSAP->setGeometry(QRect(60, 320, 86, 26));
         tabWidget->addTab(tabSAP, QString());
 
         gridLayout_6->addWidget(tabWidget, 0, 0, 1, 1);
@@ -322,7 +334,7 @@ public:
 
         retranslateUi(Chooser);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(4);
 
 
         QMetaObject::connectSlotsByName(Chooser);
@@ -353,12 +365,14 @@ public:
         rec_image_label_back->setText(QString());
         rec_image_label_foreground->setText(QString());
         rec_image_label_original->setText(QString());
+        controlRec->setText(QApplication::translate("Chooser", "control", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabMoyRec), QApplication::translate("Chooser", "Moyenne r\303\251cursive", 0));
         SDChooser->setText(QApplication::translate("Chooser", "Choisir la video", 0));
         labelSDN->setText(QApplication::translate("Chooser", "N", 0));
         SD_image_label_foreground->setText(QString());
         SD_image_label_original->setText(QString());
         SD_image_label_mask->setText(QString());
+        controlSD->setText(QApplication::translate("Chooser", "control", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabMoySD), QApplication::translate("Chooser", "Moyenne \316\243-\342\210\206", 0));
         SAPChooser->setText(QApplication::translate("Chooser", "Choisir la video", 0));
 #ifndef QT_NO_TOOLTIP
@@ -371,9 +385,10 @@ public:
         labelSAPAlpha->setText(QApplication::translate("Chooser", "\316\267", 0));
         labelSAPAlphaValue->setText(QString());
         SAP_image_label_foreground->setText(QString());
-        SAP_image_label_bacK->setText(QString());
+        SAP_image_label_back->setText(QString());
         SAP_image_label_mask->setText(QString());
         SAP_image_label_original->setText(QString());
+        controlSAP->setText(QApplication::translate("Chooser", "Control", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabSAP), QApplication::translate("Chooser", "SAP", 0));
     } // retranslateUi
 
