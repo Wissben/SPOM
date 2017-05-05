@@ -8,7 +8,7 @@
 #include "opencv2/highgui.hpp"
 #include "selector.h"
 #include "qprogressbar.h"
-#include <QTimer>;
+#include <QTimer>
 #include <vector>
 #include <QTimer>
 namespace Ui {
@@ -54,8 +54,6 @@ private slots:
 
     void on_alphaChooserSAP_valueChanged(int value);
 
-    void on_NChooser_valueChanged(int arg1);
-
     void on_alphaChooserRec_valueChanged(int value);
 
     void on_recChooser_clicked();
@@ -72,15 +70,11 @@ private slots:
 
     void on_Chooser_destroyed();
 
-    void on_arithChooser_clicked();
-
     void on_arithChooser_clicked(bool checked);
 
     void on_SAPChooser_clicked(bool checked);
 
-    void on_pushButton_clicked(bool checked);
-
-    void on_control_clicked(bool checked);
+    void on_control_clicked();
 
     void on_controlArith_clicked(bool checked);
 
@@ -92,13 +86,9 @@ private slots:
 
     void on_controlSAP_clicked(bool checked);
 
-    void on_pushButton_2_clicked(bool checked);
-
     void on_accel_clicked(bool checked);
 
     void on_deccel_clicked(bool checked);
-
-    void on_deccel_pressed();
 
     void on_speedDown_clicked(bool checked);
 
@@ -107,14 +97,6 @@ private slots:
     void on_end_clicked(bool checked);
 
     void on_begin_clicked(bool checked);
-
-    void on_speedUp_2_clicked(bool checked);
-
-    void on_speedDown_2_clicked();
-
-    void on_accel_2_clicked(bool checked);
-
-    void on_deccel_2_clicked();
 
     void on_accel_Arith_clicked(bool checked);
 
@@ -172,30 +154,30 @@ public:
     std::vector<cv::Mat> gradFramesFore;
     std::vector<cv::Mat> gradFramesMask;
     std::vector<cv::Mat> gradFramesOriginal;
-    int gradIndex;
+    unsigned int gradIndex;
 
     std::vector<cv::Mat> arithFramesFore;
     std::vector<cv::Mat> arithFramesMask;
     std::vector<cv::Mat> arithFramesOriginal;
     std::vector<cv::Mat> arithFramesBack;
-    int arithIndex;
+    unsigned int arithIndex;
 
     std::vector<cv::Mat> recFramesFore;
     std::vector<cv::Mat> recFramesMask;
     std::vector<cv::Mat> recFramesOriginal;
     std::vector<cv::Mat> recFramesBack;
-    int recIndex;
+    unsigned int recIndex;
 
     std::vector<cv::Mat> SDFramesFore;
     std::vector<cv::Mat> SDFramesMask;
     std::vector<cv::Mat> SDFramesOriginal;
-    int SDIndex;
+    unsigned int SDIndex;
 
     std::vector<cv::Mat> SAPFramesFore;
     std::vector<cv::Mat> SAPFramesMask;
     std::vector<cv::Mat> SAPFramesOriginal;
     std::vector<cv::Mat> SAPFramesBack;
-    int SAPIndex;
+    unsigned int SAPIndex;
 
 
     QTimer* timerGrad;

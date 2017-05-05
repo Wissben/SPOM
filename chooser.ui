@@ -15,13 +15,13 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_6">
-   <item row="0" column="1">
+   <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="contextMenuPolicy">
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="tabsClosable">
       <bool>false</bool>
@@ -507,6 +507,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QLabel" name="label_7">
        <property name="geometry">
@@ -533,6 +536,9 @@
        <property name="text">
         <string/>
        </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QLabel" name="arith_image_label_mask">
        <property name="geometry">
@@ -546,18 +552,21 @@
        <property name="text">
         <string/>
        </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QLabel" name="label_10">
        <property name="geometry">
         <rect>
-         <x>920</x>
+         <x>910</x>
          <y>580</y>
-         <width>65</width>
+         <width>81</width>
          <height>18</height>
         </rect>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string>Arrière plan</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_8">
@@ -578,12 +587,12 @@
         <rect>
          <x>550</x>
          <y>580</y>
-         <width>65</width>
+         <width>81</width>
          <height>20</height>
         </rect>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string>Avant plan</string>
        </property>
       </widget>
      </widget>
@@ -657,34 +666,40 @@
       <widget class="QLabel" name="rec_image_label_mask">
        <property name="geometry">
         <rect>
-         <x>750</x>
-         <y>40</y>
+         <x>790</x>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QLabel" name="rec_image_label_back">
        <property name="geometry">
         <rect>
-         <x>750</x>
-         <y>310</y>
+         <x>790</x>
+         <y>320</y>
          <width>320</width>
          <height>240</height>
         </rect>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QLabel" name="rec_image_label_foreground">
        <property name="geometry">
         <rect>
-         <x>380</x>
-         <y>310</y>
+         <x>420</x>
+         <y>320</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -692,12 +707,15 @@
        <property name="text">
         <string/>
        </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QLabel" name="rec_image_label_original">
        <property name="geometry">
         <rect>
-         <x>380</x>
-         <y>40</y>
+         <x>420</x>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -717,7 +735,7 @@
         <rect>
          <x>20</x>
          <y>250</y>
-         <width>301</width>
+         <width>304</width>
          <height>41</height>
         </rect>
        </property>
@@ -842,6 +860,58 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>870</x>
+         <y>260</y>
+         <width>161</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Masque de mouvement</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>525</x>
+         <y>260</y>
+         <width>111</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Image originale</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>910</x>
+         <y>580</y>
+         <width>81</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Arrière plan</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>550</x>
+         <y>580</y>
+         <width>81</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Avant plan</string>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="tabMoySD">
@@ -1203,34 +1273,40 @@
       <widget class="QLabel" name="SAP_image_label_foreground">
        <property name="geometry">
         <rect>
-         <x>400</x>
-         <y>310</y>
+         <x>420</x>
+         <y>320</y>
          <width>320</width>
          <height>240</height>
         </rect>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QLabel" name="SAP_image_label_back">
        <property name="geometry">
         <rect>
-         <x>770</x>
-         <y>310</y>
+         <x>790</x>
+         <y>320</y>
          <width>320</width>
          <height>240</height>
         </rect>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QLabel" name="SAP_image_label_mask">
        <property name="geometry">
         <rect>
-         <x>770</x>
-         <y>40</y>
+         <x>790</x>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -1238,12 +1314,15 @@
        <property name="text">
         <string/>
        </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QLabel" name="SAP_image_label_original">
        <property name="geometry">
         <rect>
-         <x>400</x>
-         <y>40</y>
+         <x>420</x>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -1388,6 +1467,58 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QLabel" name="label_15">
+       <property name="geometry">
+        <rect>
+         <x>525</x>
+         <y>260</y>
+         <width>111</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Image originale</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_16">
+       <property name="geometry">
+        <rect>
+         <x>550</x>
+         <y>580</y>
+         <width>81</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Avant plan</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_17">
+       <property name="geometry">
+        <rect>
+         <x>910</x>
+         <y>580</y>
+         <width>81</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Arrière plan</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_18">
+       <property name="geometry">
+        <rect>
+         <x>870</x>
+         <y>260</y>
+         <width>161</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Masque de mouvement</string>
+       </property>
       </widget>
      </widget>
     </widget>

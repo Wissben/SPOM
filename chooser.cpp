@@ -54,8 +54,17 @@ Chooser::Chooser(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Chooser)
 {
-    bool onPause=false;
+
     ui->setupUi(this);
+
+
+//    QPixmap bkgnd("Resources/backgrouds/bgip8.png");
+//        bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+//        QPalette palette;
+//        palette.setBrush(QPalette::Background, bkgnd);
+//        this->setPalette(palette);
+//        this->setStyleSheet("background: url(Resources/backgrouds/bgip8.png);");
+
     //setting up Gradiant
     std::string str;
     str = std::to_string((float)ui->alphaChooserGrad->value()/1000).substr(0,5);
@@ -239,9 +248,8 @@ void Chooser::updateGrad()
 }
 
 
-void Chooser::on_control_clicked(bool checked)
+void Chooser::on_control_clicked()
 {
-
     if(timerGrad->isActive())
     {
         timerGrad->stop();

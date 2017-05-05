@@ -25,8 +25,6 @@ Method::Method()
 void Method::moyenne_Reccur(string path, double alpha,Selector* s)
 {
     VideoCapture vc(path); // objet de la classe VideoCapture qui permettra de lire la video
-    int initX=20; //position initiale sur X
-    int initY=500; // position initiale sur Y
     Mat M = Mat::zeros(1, 1, CV_32FC3); // Objet de la classe Mat qui contiendra la moyenne finale
     Mat I = Mat::zeros(1, 1, CV_32FC3); // Objet de la classe Mat qui contiendra l'image courante
     vector<Mat> images;
@@ -105,7 +103,7 @@ void Method::moyenne_Reccur(string path, double alpha,Selector* s)
         images.push_back(original);
         images.push_back(foreground);
         images.push_back(I8UC3);
-        showMultipleImage_8UC3(images,"Results");
+        //showMultipleImage_8UC3(images,"Results");
         //imshow("forground",foreground);
         //imshow("Masque", I);
         imshow("hist",hist(I8UC3));
@@ -205,7 +203,7 @@ void Method::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
                 Mat tmp;
                 //cvtColor(original,tmp , CV_BGR2RGB);
                 //c->ui->image_label->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
-                Method::showMultipleImage_8UC3(images,"Results");
+                //Method::showMultipleImage_8UC3(images,"Results");
                 //Post-processing end
 
 
@@ -501,7 +499,7 @@ void Method::moyenne_Arith(std::string path ,Selector*s )
             images.push_back(original);
             images.push_back(foreGround);
             images.push_back(diff8UC3);
-            showMultipleImage_8UC3(images,"Results");
+            //showMultipleImage_8UC3(images,"Results");
             //images.clear();
 //            imshow("original", original);
 //            imshow("foreground", foreGround);
@@ -702,7 +700,7 @@ void Method::SAP(string path, int multiple, double alpha,Selector* s)
             mask.convertTo(mask,CV_32SC3);
             Moy.convertTo(Moy,CV_8UC3);
             //imshow("foreground",foreGround);
-            Method::showMultipleImage_8UC3(images,"Results");
+            //Method::showMultipleImage_8UC3(images,"Results");
             images.clear();
             if(waitKey(0)=='\33')
             {
@@ -839,7 +837,7 @@ void Method::SD2(std::string path,int mul)
             cvtColor(E,E8UC3,COLOR_GRAY2BGR);
             E8UC3.convertTo(E8UC3,CV_8UC3);
             images.push_back(E8UC3);
-            showMultipleImage_8UC3(images,"Results");
+            //showMultipleImage_8UC3(images,"Results");
             cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
             if(waitKey(0)=='\33')
             {
@@ -1000,7 +998,7 @@ void Method::drawBoxesRGB_8UC3(cv::Mat* image,cv::Mat mask)
 
 }
 
-cv::Mat Method::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Selector* s)
+/*cv::Mat Chooser::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Chooser* c)
 {
     Mat imageHSV=Mat::zeros(image->rows,image->cols,CV_32FC3);
     Mat backGroundHSV=Mat::zeros(backGround.rows,backGround.cols,CV_32FC3);
@@ -1018,7 +1016,7 @@ cv::Mat Method::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Selector* s)
         {
             Vec3b hsvImage = image->at<float>(i,j);
             Vec3b hsvBackGround=backGround.at<float>(i,j);
-            uchar tmp = hsvImage.val[2];
+            //uchar tmp = hsvImage.val[2];
             //cout << tmp << endl;
             //cout << (uchar) hsvImage.val[2] - hsvBackGround.val[2] << endl;
             bool first=(hsvImage.val[2]/hsvBackGround.val[2] >= alpha)
@@ -1039,14 +1037,14 @@ cv::Mat Method::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Selector* s)
     cvtColor(imageHSV,*image,COLOR_HSV2BGR);
     imageHSV.convertTo(imageHSV,CV_8UC3);
 }
-
+*/
 
 
 void Method::showMultipleImage_8UC3(std::vector<cv::Mat> &images,char* windowName)
 {
     //Image Reading
     vector<IplImage*> iplImages;
-    for (int i = 0; i < images.size(); i++)
+    for (unsigned int i = 0; i < images.size(); i++)
     {
         IplImage* tmp =  cvCreateImage(cvSize(images.at(i).cols,images.at(i).rows),8,3);
         IplImage ipltemp = images.at(i);
@@ -1118,7 +1116,7 @@ Mat Method::hist(Mat gray)
         total = gray.rows * gray.cols;
         for( int h = 0; h < histSize; h++ )
              {
-                float binVal = hist.at<float>(h);
+                //float binVal = hist.at<float>(h);
                 //cout<<" "<<binVal;
              }
 
