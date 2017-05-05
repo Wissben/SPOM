@@ -92,6 +92,78 @@ private slots:
 
     void on_controlSAP_clicked(bool checked);
 
+    void on_pushButton_2_clicked(bool checked);
+
+    void on_accel_clicked(bool checked);
+
+    void on_deccel_clicked(bool checked);
+
+    void on_deccel_pressed();
+
+    void on_speedDown_clicked(bool checked);
+
+    void on_speedUp_clicked(bool checked);
+
+    void on_end_clicked(bool checked);
+
+    void on_begin_clicked(bool checked);
+
+    void on_speedUp_2_clicked(bool checked);
+
+    void on_speedDown_2_clicked();
+
+    void on_accel_2_clicked(bool checked);
+
+    void on_deccel_2_clicked();
+
+    void on_accel_Arith_clicked(bool checked);
+
+    void on_deccel_Arith_clicked();
+
+    void on_speedUp_Arith_clicked(bool checked);
+
+    void on_speedDown_Arith_clicked(bool checked);
+
+    void on_end_Arith_clicked(bool checked);
+
+    void on_begin_Arith_clicked(bool checked);
+
+    void on_speedUp_Rec_clicked(bool checked);
+
+    void on_speedDown_Rec_clicked(bool checked);
+
+    void on_deccel_Rec_clicked();
+
+    void on_accel_Rec_clicked(bool checked);
+
+    void on_begin_Rec_clicked(bool checked);
+
+    void on_end_Rec_clicked(bool checked);
+
+    void on_begin_SD_clicked(bool checked);
+
+    void on_deccel_SD_clicked(bool checked);
+
+    void on_speedDown_SD_clicked(bool checked);
+
+    void on_speedUp_SD_clicked(bool checked);
+
+    void on_accel_SD_clicked(bool checked);
+
+    void on_end_SD_clicked(bool checked);
+
+    void on_speedUp_SAP_clicked(bool checked);
+
+    void on_speedDown_SAP_clicked(bool checked);
+
+    void on_deccel_SAP_clicked(bool checked);
+
+    void on_accel_SAP_clicked(bool checked);
+
+    void on_begin_SAP_clicked(bool checked);
+
+    void on_end_SAP_clicked(bool checked);
+
 public:
     Ui::Chooser *ui;
     bool valueChanged;
@@ -127,11 +199,20 @@ public:
 
 
     QTimer* timerGrad;
+    int speedGrad;
+
     QTimer* timerArith;
+    int speedArith;
+
     QTimer* timerRec;
+    int speedRec;
+
     QTimer* timerSD;
+    int speedSD;
+
     QTimer* timerSAP;
-    QImage original;
+    int speedSAP;
+
 
 public slots:
     void updateGrad();

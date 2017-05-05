@@ -138,7 +138,7 @@ public:
         label->setAlignment(Qt::AlignCenter);
         widget = new QWidget(SelectGroup);
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(670, 70, 561, 421));
+        widget->setGeometry(QRect(670, 70, 441, 331));
 
         verticalLayout->addWidget(SelectGroup);
 

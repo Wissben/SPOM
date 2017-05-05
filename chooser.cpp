@@ -46,7 +46,7 @@
 #include "qthread.h"
 #include <QTimer>
 #include <thread>
-
+#include <QPushButton>
 using namespace std;
 using namespace cv;
 
@@ -78,11 +78,54 @@ Chooser::Chooser(QWidget *parent) :
     SDIndex=0;
     SAPIndex=0;
 
+    speedArith=30;
+    speedGrad=30;
+    speedRec=30;
+    speedSAP=30;
+    speedSD=30;
+
     ui->control->setEnabled(false);
+    //ui->control->setFlat(true);
+    ui->accel->setEnabled(false);
+    ui->deccel->setEnabled(false);
+    ui->speedDown->setEnabled(false);
+    ui->speedUp->setEnabled(false);
+    ui->end->setEnabled(false);
+    ui->begin->setEnabled(false);
+
+
     ui->controlArith->setEnabled(false);
+    ui->accel_Arith->setEnabled(false);
+    ui->deccel_Arith->setEnabled(false);
+    ui->speedDown_Arith->setEnabled(false);
+    ui->speedUp_Arith->setEnabled(false);
+    ui->end_Arith->setEnabled(false);
+    ui->begin_Arith->setEnabled(false);
+
     ui->controlRec->setEnabled(false);
+    ui->accel_Rec->setEnabled(false);
+    ui->deccel_Rec->setEnabled(false);
+    ui->speedDown_Rec->setEnabled(false);
+    ui->speedUp_Rec->setEnabled(false);
+    ui->end_Rec->setEnabled(false);
+    ui->begin_Rec->setEnabled(false);
+
     ui->controlSD->setEnabled(false);
+    ui->accel_SD->setEnabled(false);
+    ui->deccel_SD->setEnabled(false);
+    ui->speedDown_SD->setEnabled(false);
+    ui->speedUp_SD->setEnabled(false);
+    ui->end_SD->setEnabled(false);
+    ui->begin_SD->setEnabled(false);
+
     ui->controlSAP->setEnabled(false);
+    ui->accel_SAP->setEnabled(false);
+    ui->deccel_SAP->setEnabled(false);
+    ui->speedDown_SAP->setEnabled(false);
+    ui->speedUp_SAP->setEnabled(false);
+    ui->end_SAP->setEnabled(false);
+    ui->begin_SAP->setEnabled(false);
+
 
 
 }
@@ -129,78 +172,9 @@ void Chooser::on_alphaChooserRec_valueChanged(int value)
     ui->labelRecAlphaValue->setText(tmp);
 }
 
-void Chooser::on_recChooser_clicked()
-{
-    timerRec = new QTimer(this);
-    connect(timerRec,SIGNAL(timeout()),this,SLOT(updateRec()));
-    recFramesFore.clear();
-    recFramesMask.clear();
-    recFramesOriginal.clear();
-    recFramesBack.clear();
-    QString filename = QFileDialog::getOpenFileName(this,
-                                                   tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
-    if(filename !=NULL)
-    {
-        Chooser::moyenne_Reccur(filename.toStdString(),(float) ui->alphaChooserRec->value()/1000,this);
-//        for (int i = 0; i < recFramesMask.size(); ++i) {
-//           imshow("hh",recFramesMask.at(i));
-//           waitKey(0);
-//        }
-        ui->controlRec->setEnabled(true);
-        timerRec->start(30);
-    }
-
-
-}
-
-
-void Chooser::updateRec()
-{
-
-    if(recFramesFore.empty() || recFramesMask.empty() || recFramesOriginal.empty() || recFramesBack.empty())
-        return;
-            Mat tmp;
-            //tmp=gradFramesOriginal.at(gradIndex);
-            //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
-
-            tmp=recFramesFore.at(recIndex);
-            ui->rec_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
-
-
-            tmp=recFramesMask.at(recIndex);
-            ui->rec_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
-
-            tmp=recFramesOriginal.at(recIndex);
-            ui->rec_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
-
-            tmp=recFramesBack.at(0);
-            ui->rec_image_label_back->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
-
-            //QThread::msleep(10);
-            //QTest::qSleep(100);
-
-    recIndex++;
-    if(recIndex>=recFramesFore.size() || recIndex>=recFramesOriginal.size() || recIndex>=recFramesMask.size() )
-    {
-        recIndex=0;
-        timerRec->stop();
-        ui->controlRec->setEnabled(true);
-    }
-}
 
 
 
-void Chooser::on_controlRec_clicked(bool checked)
-{
-    if(timerRec->isActive())
-    {
-        timerRec->stop();
-    }
-    else
-    {
-        timerRec->start(30);
-    }
-}
 
 
 
@@ -211,6 +185,7 @@ void Chooser::on_gradiantChooser_clicked()
     gradFramesFore.clear();
     gradFramesMask.clear();
     gradFramesOriginal.clear();
+    gradIndex=0;
     QString filename = QFileDialog::getOpenFileName(this,
                                                     tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
     if(filename !=NULL)
@@ -218,7 +193,16 @@ void Chooser::on_gradiantChooser_clicked()
         Chooser::gradiantOublieux(filename.toStdString(),(float) ui->alphaChooserGrad->value()/1000,this);
 
         ui->control->setEnabled(true);
-        timerGrad->start(30);
+        ui->accel->setEnabled(true);
+        ui->deccel->setEnabled(true);
+        ui->speedDown->setEnabled(true);
+        ui->speedUp->setEnabled(true);
+        ui->gradiantChooser->setEnabled(false);
+        ui->end->setEnabled(true);
+        ui->begin->setEnabled(true);
+        ui->control->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+
+        timerGrad->start(speedGrad);
     }
 
 }
@@ -228,20 +212,20 @@ void Chooser::updateGrad()
 {
     if(gradFramesFore.empty() || gradFramesMask.empty() || gradFramesOriginal.empty())
         return;
-            Mat tmp;
-            //tmp=gradFramesOriginal.at(gradIndex);
-            //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    Mat tmp;
+    //tmp=gradFramesOriginal.at(gradIndex);
+    //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=gradFramesFore.at(gradIndex);
-            ui->grad_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=gradFramesFore.at(gradIndex);
+    ui->grad_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=gradFramesMask.at(gradIndex);
-            ui->grad_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=gradFramesMask.at(gradIndex);
+    ui->grad_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=gradFramesOriginal.at(gradIndex);
-            ui->grad_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
-            //QThread::msleep(100);
-            //QTest::qSleep(100);
+    tmp=gradFramesOriginal.at(gradIndex);
+    ui->grad_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    //QThread::msleep(100);
+    //QTest::qSleep(100);
 
     gradIndex++;
     if(gradIndex>=gradFramesFore.size() || gradIndex>=gradFramesOriginal.size() || gradIndex>=gradFramesMask.size())
@@ -249,6 +233,7 @@ void Chooser::updateGrad()
         gradIndex=0;
         timerGrad->stop();
         ui->control->setEnabled(false);
+        ui->gradiantChooser->setEnabled(true);
     }
 
 }
@@ -256,16 +241,91 @@ void Chooser::updateGrad()
 
 void Chooser::on_control_clicked(bool checked)
 {
+
     if(timerGrad->isActive())
     {
         timerGrad->stop();
+        ui->control->setIcon(QIcon("Resources/MediaControl/Play-26.png"));
+        ui->control->setIconSize(QSize(26,26));
     }
     else
     {
-        timerGrad->start(30);
+        ui->control->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+        ui->control->setIconSize(QSize(26,26));
+        timerGrad->start(speedGrad);
     }
 }
 
+void Chooser::on_accel_clicked(bool checked)
+{
+    timerGrad->stop();
+    gradIndex+=15;
+    if(gradIndex>=gradFramesOriginal.size())
+        gradIndex=gradFramesOriginal.size()-1;
+    timerGrad->start(speedGrad);
+}
+
+
+
+void Chooser::on_deccel_clicked(bool checked)
+{
+    timerGrad->stop();
+    gradIndex-=15;
+    if(gradIndex<0)
+        gradIndex=0;
+    timerGrad->start(speedGrad);
+
+}
+
+
+
+
+
+void Chooser::on_speedDown_clicked(bool checked)
+{
+    timerGrad->stop();
+    this->speedGrad+=10;
+    if(speedGrad>=100)
+        speedGrad=100;
+    timerGrad->start(speedGrad);
+}
+
+void Chooser::on_speedUp_clicked(bool checked)
+{
+
+    timerGrad->stop();
+    this->speedGrad-=10;
+    if(speedGrad<=5)
+        speedGrad=5;
+    timerGrad->start(speedGrad);
+}
+
+
+void Chooser::on_end_clicked(bool checked)
+{
+    timerGrad->stop();
+     gradIndex=gradFramesOriginal.size()-1;
+     ui->gradiantChooser->setEnabled(true);
+     ui->accel->setEnabled(false);
+     ui->deccel->setEnabled(false);
+     ui->speedDown->setEnabled(false);
+     ui->speedUp->setEnabled(false);
+    timerGrad->start(speedGrad);
+}
+
+void Chooser::on_begin_clicked(bool checked)
+{
+    timerGrad->stop();
+     gradIndex=0;
+     ui->control->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+     ui->control->setEnabled(true);
+     ui->accel->setEnabled(true);
+     ui->deccel->setEnabled(true);
+     ui->speedDown->setEnabled(true);
+     ui->speedUp->setEnabled(true);
+     ui->gradiantChooser->setEnabled(false);
+    timerGrad->start(speedGrad);
+}
 
 void Chooser::on_alphaChooserGrad_valueChanged(int value)
 {
@@ -305,13 +365,22 @@ void Chooser::on_arithChooser_clicked(bool checked)
     arithFramesMask.clear();
     arithFramesOriginal.clear();
     arithFramesBack.clear();
+    arithIndex=0;
     QString filename = QFileDialog::getOpenFileName(this,
                                                     tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
     if(filename !=NULL)
     {
         Chooser::moyenne_Arith(filename.toStdString(),this);
         ui->controlArith->setEnabled(true);
-        timerArith->start(30);
+        ui->accel_Arith->setEnabled(true);
+        ui->deccel_Arith->setEnabled(true);
+        ui->speedDown_Arith->setEnabled(true);
+        ui->speedUp_Arith->setEnabled(true);
+        ui->arithChooser->setEnabled(false);
+        ui->end_Arith->setEnabled(true);
+        ui->begin_Arith->setEnabled(true);
+        ui->controlArith->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+        timerArith->start(speedArith);
     }
 
 }
@@ -320,32 +389,33 @@ void Chooser::updateArith()
 {
     if(arithFramesFore.empty() || arithFramesMask.empty() || arithFramesOriginal.empty() || arithFramesBack.empty())
         return;
-            Mat tmp;
-            //tmp=gradFramesOriginal.at(gradIndex);
-            //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    Mat tmp;
+    //tmp=gradFramesOriginal.at(gradIndex);
+    //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=arithFramesFore.at(arithIndex);
-            ui->arith_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=arithFramesFore.at(arithIndex);
+    ui->arith_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
 
-            tmp=arithFramesMask.at(arithIndex);
-            ui->arith_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=arithFramesMask.at(arithIndex);
+    ui->arith_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=arithFramesOriginal.at(arithIndex);
-            ui->arith_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=arithFramesOriginal.at(arithIndex);
+    ui->arith_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=arithFramesBack.at(0);
-            ui->arith_image_label_back->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=arithFramesBack.at(0);
+    ui->arith_image_label_back->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            //QThread::msleep(100);
-            //QTest::qSleep(100);
+    //QThread::msleep(100);
+    //QTest::qSleep(100);
 
     arithIndex++;
     if(arithIndex>=arithFramesFore.size() || arithIndex>=arithFramesOriginal.size() || arithIndex>=arithFramesMask.size())
     {
         arithIndex=0;
         timerArith->stop();
-        ui->controlArith->setEnabled(true);
+        ui->controlArith->setEnabled(false);
+        ui->arithChooser->setEnabled(true);
     }
 }
 
@@ -355,11 +425,231 @@ void Chooser::on_controlArith_clicked(bool checked)
     if(timerArith->isActive())
     {
         timerArith->stop();
+        ui->controlArith->setIcon(QIcon("Resources/MediaControl/Play-26.png"));
+        ui->controlArith->setIconSize(QSize(26,26));
     }
     else
     {
         timerArith->start(30);
+        ui->controlArith->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+        ui->controlArith->setIconSize(QSize(26,26));
     }
+}
+
+
+
+
+void Chooser::on_accel_Arith_clicked(bool checked)
+{
+    timerArith->stop();
+    arithIndex+=15;
+    if(arithIndex>=arithFramesOriginal.size())
+        arithIndex=arithFramesOriginal.size()-1;
+    timerArith->start(speedArith);
+}
+
+void Chooser::on_deccel_Arith_clicked()
+{
+    timerArith->stop();
+    arithIndex-=15;
+    if(arithIndex<0)
+        arithIndex=0;
+    timerArith->start(speedArith);
+}
+
+void Chooser::on_speedUp_Arith_clicked(bool checked)
+{
+    timerArith->stop();
+    this->speedArith-=10;
+    if(speedArith<=5)
+        speedArith=5;
+    timerArith->start(speedArith);
+}
+
+void Chooser::on_speedDown_Arith_clicked(bool checked)
+{
+    timerArith->stop();
+    this->speedArith+=10;
+    if(speedArith>=100)
+        speedArith=100;
+    timerArith->start(speedArith);
+}
+
+void Chooser::on_end_Arith_clicked(bool checked)
+{
+    timerArith->stop();
+     arithIndex=arithFramesOriginal.size()-1;
+     ui->arithChooser->setEnabled(true);
+     ui->accel_Arith->setEnabled(false);
+     ui->deccel_Arith->setEnabled(false);
+     ui->speedDown_Arith->setEnabled(false);
+     ui->speedUp_Arith->setEnabled(false);
+    timerArith->start(speedArith);
+}
+
+void Chooser::on_begin_Arith_clicked(bool checked)
+{
+    timerArith->stop();
+     arithIndex=0;
+     ui->controlArith->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+     ui->controlArith->setEnabled(true);
+     ui->accel_Arith->setEnabled(true);
+     ui->deccel_Arith->setEnabled(true);
+     ui->speedDown_Arith->setEnabled(true);
+     ui->speedUp_Arith->setEnabled(true);
+     ui->arithChooser->setEnabled(false);
+    timerArith->start(speedArith);
+}
+
+
+
+
+
+void Chooser::on_recChooser_clicked()
+{
+    timerRec = new QTimer(this);
+    connect(timerRec,SIGNAL(timeout()),this,SLOT(updateRec()));
+    recFramesFore.clear();
+    recFramesMask.clear();
+    recFramesOriginal.clear();
+    recFramesBack.clear();
+    recIndex=0;
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
+    if(filename !=NULL)
+    {
+        Chooser::moyenne_Reccur(filename.toStdString(),(float) ui->alphaChooserRec->value()/1000,this);
+        ui->controlRec->setEnabled(true);
+        ui->accel_Rec->setEnabled(true);
+        ui->deccel_Rec->setEnabled(true);
+        ui->speedDown_Rec->setEnabled(true);
+        ui->speedUp_Rec->setEnabled(true);
+        ui->recChooser->setEnabled(false);
+        ui->end_Rec->setEnabled(true);
+        ui->begin_Rec->setEnabled(true);
+        ui->controlRec->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+        timerRec->start(speedRec);
+    }
+
+
+}
+
+
+void Chooser::updateRec()
+{
+
+    if(recFramesFore.empty() || recFramesMask.empty() || recFramesOriginal.empty() || recFramesBack.empty())
+        return;
+    Mat tmp;
+    //tmp=gradFramesOriginal.at(gradIndex);
+    //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+    tmp=recFramesFore.at(recIndex);
+    ui->rec_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+
+    tmp=recFramesMask.at(recIndex);
+    ui->rec_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+    tmp=recFramesOriginal.at(recIndex);
+    ui->rec_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+    tmp=recFramesBack.at(0);
+    ui->rec_image_label_back->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+
+    //QThread::msleep(10);
+    //QTest::qSleep(100);
+
+    recIndex++;
+    if(recIndex>=recFramesFore.size() || recIndex>=recFramesOriginal.size() || recIndex>=recFramesMask.size() )
+    {
+        recIndex=0;
+        timerRec->stop();
+        ui->controlRec->setEnabled(false);
+        ui->recChooser->setEnabled(true);
+    }
+}
+
+
+
+void Chooser::on_controlRec_clicked(bool checked)
+{
+    if(timerRec->isActive())
+    {
+        timerRec->stop();
+        ui->controlRec->setIcon(QIcon("Resources/MediaControl/Play-26.png"));
+        ui->controlRec->setIconSize(QSize(26,26));
+    }
+    else
+    {
+        timerRec->start(speedRec);
+        ui->controlRec->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+        ui->controlRec->setIconSize(QSize(26,26));
+    }
+}
+
+
+
+void Chooser::on_speedUp_Rec_clicked(bool checked)
+{
+    timerRec->stop();
+    this->speedRec-=10;
+    if(speedRec<=5)
+        speedRec=5;
+    timerRec->start(speedRec);
+}
+
+void Chooser::on_speedDown_Rec_clicked(bool checked)
+{
+    timerRec->stop();
+    this->speedRec+=10;
+    if(speedRec>=100)
+        speedRec=100;
+    timerRec->start(speedRec);
+}
+
+void Chooser::on_deccel_Rec_clicked()
+{
+    timerRec->stop();
+    recIndex-=15;
+    if(recIndex<0)
+        recIndex=0;
+    timerRec->start(speedRec);
+}
+
+void Chooser::on_accel_Rec_clicked(bool checked)
+{
+    timerRec->stop();
+    recIndex+=15;
+    if(recIndex>=recFramesOriginal.size())
+        recIndex=recFramesOriginal.size()-1;
+    timerRec->start(speedRec);
+}
+
+void Chooser::on_begin_Rec_clicked(bool checked)
+{
+    timerRec->stop();
+     recIndex=0;
+     ui->controlRec->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+     ui->controlRec->setEnabled(true);
+     ui->accel_Rec->setEnabled(true);
+     ui->deccel_Rec->setEnabled(true);
+     ui->speedDown_Rec->setEnabled(true);
+     ui->speedUp_Rec->setEnabled(true);
+     ui->recChooser->setEnabled(false);
+    timerRec->start(speedRec);
+}
+
+void Chooser::on_end_Rec_clicked(bool checked)
+{
+    timerRec->stop();
+     recIndex=recFramesOriginal.size()-1;
+     ui->recChooser->setEnabled(true);
+     ui->accel_Rec->setEnabled(false);
+     ui->deccel_Rec->setEnabled(false);
+     ui->speedDown_Rec->setEnabled(false);
+     ui->speedUp_Rec->setEnabled(false);
+    timerRec->start(speedRec);
 }
 
 
@@ -373,13 +663,21 @@ void Chooser::on_SDChooser_clicked(bool checked)
     SDFramesFore.clear();
     SDFramesMask.clear();
     SDFramesOriginal.clear();
+    SDIndex=0;
     QString filename = QFileDialog::getOpenFileName(this,
                                                     tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
     if(filename !=NULL)
     {
         Chooser::SD2(filename.toStdString(),ui->NChooser->value(),this);
-
         ui->controlSD->setEnabled(true);
+        ui->accel_SD->setEnabled(true);
+        ui->deccel_SD->setEnabled(true);
+        ui->speedDown_SD->setEnabled(true);
+        ui->speedUp_SD->setEnabled(true);
+        ui->SDChooser->setEnabled(false);
+        ui->end_SD->setEnabled(true);
+        ui->begin_SD->setEnabled(true);
+        ui->controlSD->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
         timerSD->start(30);
     }
 }
@@ -390,20 +688,20 @@ void Chooser::updateSD()
     {
         return;
     }
-            Mat tmp;
-            //tmp=gradFramesOriginal.at(gradIndex);
-            //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    Mat tmp;
+    //tmp=gradFramesOriginal.at(gradIndex);
+    //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=SDFramesFore.at(SDIndex);
-            ui->SD_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=SDFramesFore.at(SDIndex);
+    ui->SD_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=SDFramesMask.at(SDIndex);
-            ui->SD_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=SDFramesMask.at(SDIndex);
+    ui->SD_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=SDFramesOriginal.at(SDIndex);
-            ui->SD_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
-            //QThread::msleep(100);
-            //QTest::qSleep(100);
+    tmp=SDFramesOriginal.at(SDIndex);
+    ui->SD_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    //QThread::msleep(100);
+    //QTest::qSleep(100);
 
     SDIndex++;
     if(SDIndex>=SDFramesFore.size() || SDIndex>=SDFramesOriginal.size() || SDIndex>=SDFramesMask.size())
@@ -411,6 +709,7 @@ void Chooser::updateSD()
         SDIndex=0;
         timerSD->stop();
         ui->controlSD->setEnabled(false);
+        ui->SDChooser->setEnabled(true);
     }
 }
 
@@ -420,14 +719,80 @@ void Chooser::on_controlSD_clicked(bool checked)
     if(timerSD->isActive())
     {
         timerSD->stop();
+        ui->controlSD->setIcon(QIcon("Resources/MediaControl/Play-26.png"));
+        ui->controlSD->setIconSize(QSize(26,26));
     }
     else
     {
+        ui->controlSD->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+        ui->controlSD->setIconSize(QSize(26,26));
         timerSD->start(30);
     }
 }
 
 
+
+void Chooser::on_begin_SD_clicked(bool checked)
+{
+    timerSD->stop();
+     SDIndex=0;
+     ui->controlSD->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+     ui->controlSD->setEnabled(true);
+     ui->accel_SD->setEnabled(true);
+     ui->deccel_SD->setEnabled(true);
+     ui->speedDown_SD->setEnabled(true);
+     ui->speedUp_SD->setEnabled(true);
+     ui->SDChooser->setEnabled(false);
+    timerSD->start(speedSD);
+}
+
+void Chooser::on_deccel_SD_clicked(bool checked)
+{
+    timerSD->stop();
+    SDIndex-=15;
+    if(SDIndex<0)
+        SDIndex=0;
+    timerSD->start(speedSD);
+}
+
+void Chooser::on_speedDown_SD_clicked(bool checked)
+{
+    timerSD->stop();
+    this->speedSD+=10;
+    if(speedSD>=100)
+        speedSD=100;
+    timerSD->start(speedSD);
+}
+
+void Chooser::on_speedUp_SD_clicked(bool checked)
+{
+    timerSD->stop();
+    this->speedSD-=10;
+    if(speedSD<=5)
+        speedSD=5;
+    timerSD->start(speedSD);
+}
+
+void Chooser::on_accel_SD_clicked(bool checked)
+{
+    timerSD->stop();
+    SDIndex+=15;
+    if(SDIndex>=SDFramesOriginal.size())
+        SDIndex=SDFramesOriginal.size()-1;
+    timerSD->start(speedSD);
+}
+
+void Chooser::on_end_SD_clicked(bool checked)
+{
+    timerSD->stop();
+     SDIndex=SDFramesOriginal.size()-1;
+     ui->SDChooser->setEnabled(true);
+     ui->accel_SD->setEnabled(false);
+     ui->deccel_SD->setEnabled(false);
+     ui->speedDown_SD->setEnabled(false);
+     ui->speedUp_SD->setEnabled(false);
+    timerSD->start(speedSD);
+}
 
 
 void Chooser::on_SAPChooser_clicked(bool checked)
@@ -438,16 +803,21 @@ void Chooser::on_SAPChooser_clicked(bool checked)
     SAPFramesMask.clear();
     SAPFramesOriginal.clear();
     SAPFramesBack.clear();
+    SAPIndex=0;
     QString filename = QFileDialog::getOpenFileName(this,
                                                     tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
     if(filename !=NULL)
     {
         Chooser::SAP(filename.toStdString(),ui->multipleChooser->value(),ui->alphaChooserSAP->value(),this);
-//        for (int i = 0; i < SAPFramesMask.size(); ++i) {
-//           imshow("mask",SAPFramesMask.at(i));
-//           waitKey(0);
-//        }
         ui->controlSAP->setEnabled(true);
+        ui->accel_SAP->setEnabled(true);
+        ui->deccel_SAP->setEnabled(true);
+        ui->speedDown_SAP->setEnabled(true);
+        ui->speedUp_SAP->setEnabled(true);
+        ui->SAPChooser->setEnabled(false);
+        ui->end_SAP->setEnabled(true);
+        ui->begin_SAP->setEnabled(true);
+        ui->controlSAP->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
         timerSAP->start(30);
     }
 
@@ -457,37 +827,35 @@ void Chooser::updateSAP()
 {
     if(SAPFramesFore.empty() || SAPFramesMask.empty() || SAPFramesOriginal.empty() || SAPFramesBack.empty())
     {
-        cout << "hna" << endl;
         return;
     }
-            Mat tmp;
-            //tmp=gradFramesOriginal.at(gradIndex);
-            //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    Mat tmp;
+    //tmp=gradFramesOriginal.at(gradIndex);
+    //ui->image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=SAPFramesFore.at(SAPIndex);
-            ui->SAP_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=SAPFramesFore.at(SAPIndex);
+    ui->SAP_image_label_foreground->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
 
-            tmp=SAPFramesMask.at(SAPIndex);
-            ui->SAP_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=SAPFramesMask.at(SAPIndex);
+    ui->SAP_image_label_mask->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=SAPFramesOriginal.at(SAPIndex);
-            ui->SAP_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=SAPFramesOriginal.at(SAPIndex);
+    ui->SAP_image_label_original->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            tmp=SAPFramesBack.at(0);
-            ui->SAP_image_label_back->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
+    tmp=SAPFramesBack.at(0);
+    ui->SAP_image_label_back->setPixmap(QPixmap::fromImage(QImage(tmp.data, tmp.cols, tmp.rows, tmp.step, QImage::Format_RGB888)));
 
-            //QThread::msleep(100);
-            //QTest::qSleep(100);
+    //QThread::msleep(100);
+    //QTest::qSleep(100);
 
-    cout << "index :" << SAPIndex << endl;
     SAPIndex++;
     if(SAPIndex>=SAPFramesFore.size() || SAPIndex>=SAPFramesOriginal.size() || SAPIndex>=SAPFramesMask.size())
     {
-        cout << SAPFramesFore.size() << endl << SAPFramesMask.size() << endl << SAPFramesOriginal.size() << endl << SAPFramesBack.size() << endl;
         SAPIndex=0;
         timerSAP->stop();
         ui->controlSAP->setEnabled(false);
+        ui->SAPChooser->setEnabled(true);
     }
 }
 
@@ -498,12 +866,84 @@ void Chooser::on_controlSAP_clicked(bool checked)
     if(timerSAP->isActive())
     {
         timerSAP->stop();
+        ui->controlSAP->setIcon(QIcon("Resources/MediaControl/Play-26.png"));
+        ui->controlSAP->setIconSize(QSize(26,26));
     }
     else
     {
         timerSAP->start(30);
+        ui->controlSAP->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+        ui->controlSAP->setIconSize(QSize(26,26));
     }
 }
+
+
+void Chooser::on_speedUp_SAP_clicked(bool checked)
+{
+    timerSAP->stop();
+    this->speedSAP-=10;
+    if(speedSAP<=5)
+        speedSAP=5;
+    timerSAP->start(speedSAP);
+}
+
+void Chooser::on_speedDown_SAP_clicked(bool checked)
+{
+    timerSAP->stop();
+    this->speedSAP+=10;
+    if(speedSAP>=100)
+        speedSAP=100;
+    timerSAP->start(speedSAP);
+}
+
+void Chooser::on_deccel_SAP_clicked(bool checked)
+{
+    timerSAP->stop();
+    SAPIndex-=15;
+    if(SAPIndex<0)
+        SAPIndex=0;
+    timerSAP->start(speedSAP);
+}
+
+void Chooser::on_accel_SAP_clicked(bool checked)
+{
+    timerSAP->stop();
+    SAPIndex+=15;
+    if(SAPIndex>=SAPFramesOriginal.size())
+        SAPIndex=SAPFramesOriginal.size()-1;
+    timerSAP->start(speedSAP);
+}
+
+void Chooser::on_begin_SAP_clicked(bool checked)
+{
+    timerSAP->stop();
+     SAPIndex=0;
+     ui->controlSAP->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+     ui->controlSAP->setEnabled(true);
+     ui->accel_SAP->setEnabled(true);
+     ui->deccel_SAP->setEnabled(true);
+     ui->speedDown_SAP->setEnabled(true);
+     ui->speedUp_SAP->setEnabled(true);
+     ui->SAPChooser->setEnabled(false);
+    timerSAP->start(speedSAP);
+}
+
+void Chooser::on_end_SAP_clicked(bool checked)
+{
+    timerSAP->stop();
+     SAPIndex=SAPFramesOriginal.size()-1;
+     ui->SAPChooser->setEnabled(true);
+     ui->accel_SAP->setEnabled(false);
+     ui->deccel_SAP->setEnabled(false);
+     ui->speedDown_SAP->setEnabled(false);
+     ui->speedUp_SAP->setEnabled(false);
+    timerSAP->start(speedSAP);
+}
+
+
+
+
+
 
 
 /////////////////////////////////////
@@ -612,26 +1052,26 @@ void Chooser::moyenne_Reccur(string path, double alpha,Chooser* c)
         cvtColor(I8UC3,maskRGB,CV_BGR2RGB);
         c->recFramesMask.push_back(maskRGB);
 
-//        images.push_back(original);
-//        images.push_back(foreground);
-//        images.push_back(I8UC3);
+        //        images.push_back(original);
+        //        images.push_back(foreground);
+        //        images.push_back(I8UC3);
         //showMultipleImage_8UC3(images,"Results",c);
         //imshow("forground",foreground);
         //imshow("Masque", I);
-//        if(waitKey(0)=='\33')
-//        {
-//            destroyAllWindows();
-//            return;
+        //        if(waitKey(0)=='\33')
+        //        {
+        //            destroyAllWindows();
+        //            return;
 
-//        }
+        //        }
     }
     v.release();
-//    if(waitKey(0)=='\33')
-//    {
-//        destroyAllWindows();
-//        return;
+    //    if(waitKey(0)=='\33')
+    //    {
+    //        destroyAllWindows();
+    //        return;
 
-//    }
+    //    }
 }
 
 
@@ -672,8 +1112,8 @@ void Chooser::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
         if (!original.empty() )
         {
 
-//            imshow("d",tmp);
-//            waitKey(0);
+            //            imshow("d",tmp);
+            //            waitKey(0);
             //images.push_back(original);
             foreGround = Mat::zeros(X.rows, X.cols, CV_8UC3);
             //begin main function
@@ -717,9 +1157,9 @@ void Chooser::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
             cvtColor(original,originalRGB , CV_BGR2RGB);
             c->gradFramesOriginal.push_back(originalRGB);
 
-//            images.push_back(foreGround);
-//            images.push_back(mask8UC3);
-//            //The most important piece of code ever
+            //            images.push_back(foreGround);
+            //            images.push_back(mask8UC3);
+            //            //The most important piece of code ever
             //Mat dst=showMultipleImage_8UC3(images,"hhh");
             //End of the most import piece of coder ever
             //QThread::msleep();
@@ -730,16 +1170,16 @@ void Chooser::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
             Mat foreRGB;
             cvtColor(foreGround,foreRGB , CV_BGR2RGB);
             c->gradFramesFore.push_back(foreRGB);
-//            imshow("ddd",tmp);
-//            waitKey(0);
+            //            imshow("ddd",tmp);
+            //            waitKey(0);
 
             Chooser::drawBoxesRGB_8UC3(&mask,mask);
             Mat maskRGB;
             cvtColor(mask8UC3,maskRGB , CV_BGR2RGB);
             c->gradFramesMask.push_back(maskRGB);
             //c->gradFrames.
-//            imshow("dd",tmp);
-//            waitKey(0);
+            //            imshow("dd",tmp);
+            //            waitKey(0);
         }
         else
         {
@@ -764,10 +1204,10 @@ void Chooser::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
         }
 
     }
-//    imshow("fore",c->gradFramesFore.at(0));
-//    imshow("mask",c->gradFramesMask.at(0));
-//    imshow("ori",c->gradFramesOriginal.at(0));
-//    waitKey(0);
+    //    imshow("fore",c->gradFramesFore.at(0));
+    //    imshow("mask",c->gradFramesMask.at(0));
+    //    imshow("ori",c->gradFramesOriginal.at(0));
+    //    waitKey(0);
     capture.release();
     if(waitKey(0)=='\33')
     {
@@ -981,8 +1421,8 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
     cvtColor(background,backRGB , CV_BGR2RGB);
     c->arithFramesBack.push_back(backRGB);
 
-//    imshow("back",c->arithFramesBack.at(0));
-//    waitKey(0);
+    //    imshow("back",c->arithFramesBack.at(0));
+    //    waitKey(0);
 
     cvtColor(background, backGroundGray, COLOR_BGR2GRAY);
     backGroundGray.convertTo(backGroundGray, CV_32F);
@@ -1010,32 +1450,32 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
             //original=shadowRemoval_HSV(&original,background,c);
             //imshow("without shadow ",original);
             //waitKey(0);
-//            for (int i = 0; i < foreGround.rows; i++)
-//            {
-//                for (int j = 0; j < foreGround.cols; j++)
-//                {
-//                    double B = foreGround.at<Vec3f>(i, j)[0];
-//                    double G = foreGround.at<Vec3f>(i, j)[1];
-//                    double R = foreGround.at<Vec3f>(i, j)[2];
-//                    Rnorme = (double)(R / (R + G + B));
-//                    if (Rnorme < 20)
-//                    {
-//                        double CD = abs(foreGroundGray.at<float>(i, j) -backGroundGray.at<float>(i, j));
-//                        //cout << "CD = " << CD << endl;
-//                        if (CD < 1)
-//                        {
-//                            double BD = (double) ((foreGroundGray.at<float>(i, j)*backGroundGray.at<float>(i, j)) / pow(backGroundGray.at<float>(i, j), 2));
-//                            cout << "BD = " << BD << endl;
-//                            if (BD < 1.25f || BD > 1.5f)
-//                            {
-//                                foreGround.at<Vec3f>(i, j)[0]=0;
-//                                foreGround.at<Vec3f>(i, j)[1]=0;
-//                                foreGround.at<Vec3f>(i, j)[2]=0;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+            //            for (int i = 0; i < foreGround.rows; i++)
+            //            {
+            //                for (int j = 0; j < foreGround.cols; j++)
+            //                {
+            //                    double B = foreGround.at<Vec3f>(i, j)[0];
+            //                    double G = foreGround.at<Vec3f>(i, j)[1];
+            //                    double R = foreGround.at<Vec3f>(i, j)[2];
+            //                    Rnorme = (double)(R / (R + G + B));
+            //                    if (Rnorme < 20)
+            //                    {
+            //                        double CD = abs(foreGroundGray.at<float>(i, j) -backGroundGray.at<float>(i, j));
+            //                        //cout << "CD = " << CD << endl;
+            //                        if (CD < 1)
+            //                        {
+            //                            double BD = (double) ((foreGroundGray.at<float>(i, j)*backGroundGray.at<float>(i, j)) / pow(backGroundGray.at<float>(i, j), 2));
+            //                            cout << "BD = " << BD << endl;
+            //                            if (BD < 1.25f || BD > 1.5f)
+            //                            {
+            //                                foreGround.at<Vec3f>(i, j)[0]=0;
+            //                                foreGround.at<Vec3f>(i, j)[1]=0;
+            //                                foreGround.at<Vec3f>(i, j)[2]=0;
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
 
             foreGround.convertTo(foreGround, CV_8UC3);
             Chooser::drawBoxesRGB_8UC3(&original,diff);
@@ -1058,23 +1498,23 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
 
 
 
-//            Mat diff8UC3;
-//            cvtColor(diff,diff8UC3,COLOR_GRAY2BGR);
-//            images.push_back(original);
-//            images.push_back(foreGround);
-//            images.push_back(diff8UC3);
+            //            Mat diff8UC3;
+            //            cvtColor(diff,diff8UC3,COLOR_GRAY2BGR);
+            //            images.push_back(original);
+            //            images.push_back(foreGround);
+            //            images.push_back(diff8UC3);
             //showMultipleImage_8UC3(images,"Results",c);
             //images.clear();
             //            imshow("original", original);
             //            imshow("foreground", foreGround);
             //            imshow("diff", diff);
             //            imshow("final2", tmp);
-//            if(waitKey(0)=='\33')
-//            {
-//                destroyAllWindows();
-//                return;
+            //            if(waitKey(0)=='\33')
+            //            {
+            //                destroyAllWindows();
+            //                return;
 
-//            }
+            //            }
             diff.convertTo(diff, CV_32F);
 
         }
@@ -1085,12 +1525,12 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
         }
     }
     v.release();
-//    if(waitKey(0)=='\33')
-//    {
-//        destroyAllWindows();
-//        return;
+    //    if(waitKey(0)=='\33')
+    //    {
+    //        destroyAllWindows();
+    //        return;
 
-//    }
+    //    }
 
 }
 
@@ -1267,9 +1707,9 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
             cvtColor(mask,maskRGB,CV_BGR2RGB);
             c->SAPFramesMask.push_back(maskRGB);
 
-//            images.push_back(foreGround);
-//            images.push_back(mask);
-//            //imshow("original",Icpy);
+            //            images.push_back(foreGround);
+            //            images.push_back(mask);
+            //            //imshow("original",Icpy);
             //imshow("mask",mask);
             Mat non_mask;
             bitwise_not(mask,non_mask);
@@ -1291,12 +1731,12 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
 
             //imshow("foreground",foreGround);
             //Chooser::showMultipleImage_8UC3(images,"Results",c);
-//            if(waitKey(0)=='\33')
-//            {
-//                destroyAllWindows();
-//                return;
+            //            if(waitKey(0)=='\33')
+            //            {
+            //                destroyAllWindows();
+            //                return;
 
-//            }
+            //            }
             Moy.convertTo(Moy,CV_32SC3);
 
 
@@ -1309,12 +1749,12 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
     }
     capt.release();
     //destroyAllWindows();
-//    if(waitKey(0)=='\33')
-//    {
-//        destroyAllWindows();
-//        return;
+    //    if(waitKey(0)=='\33')
+    //    {
+    //        destroyAllWindows();
+    //        return;
 
-//    }
+    //    }
 }
 
 
@@ -1428,9 +1868,9 @@ void Chooser::SD2(std::string path,int mul,Chooser*c )
             c->SDFramesFore.push_back(foreGroundRGB);
 
 
-//            images.push_back(original);
-//            images.push_back(foreGround);
-//            //imshow("M(t)",M);
+            //            images.push_back(original);
+            //            images.push_back(foreGround);
+            //            //imshow("M(t)",M);
             //imshow("V",V);
             Mat E8UC3;
             cvtColor(E,E8UC3,COLOR_GRAY2BGR);
@@ -1444,12 +1884,12 @@ void Chooser::SD2(std::string path,int mul,Chooser*c )
             cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
 
 
-//            if(waitKey(0)=='\33')
-//            {
-//                destroyAllWindows();
-//                return;
+            //            if(waitKey(0)=='\33')
+            //            {
+            //                destroyAllWindows();
+            //                return;
 
-//            }
+            //            }
         }
         else
         {
@@ -1457,12 +1897,12 @@ void Chooser::SD2(std::string path,int mul,Chooser*c )
             break;
         }
     }
-//    if(waitKey(0)=='\33')
-//    {
-//        destroyAllWindows();
-//        return;
+    //    if(waitKey(0)=='\33')
+    //    {
+    //        destroyAllWindows();
+    //        return;
 
-//    }
+    //    }
 }
 
 
@@ -1630,9 +2070,9 @@ cv::Mat Chooser::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Chooser* c)
 
     //convertir l'image d'entrée en HSV
     cvtColor(*image,imageHSV,CV_BGR2HSV);
-     imageHSV.convertTo(imageHSV,CV_8UC3);
+    imageHSV.convertTo(imageHSV,CV_8UC3);
     cvtColor(backGround,backGroundHSV,CV_BGR2HSV);
-     backGroundHSV.convertTo(backGroundHSV,CV_8UC3);
+    backGroundHSV.convertTo(backGroundHSV,CV_8UC3);
 
     absdiff(imageHSV,backGroundHSV,dif);
     //calcul de l'histogramme de valeur pour l'image de fond et l'image courante
@@ -1779,10 +2219,10 @@ cv::Mat Chooser::getMultipleImage_8UC3(std::vector<cv::Mat> &images,char* window
         cvResetImageROI(dst);
 
         // Copy fourth image to dst
-           cvSetImageROI(dst, cvRect(iplImages.at(3)->width, iplImages.at(3)->height,iplImages.at(3)->width,iplImages.at(3)->height) );
-           cvCopy(iplImages.at(3),dst,NULL);
-           cvResetImageROI(dst);
-           result =cvarrToMat(dst);
+        cvSetImageROI(dst, cvRect(iplImages.at(3)->width, iplImages.at(3)->height,iplImages.at(3)->width,iplImages.at(3)->height) );
+        cvCopy(iplImages.at(3),dst,NULL);
+        cvResetImageROI(dst);
+        result =cvarrToMat(dst);
         ////
 
     }
@@ -1893,6 +2333,12 @@ Mat Chooser::hist(Mat gray)
 
     return histImage;
 }
+
+
+
+
+
+
 
 
 
