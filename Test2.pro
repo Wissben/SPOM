@@ -17,17 +17,20 @@ SOURCES += main.cpp\
     selector.cpp \
     method.cpp \
     mymath.cpp \
-    chooser.cpp
+    chooser.cpp \
+    welcome.cpp
 
 HEADERS  += mainwindow.h \
     selector.h \
     method.h \
     mymath.h \
-    chooser.h
+    chooser.h \
+    welcome.h
 
 FORMS    += mainwindow.ui \
     selector.ui \
-    chooser.ui
+    chooser.ui \
+    welcome.ui
 
 INCLUDEPATH += "/usr/local/include/"
 

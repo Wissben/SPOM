@@ -8,20 +8,30 @@
     <x>0</x>
     <y>0</y>
     <width>1300</width>
-    <height>1000</height>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_6">
-   <item row="0" column="0">
+   <item row="2" column="0">
+    <widget class="QPushButton" name="exit">
+     <property name="text">
+      <string>Quitter</string>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="contextMenuPolicy">
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <property name="tabsClosable">
       <bool>false</bool>
@@ -36,8 +46,8 @@
       <widget class="QPushButton" name="gradiantChooser">
        <property name="geometry">
         <rect>
-         <x>110</x>
-         <y>80</y>
+         <x>100</x>
+         <y>40</y>
          <width>141</width>
          <height>31</height>
         </rect>
@@ -53,10 +63,10 @@
       <widget class="QWidget" name="gridLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>100</x>
-         <y>130</y>
+         <x>90</x>
+         <y>80</y>
          <width>160</width>
-         <height>105</height>
+         <height>121</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout">
@@ -80,7 +90,17 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0" alignment="Qt::AlignHCenter">
+        <item row="4" column="0">
+         <widget class="QProgressBar" name="progressBarGrad">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="invertedAppearance">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
          <widget class="QLabel" name="labelGradAlphaValue">
           <property name="text">
            <string/>
@@ -93,7 +113,7 @@
        <property name="geometry">
         <rect>
          <x>390</x>
-         <y>30</y>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -112,7 +132,7 @@
        <property name="geometry">
         <rect>
          <x>760</x>
-         <y>30</y>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -128,7 +148,7 @@
        <property name="geometry">
         <rect>
          <x>575</x>
-         <y>350</y>
+         <y>320</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -144,7 +164,7 @@
        <property name="geometry">
         <rect>
          <x>500</x>
-         <y>300</y>
+         <y>270</y>
          <width>101</width>
          <height>20</height>
         </rect>
@@ -157,7 +177,7 @@
        <property name="geometry">
         <rect>
          <x>840</x>
-         <y>300</y>
+         <y>270</y>
          <width>161</width>
          <height>20</height>
         </rect>
@@ -170,7 +190,7 @@
        <property name="geometry">
         <rect>
          <x>700</x>
-         <y>610</y>
+         <y>580</y>
          <width>81</width>
          <height>20</height>
         </rect>
@@ -310,41 +330,121 @@
         </item>
        </layout>
       </widget>
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="geometry">
+        <rect>
+         <x>390</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_2">
+       <property name="geometry">
+        <rect>
+         <x>760</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_3">
+       <property name="geometry">
+        <rect>
+         <x>575</x>
+         <y>320</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label_progressGrad">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>210</y>
+         <width>161</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>161</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="midLineWidth">
+        <number>0</number>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::AutoText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <zorder>gradiantChooser</zorder>
+      <zorder>gridLayoutWidget</zorder>
+      <zorder>label</zorder>
+      <zorder>label_2</zorder>
+      <zorder>label_3</zorder>
+      <zorder>layoutWidget</zorder>
+      <zorder>scrollArea</zorder>
+      <zorder>scrollArea_2</zorder>
+      <zorder>scrollArea_3</zorder>
+      <zorder>grad_image_label_foreground</zorder>
+      <zorder>grad_image_label_mask</zorder>
+      <zorder>grad_image_label_original</zorder>
+      <zorder>label_progressGrad</zorder>
      </widget>
      <widget class="QWidget" name="tabMoyArith">
       <attribute name="title">
        <string>Moyenne arithmétique</string>
       </attribute>
-      <widget class="QPushButton" name="arithChooser">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>110</y>
-         <width>141</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string> Choisir la video</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>Resources/Multiple Choice-26.png</normaloff>Resources/Multiple Choice-26.png</iconset>
-       </property>
-      </widget>
-      <widget class="QProgressBar" name="backgroundProgressArith">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>180</y>
-         <width>151</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
@@ -595,6 +695,159 @@
         <string>Avant plan</string>
        </property>
       </widget>
+      <widget class="QScrollArea" name="scrollArea_4">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_4">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_5">
+       <property name="geometry">
+        <rect>
+         <x>790</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_5">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_6">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>320</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_6">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_7">
+       <property name="geometry">
+        <rect>
+         <x>790</x>
+         <y>320</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_7">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label_progressArith">
+       <property name="geometry">
+        <rect>
+         <x>65</x>
+         <y>210</y>
+         <width>191</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>110</y>
+         <width>161</width>
+         <height>84</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="arithChooser">
+          <property name="text">
+           <string> Choisir la video</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>Resources/Multiple Choice-26.png</normaloff>Resources/Multiple Choice-26.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="backgroundProgressArith">
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <zorder>layoutWidget</zorder>
+      <zorder>layoutWidget</zorder>
+      <zorder>label_7</zorder>
+      <zorder>label_10</zorder>
+      <zorder>label_8</zorder>
+      <zorder>label_9</zorder>
+      <zorder>scrollArea_4</zorder>
+      <zorder>scrollArea_5</zorder>
+      <zorder>scrollArea_6</zorder>
+      <zorder>scrollArea_7</zorder>
+      <zorder>arith_image_label_back</zorder>
+      <zorder>arith_image_label_foreground</zorder>
+      <zorder>arith_image_label_mask</zorder>
+      <zorder>arith_image_label_original</zorder>
+      <zorder>label_progressArith</zorder>
      </widget>
      <widget class="QWidget" name="tabMoyRec">
       <attribute name="title">
@@ -604,7 +857,7 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>80</y>
+         <y>20</y>
          <width>141</width>
          <height>31</height>
         </rect>
@@ -621,9 +874,9 @@
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>130</y>
+         <y>60</y>
          <width>160</width>
-         <height>97</height>
+         <height>121</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -913,6 +1166,131 @@
         <string>Avant plan</string>
        </property>
       </widget>
+      <widget class="QScrollArea" name="scrollArea_8">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_8">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_9">
+       <property name="geometry">
+        <rect>
+         <x>790</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_9">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_10">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>320</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_10">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_11">
+       <property name="geometry">
+        <rect>
+         <x>790</x>
+         <y>320</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_11">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label_progressRec">
+       <property name="geometry">
+        <rect>
+         <x>65</x>
+         <y>190</y>
+         <width>191</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <zorder>recChooser</zorder>
+      <zorder>gridLayoutWidget_2</zorder>
+      <zorder>layoutWidget_2</zorder>
+      <zorder>label_11</zorder>
+      <zorder>label_12</zorder>
+      <zorder>label_13</zorder>
+      <zorder>label_14</zorder>
+      <zorder>scrollArea_8</zorder>
+      <zorder>scrollArea_9</zorder>
+      <zorder>scrollArea_10</zorder>
+      <zorder>scrollArea_11</zorder>
+      <zorder>rec_image_label_foreground</zorder>
+      <zorder>rec_image_label_back</zorder>
+      <zorder>rec_image_label_mask</zorder>
+      <zorder>rec_image_label_original</zorder>
+      <zorder>label_progressRec</zorder>
+      <zorder>label_progressRec</zorder>
      </widget>
      <widget class="QWidget" name="tabMoySD">
       <attribute name="title">
@@ -922,7 +1300,7 @@
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>110</y>
+         <y>40</y>
          <width>141</width>
          <height>31</height>
         </rect>
@@ -939,9 +1317,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>180</y>
+         <y>80</y>
          <width>160</width>
-         <height>53</height>
+         <height>109</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
@@ -962,13 +1340,20 @@
           </property>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QProgressBar" name="progressBarSD">
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QLabel" name="SD_image_label_foreground">
        <property name="geometry">
         <rect>
          <x>535</x>
-         <y>350</y>
+         <y>320</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -976,12 +1361,15 @@
        <property name="text">
         <string/>
        </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QLabel" name="SD_image_label_original">
        <property name="geometry">
         <rect>
          <x>350</x>
-         <y>30</y>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -1000,7 +1388,7 @@
        <property name="geometry">
         <rect>
          <x>720</x>
-         <y>30</y>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -1008,12 +1396,15 @@
        <property name="text">
         <string/>
        </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QLabel" name="label_4">
        <property name="geometry">
         <rect>
          <x>460</x>
-         <y>300</y>
+         <y>270</y>
          <width>101</width>
          <height>20</height>
         </rect>
@@ -1026,7 +1417,7 @@
        <property name="geometry">
         <rect>
          <x>800</x>
-         <y>300</y>
+         <y>270</y>
          <width>161</width>
          <height>20</height>
         </rect>
@@ -1039,7 +1430,7 @@
        <property name="geometry">
         <rect>
          <x>660</x>
-         <y>610</y>
+         <y>580</y>
          <width>81</width>
          <height>20</height>
         </rect>
@@ -1179,6 +1570,104 @@
         </item>
        </layout>
       </widget>
+      <widget class="QScrollArea" name="scrollArea_12">
+       <property name="geometry">
+        <rect>
+         <x>720</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_12">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_13">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_13">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_14">
+       <property name="geometry">
+        <rect>
+         <x>535</x>
+         <y>320</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_14">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label_progressSD">
+       <property name="geometry">
+        <rect>
+         <x>55</x>
+         <y>200</y>
+         <width>191</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <zorder>SDChooser</zorder>
+      <zorder>gridLayoutWidget_3</zorder>
+      <zorder>label_4</zorder>
+      <zorder>label_5</zorder>
+      <zorder>label_6</zorder>
+      <zorder>layoutWidget_3</zorder>
+      <zorder>scrollArea_12</zorder>
+      <zorder>scrollArea_13</zorder>
+      <zorder>scrollArea_14</zorder>
+      <zorder>SD_image_label_original</zorder>
+      <zorder>SD_image_label_foreground</zorder>
+      <zorder>SD_image_label_mask</zorder>
+      <zorder>label_progressSD</zorder>
      </widget>
      <widget class="QWidget" name="tabSAP">
       <attribute name="title">
@@ -1188,7 +1677,7 @@
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>70</y>
+         <y>40</y>
          <width>141</width>
          <height>31</height>
         </rect>
@@ -1205,9 +1694,9 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>130</y>
+         <y>80</y>
          <width>160</width>
-         <height>154</height>
+         <height>178</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -1341,7 +1830,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>300</y>
+         <y>320</y>
          <width>311</width>
          <height>34</height>
         </rect>
@@ -1520,6 +2009,130 @@
         <string>Masque de mouvement</string>
        </property>
       </widget>
+      <widget class="QScrollArea" name="scrollArea_15">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_15">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_16">
+       <property name="geometry">
+        <rect>
+         <x>790</x>
+         <y>0</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_16">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_17">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>320</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_17">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea_18">
+       <property name="geometry">
+        <rect>
+         <x>790</x>
+         <y>320</y>
+         <width>320</width>
+         <height>240</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_18">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>318</width>
+          <height>238</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label_progressSAP">
+       <property name="geometry">
+        <rect>
+         <x>75</x>
+         <y>270</y>
+         <width>191</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <zorder>SAPChooser</zorder>
+      <zorder>gridLayoutWidget_4</zorder>
+      <zorder>layoutWidget_4</zorder>
+      <zorder>label_15</zorder>
+      <zorder>label_16</zorder>
+      <zorder>label_17</zorder>
+      <zorder>label_18</zorder>
+      <zorder>scrollArea_15</zorder>
+      <zorder>scrollArea_16</zorder>
+      <zorder>scrollArea_17</zorder>
+      <zorder>scrollArea_18</zorder>
+      <zorder>SAP_image_label_original</zorder>
+      <zorder>SAP_image_label_mask</zorder>
+      <zorder>SAP_image_label_back</zorder>
+      <zorder>SAP_image_label_foreground</zorder>
+      <zorder>label_progressSAP</zorder>
      </widget>
     </widget>
    </item>

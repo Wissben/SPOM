@@ -18,18 +18,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
 
-    void on_pushButton_2_clicked();
 
-    void on_spinBox_editingFinished();
-
-    void on_alphaChooser_editingFinished();
-
-    void on_alphaChooser_valueChanged(int arg1);
+    void on_pushButton_3_clicked();
 
 public slots:
-    void processFrameAndUpdateGUI();
+
 
 private:
     Ui::MainWindow *ui;

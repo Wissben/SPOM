@@ -34,7 +34,7 @@ public:
 
     static void SD2(std::string path,int mul,Chooser* c);
 
-    static cv::Mat getBackGroundRGB_8UC3(std::string path,QProgressBar* s);
+    static cv::Mat getBackGroundRGB_8UC3(std::string path,Chooser* c ,QProgressBar* s);
 
     static cv::Mat getForeGroundRGB_8UC3(cv::Mat image , cv::Mat mask);
 
@@ -48,9 +48,6 @@ public:
 
 
 private slots:
-    void on_gradiantMorph_clicked();
-
-    void on_pushButton_clicked();
 
     void on_alphaChooserSAP_valueChanged(int value);
 
@@ -61,8 +58,6 @@ private slots:
     void on_gradiantChooser_clicked();
 
     void on_alphaChooserGrad_valueChanged(int value);
-
-    void on_horizontalSlider_valueChanged(int value);
 
     void on_horizontalSlider_sliderReleased();
 
@@ -145,6 +140,8 @@ private slots:
     void on_begin_SAP_clicked(bool checked);
 
     void on_end_SAP_clicked(bool checked);
+
+    void on_exit_clicked();
 
 public:
     Ui::Chooser *ui;

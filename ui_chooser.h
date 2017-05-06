@@ -19,9 +19,11 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -30,6 +32,7 @@ class Ui_Chooser
 {
 public:
     QGridLayout *gridLayout_6;
+    QPushButton *exit;
     QTabWidget *tabWidget;
     QWidget *tabGradiantMorph;
     QPushButton *gradiantChooser;
@@ -37,6 +40,7 @@ public:
     QGridLayout *gridLayout;
     QSlider *alphaChooserGrad;
     QLabel *labelGradAlpha;
+    QProgressBar *progressBarGrad;
     QLabel *labelGradAlphaValue;
     QLabel *grad_image_label_original;
     QLabel *grad_image_label_mask;
@@ -53,9 +57,14 @@ public:
     QPushButton *speedUp;
     QPushButton *accel;
     QPushButton *end;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
+    QScrollArea *scrollArea_2;
+    QWidget *scrollAreaWidgetContents_2;
+    QScrollArea *scrollArea_3;
+    QWidget *scrollAreaWidgetContents_3;
+    QLabel *label_progressGrad;
     QWidget *tabMoyArith;
-    QPushButton *arithChooser;
-    QProgressBar *backgroundProgressArith;
     QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *begin_Arith;
@@ -73,6 +82,19 @@ public:
     QLabel *label_10;
     QLabel *label_8;
     QLabel *label_9;
+    QScrollArea *scrollArea_4;
+    QWidget *scrollAreaWidgetContents_4;
+    QScrollArea *scrollArea_5;
+    QWidget *scrollAreaWidgetContents_5;
+    QScrollArea *scrollArea_6;
+    QWidget *scrollAreaWidgetContents_6;
+    QScrollArea *scrollArea_7;
+    QWidget *scrollAreaWidgetContents_7;
+    QLabel *label_progressArith;
+    QWidget *layoutWidget2;
+    QVBoxLayout *verticalLayout;
+    QPushButton *arithChooser;
+    QProgressBar *backgroundProgressArith;
     QWidget *tabMoyRec;
     QPushButton *recChooser;
     QWidget *gridLayoutWidget_2;
@@ -98,12 +120,22 @@ public:
     QLabel *label_12;
     QLabel *label_13;
     QLabel *label_14;
+    QScrollArea *scrollArea_8;
+    QWidget *scrollAreaWidgetContents_8;
+    QScrollArea *scrollArea_9;
+    QWidget *scrollAreaWidgetContents_9;
+    QScrollArea *scrollArea_10;
+    QWidget *scrollAreaWidgetContents_10;
+    QScrollArea *scrollArea_11;
+    QWidget *scrollAreaWidgetContents_11;
+    QLabel *label_progressRec;
     QWidget *tabMoySD;
     QPushButton *SDChooser;
     QWidget *gridLayoutWidget_3;
     QGridLayout *gridLayout_3;
     QSpinBox *NChooser;
     QLabel *labelSDN;
+    QProgressBar *progressBarSD;
     QLabel *SD_image_label_foreground;
     QLabel *SD_image_label_original;
     QLabel *SD_image_label_mask;
@@ -119,6 +151,13 @@ public:
     QPushButton *speedUp_SD;
     QPushButton *accel_SD;
     QPushButton *end_SD;
+    QScrollArea *scrollArea_12;
+    QWidget *scrollAreaWidgetContents_12;
+    QScrollArea *scrollArea_13;
+    QWidget *scrollAreaWidgetContents_13;
+    QScrollArea *scrollArea_14;
+    QWidget *scrollAreaWidgetContents_14;
+    QLabel *label_progressSD;
     QWidget *tabSAP;
     QPushButton *SAPChooser;
     QWidget *gridLayoutWidget_4;
@@ -146,14 +185,29 @@ public:
     QLabel *label_16;
     QLabel *label_17;
     QLabel *label_18;
+    QScrollArea *scrollArea_15;
+    QWidget *scrollAreaWidgetContents_15;
+    QScrollArea *scrollArea_16;
+    QWidget *scrollAreaWidgetContents_16;
+    QScrollArea *scrollArea_17;
+    QWidget *scrollAreaWidgetContents_17;
+    QScrollArea *scrollArea_18;
+    QWidget *scrollAreaWidgetContents_18;
+    QLabel *label_progressSAP;
 
     void setupUi(QWidget *Chooser)
     {
         if (Chooser->objectName().isEmpty())
             Chooser->setObjectName(QStringLiteral("Chooser"));
-        Chooser->resize(1300, 1000);
+        Chooser->resize(1300, 768);
         gridLayout_6 = new QGridLayout(Chooser);
         gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
+        exit = new QPushButton(Chooser);
+        exit->setObjectName(QStringLiteral("exit"));
+        exit->setFlat(true);
+
+        gridLayout_6->addWidget(exit, 2, 0, 1, 1);
+
         tabWidget = new QTabWidget(Chooser);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
@@ -163,13 +217,13 @@ public:
         tabGradiantMorph->setMouseTracking(false);
         gradiantChooser = new QPushButton(tabGradiantMorph);
         gradiantChooser->setObjectName(QStringLiteral("gradiantChooser"));
-        gradiantChooser->setGeometry(QRect(110, 80, 141, 31));
+        gradiantChooser->setGeometry(QRect(100, 40, 141, 31));
         QIcon icon;
         icon.addFile(QStringLiteral("Resources/Multiple Choice-26.png"), QSize(), QIcon::Normal, QIcon::Off);
         gradiantChooser->setIcon(icon);
         gridLayoutWidget = new QWidget(tabGradiantMorph);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(100, 130, 160, 105));
+        gridLayoutWidget->setGeometry(QRect(90, 80, 160, 121));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -186,33 +240,40 @@ public:
 
         gridLayout->addWidget(labelGradAlpha, 3, 0, 1, 1, Qt::AlignHCenter);
 
+        progressBarGrad = new QProgressBar(gridLayoutWidget);
+        progressBarGrad->setObjectName(QStringLiteral("progressBarGrad"));
+        progressBarGrad->setValue(0);
+        progressBarGrad->setInvertedAppearance(false);
+
+        gridLayout->addWidget(progressBarGrad, 4, 0, 1, 1);
+
         labelGradAlphaValue = new QLabel(gridLayoutWidget);
         labelGradAlphaValue->setObjectName(QStringLiteral("labelGradAlphaValue"));
 
-        gridLayout->addWidget(labelGradAlphaValue, 0, 0, 1, 1, Qt::AlignHCenter);
+        gridLayout->addWidget(labelGradAlphaValue, 0, 0, 1, 1);
 
         grad_image_label_original = new QLabel(tabGradiantMorph);
         grad_image_label_original->setObjectName(QStringLiteral("grad_image_label_original"));
-        grad_image_label_original->setGeometry(QRect(390, 30, 320, 240));
+        grad_image_label_original->setGeometry(QRect(390, 0, 320, 240));
         grad_image_label_original->setScaledContents(true);
         grad_image_label_original->setOpenExternalLinks(false);
         grad_image_label_mask = new QLabel(tabGradiantMorph);
         grad_image_label_mask->setObjectName(QStringLiteral("grad_image_label_mask"));
-        grad_image_label_mask->setGeometry(QRect(760, 30, 320, 240));
+        grad_image_label_mask->setGeometry(QRect(760, 0, 320, 240));
         grad_image_label_mask->setScaledContents(true);
         grad_image_label_foreground = new QLabel(tabGradiantMorph);
         grad_image_label_foreground->setObjectName(QStringLiteral("grad_image_label_foreground"));
-        grad_image_label_foreground->setGeometry(QRect(575, 350, 320, 240));
+        grad_image_label_foreground->setGeometry(QRect(575, 320, 320, 240));
         grad_image_label_foreground->setScaledContents(true);
         label = new QLabel(tabGradiantMorph);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(500, 300, 101, 20));
+        label->setGeometry(QRect(500, 270, 101, 20));
         label_2 = new QLabel(tabGradiantMorph);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(840, 300, 161, 20));
+        label_2->setGeometry(QRect(840, 270, 161, 20));
         label_3 = new QLabel(tabGradiantMorph);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(700, 610, 81, 20));
+        label_3->setGeometry(QRect(700, 580, 81, 20));
         layoutWidget = new QWidget(tabGradiantMorph);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(30, 263, 304, 34));
@@ -282,17 +343,53 @@ public:
 
         horizontalLayout->addWidget(end);
 
+        scrollArea = new QScrollArea(tabGradiantMorph);
+        scrollArea->setObjectName(QStringLiteral("scrollArea"));
+        scrollArea->setGeometry(QRect(390, 0, 320, 240));
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea->setWidget(scrollAreaWidgetContents);
+        scrollArea_2 = new QScrollArea(tabGradiantMorph);
+        scrollArea_2->setObjectName(QStringLiteral("scrollArea_2"));
+        scrollArea_2->setGeometry(QRect(760, 0, 320, 240));
+        scrollArea_2->setWidgetResizable(true);
+        scrollAreaWidgetContents_2 = new QWidget();
+        scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_2->setWidget(scrollAreaWidgetContents_2);
+        scrollArea_3 = new QScrollArea(tabGradiantMorph);
+        scrollArea_3->setObjectName(QStringLiteral("scrollArea_3"));
+        scrollArea_3->setGeometry(QRect(575, 320, 320, 240));
+        scrollArea_3->setWidgetResizable(true);
+        scrollAreaWidgetContents_3 = new QWidget();
+        scrollAreaWidgetContents_3->setObjectName(QStringLiteral("scrollAreaWidgetContents_3"));
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_3->setWidget(scrollAreaWidgetContents_3);
+        label_progressGrad = new QLabel(tabGradiantMorph);
+        label_progressGrad->setObjectName(QStringLiteral("label_progressGrad"));
+        label_progressGrad->setGeometry(QRect(90, 210, 161, 20));
+        label_progressGrad->setMaximumSize(QSize(161, 20));
+        label_progressGrad->setMidLineWidth(0);
+        label_progressGrad->setTextFormat(Qt::AutoText);
+        label_progressGrad->setAlignment(Qt::AlignCenter);
         tabWidget->addTab(tabGradiantMorph, QString());
+        gradiantChooser->raise();
+        gridLayoutWidget->raise();
+        label->raise();
+        label_2->raise();
+        label_3->raise();
+        layoutWidget->raise();
+        scrollArea->raise();
+        scrollArea_2->raise();
+        scrollArea_3->raise();
+        grad_image_label_foreground->raise();
+        grad_image_label_mask->raise();
+        grad_image_label_original->raise();
+        label_progressGrad->raise();
         tabMoyArith = new QWidget();
         tabMoyArith->setObjectName(QStringLiteral("tabMoyArith"));
-        arithChooser = new QPushButton(tabMoyArith);
-        arithChooser->setObjectName(QStringLiteral("arithChooser"));
-        arithChooser->setGeometry(QRect(80, 110, 141, 31));
-        arithChooser->setIcon(icon);
-        backgroundProgressArith = new QProgressBar(tabMoyArith);
-        backgroundProgressArith->setObjectName(QStringLiteral("backgroundProgressArith"));
-        backgroundProgressArith->setGeometry(QRect(80, 180, 151, 23));
-        backgroundProgressArith->setValue(0);
         layoutWidget1 = new QWidget(tabMoyArith);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
         layoutWidget1->setGeometry(QRect(10, 273, 304, 34));
@@ -379,16 +476,85 @@ public:
         label_9 = new QLabel(tabMoyArith);
         label_9->setObjectName(QStringLiteral("label_9"));
         label_9->setGeometry(QRect(550, 580, 81, 20));
+        scrollArea_4 = new QScrollArea(tabMoyArith);
+        scrollArea_4->setObjectName(QStringLiteral("scrollArea_4"));
+        scrollArea_4->setGeometry(QRect(420, 0, 320, 240));
+        scrollArea_4->setWidgetResizable(true);
+        scrollAreaWidgetContents_4 = new QWidget();
+        scrollAreaWidgetContents_4->setObjectName(QStringLiteral("scrollAreaWidgetContents_4"));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_4->setWidget(scrollAreaWidgetContents_4);
+        scrollArea_5 = new QScrollArea(tabMoyArith);
+        scrollArea_5->setObjectName(QStringLiteral("scrollArea_5"));
+        scrollArea_5->setGeometry(QRect(790, 0, 320, 240));
+        scrollArea_5->setWidgetResizable(true);
+        scrollAreaWidgetContents_5 = new QWidget();
+        scrollAreaWidgetContents_5->setObjectName(QStringLiteral("scrollAreaWidgetContents_5"));
+        scrollAreaWidgetContents_5->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_5->setWidget(scrollAreaWidgetContents_5);
+        scrollArea_6 = new QScrollArea(tabMoyArith);
+        scrollArea_6->setObjectName(QStringLiteral("scrollArea_6"));
+        scrollArea_6->setGeometry(QRect(420, 320, 320, 240));
+        scrollArea_6->setWidgetResizable(true);
+        scrollAreaWidgetContents_6 = new QWidget();
+        scrollAreaWidgetContents_6->setObjectName(QStringLiteral("scrollAreaWidgetContents_6"));
+        scrollAreaWidgetContents_6->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_6->setWidget(scrollAreaWidgetContents_6);
+        scrollArea_7 = new QScrollArea(tabMoyArith);
+        scrollArea_7->setObjectName(QStringLiteral("scrollArea_7"));
+        scrollArea_7->setGeometry(QRect(790, 320, 320, 240));
+        scrollArea_7->setWidgetResizable(true);
+        scrollAreaWidgetContents_7 = new QWidget();
+        scrollAreaWidgetContents_7->setObjectName(QStringLiteral("scrollAreaWidgetContents_7"));
+        scrollAreaWidgetContents_7->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_7->setWidget(scrollAreaWidgetContents_7);
+        label_progressArith = new QLabel(tabMoyArith);
+        label_progressArith->setObjectName(QStringLiteral("label_progressArith"));
+        label_progressArith->setGeometry(QRect(65, 210, 191, 20));
+        label_progressArith->setAlignment(Qt::AlignCenter);
+        layoutWidget2 = new QWidget(tabMoyArith);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(80, 110, 161, 84));
+        verticalLayout = new QVBoxLayout(layoutWidget2);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        arithChooser = new QPushButton(layoutWidget2);
+        arithChooser->setObjectName(QStringLiteral("arithChooser"));
+        arithChooser->setIcon(icon);
+
+        verticalLayout->addWidget(arithChooser);
+
+        backgroundProgressArith = new QProgressBar(layoutWidget2);
+        backgroundProgressArith->setObjectName(QStringLiteral("backgroundProgressArith"));
+        backgroundProgressArith->setValue(0);
+
+        verticalLayout->addWidget(backgroundProgressArith);
+
         tabWidget->addTab(tabMoyArith, QString());
+        layoutWidget->raise();
+        layoutWidget->raise();
+        label_7->raise();
+        label_10->raise();
+        label_8->raise();
+        label_9->raise();
+        scrollArea_4->raise();
+        scrollArea_5->raise();
+        scrollArea_6->raise();
+        scrollArea_7->raise();
+        arith_image_label_back->raise();
+        arith_image_label_foreground->raise();
+        arith_image_label_mask->raise();
+        arith_image_label_original->raise();
+        label_progressArith->raise();
         tabMoyRec = new QWidget();
         tabMoyRec->setObjectName(QStringLiteral("tabMoyRec"));
         recChooser = new QPushButton(tabMoyRec);
         recChooser->setObjectName(QStringLiteral("recChooser"));
-        recChooser->setGeometry(QRect(90, 80, 141, 31));
+        recChooser->setGeometry(QRect(90, 20, 141, 31));
         recChooser->setIcon(icon);
         gridLayoutWidget_2 = new QWidget(tabMoyRec);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(80, 130, 160, 97));
+        gridLayoutWidget_2->setGeometry(QRect(80, 60, 160, 121));
         gridLayout_2 = new QGridLayout(gridLayoutWidget_2);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -500,16 +666,69 @@ public:
         label_14 = new QLabel(tabMoyRec);
         label_14->setObjectName(QStringLiteral("label_14"));
         label_14->setGeometry(QRect(550, 580, 81, 20));
+        scrollArea_8 = new QScrollArea(tabMoyRec);
+        scrollArea_8->setObjectName(QStringLiteral("scrollArea_8"));
+        scrollArea_8->setGeometry(QRect(420, 0, 320, 240));
+        scrollArea_8->setWidgetResizable(true);
+        scrollAreaWidgetContents_8 = new QWidget();
+        scrollAreaWidgetContents_8->setObjectName(QStringLiteral("scrollAreaWidgetContents_8"));
+        scrollAreaWidgetContents_8->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_8->setWidget(scrollAreaWidgetContents_8);
+        scrollArea_9 = new QScrollArea(tabMoyRec);
+        scrollArea_9->setObjectName(QStringLiteral("scrollArea_9"));
+        scrollArea_9->setGeometry(QRect(790, 0, 320, 240));
+        scrollArea_9->setWidgetResizable(true);
+        scrollAreaWidgetContents_9 = new QWidget();
+        scrollAreaWidgetContents_9->setObjectName(QStringLiteral("scrollAreaWidgetContents_9"));
+        scrollAreaWidgetContents_9->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_9->setWidget(scrollAreaWidgetContents_9);
+        scrollArea_10 = new QScrollArea(tabMoyRec);
+        scrollArea_10->setObjectName(QStringLiteral("scrollArea_10"));
+        scrollArea_10->setGeometry(QRect(420, 320, 320, 240));
+        scrollArea_10->setWidgetResizable(true);
+        scrollAreaWidgetContents_10 = new QWidget();
+        scrollAreaWidgetContents_10->setObjectName(QStringLiteral("scrollAreaWidgetContents_10"));
+        scrollAreaWidgetContents_10->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_10->setWidget(scrollAreaWidgetContents_10);
+        scrollArea_11 = new QScrollArea(tabMoyRec);
+        scrollArea_11->setObjectName(QStringLiteral("scrollArea_11"));
+        scrollArea_11->setGeometry(QRect(790, 320, 320, 240));
+        scrollArea_11->setWidgetResizable(true);
+        scrollAreaWidgetContents_11 = new QWidget();
+        scrollAreaWidgetContents_11->setObjectName(QStringLiteral("scrollAreaWidgetContents_11"));
+        scrollAreaWidgetContents_11->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_11->setWidget(scrollAreaWidgetContents_11);
+        label_progressRec = new QLabel(tabMoyRec);
+        label_progressRec->setObjectName(QStringLiteral("label_progressRec"));
+        label_progressRec->setGeometry(QRect(65, 190, 191, 20));
+        label_progressRec->setAlignment(Qt::AlignCenter);
         tabWidget->addTab(tabMoyRec, QString());
+        recChooser->raise();
+        gridLayoutWidget_2->raise();
+        layoutWidget_2->raise();
+        label_11->raise();
+        label_12->raise();
+        label_13->raise();
+        label_14->raise();
+        scrollArea_8->raise();
+        scrollArea_9->raise();
+        scrollArea_10->raise();
+        scrollArea_11->raise();
+        rec_image_label_foreground->raise();
+        rec_image_label_back->raise();
+        rec_image_label_mask->raise();
+        rec_image_label_original->raise();
+        label_progressRec->raise();
+        label_progressRec->raise();
         tabMoySD = new QWidget();
         tabMoySD->setObjectName(QStringLiteral("tabMoySD"));
         SDChooser = new QPushButton(tabMoySD);
         SDChooser->setObjectName(QStringLiteral("SDChooser"));
-        SDChooser->setGeometry(QRect(80, 110, 141, 31));
+        SDChooser->setGeometry(QRect(80, 40, 141, 31));
         SDChooser->setIcon(icon);
         gridLayoutWidget_3 = new QWidget(tabMoySD);
         gridLayoutWidget_3->setObjectName(QStringLiteral("gridLayoutWidget_3"));
-        gridLayoutWidget_3->setGeometry(QRect(70, 180, 160, 53));
+        gridLayoutWidget_3->setGeometry(QRect(70, 80, 160, 109));
         gridLayout_3 = new QGridLayout(gridLayoutWidget_3);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         gridLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -525,26 +744,34 @@ public:
 
         gridLayout_3->addWidget(labelSDN, 1, 0, 1, 1, Qt::AlignHCenter);
 
+        progressBarSD = new QProgressBar(gridLayoutWidget_3);
+        progressBarSD->setObjectName(QStringLiteral("progressBarSD"));
+        progressBarSD->setValue(0);
+
+        gridLayout_3->addWidget(progressBarSD, 2, 0, 1, 1);
+
         SD_image_label_foreground = new QLabel(tabMoySD);
         SD_image_label_foreground->setObjectName(QStringLiteral("SD_image_label_foreground"));
-        SD_image_label_foreground->setGeometry(QRect(535, 350, 320, 240));
+        SD_image_label_foreground->setGeometry(QRect(535, 320, 320, 240));
+        SD_image_label_foreground->setScaledContents(true);
         SD_image_label_original = new QLabel(tabMoySD);
         SD_image_label_original->setObjectName(QStringLiteral("SD_image_label_original"));
-        SD_image_label_original->setGeometry(QRect(350, 30, 320, 240));
+        SD_image_label_original->setGeometry(QRect(350, 0, 320, 240));
         SD_image_label_original->setScaledContents(true);
         SD_image_label_original->setOpenExternalLinks(false);
         SD_image_label_mask = new QLabel(tabMoySD);
         SD_image_label_mask->setObjectName(QStringLiteral("SD_image_label_mask"));
-        SD_image_label_mask->setGeometry(QRect(720, 30, 320, 240));
+        SD_image_label_mask->setGeometry(QRect(720, 0, 320, 240));
+        SD_image_label_mask->setScaledContents(true);
         label_4 = new QLabel(tabMoySD);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(460, 300, 101, 20));
+        label_4->setGeometry(QRect(460, 270, 101, 20));
         label_5 = new QLabel(tabMoySD);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(800, 300, 161, 20));
+        label_5->setGeometry(QRect(800, 270, 161, 20));
         label_6 = new QLabel(tabMoySD);
         label_6->setObjectName(QStringLiteral("label_6"));
-        label_6->setGeometry(QRect(660, 610, 81, 20));
+        label_6->setGeometry(QRect(660, 580, 81, 20));
         layoutWidget_3 = new QWidget(tabMoySD);
         layoutWidget_3->setObjectName(QStringLiteral("layoutWidget_3"));
         layoutWidget_3->setGeometry(QRect(10, 280, 311, 41));
@@ -600,16 +827,57 @@ public:
 
         horizontalLayout_4->addWidget(end_SD);
 
+        scrollArea_12 = new QScrollArea(tabMoySD);
+        scrollArea_12->setObjectName(QStringLiteral("scrollArea_12"));
+        scrollArea_12->setGeometry(QRect(720, 0, 320, 240));
+        scrollArea_12->setWidgetResizable(true);
+        scrollAreaWidgetContents_12 = new QWidget();
+        scrollAreaWidgetContents_12->setObjectName(QStringLiteral("scrollAreaWidgetContents_12"));
+        scrollAreaWidgetContents_12->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_12->setWidget(scrollAreaWidgetContents_12);
+        scrollArea_13 = new QScrollArea(tabMoySD);
+        scrollArea_13->setObjectName(QStringLiteral("scrollArea_13"));
+        scrollArea_13->setGeometry(QRect(350, 0, 320, 240));
+        scrollArea_13->setWidgetResizable(true);
+        scrollAreaWidgetContents_13 = new QWidget();
+        scrollAreaWidgetContents_13->setObjectName(QStringLiteral("scrollAreaWidgetContents_13"));
+        scrollAreaWidgetContents_13->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_13->setWidget(scrollAreaWidgetContents_13);
+        scrollArea_14 = new QScrollArea(tabMoySD);
+        scrollArea_14->setObjectName(QStringLiteral("scrollArea_14"));
+        scrollArea_14->setGeometry(QRect(535, 320, 320, 240));
+        scrollArea_14->setWidgetResizable(true);
+        scrollAreaWidgetContents_14 = new QWidget();
+        scrollAreaWidgetContents_14->setObjectName(QStringLiteral("scrollAreaWidgetContents_14"));
+        scrollAreaWidgetContents_14->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_14->setWidget(scrollAreaWidgetContents_14);
+        label_progressSD = new QLabel(tabMoySD);
+        label_progressSD->setObjectName(QStringLiteral("label_progressSD"));
+        label_progressSD->setGeometry(QRect(55, 200, 191, 20));
+        label_progressSD->setAlignment(Qt::AlignCenter);
         tabWidget->addTab(tabMoySD, QString());
+        SDChooser->raise();
+        gridLayoutWidget_3->raise();
+        label_4->raise();
+        label_5->raise();
+        label_6->raise();
+        layoutWidget_3->raise();
+        scrollArea_12->raise();
+        scrollArea_13->raise();
+        scrollArea_14->raise();
+        SD_image_label_original->raise();
+        SD_image_label_foreground->raise();
+        SD_image_label_mask->raise();
+        label_progressSD->raise();
         tabSAP = new QWidget();
         tabSAP->setObjectName(QStringLiteral("tabSAP"));
         SAPChooser = new QPushButton(tabSAP);
         SAPChooser->setObjectName(QStringLiteral("SAPChooser"));
-        SAPChooser->setGeometry(QRect(100, 70, 141, 31));
+        SAPChooser->setGeometry(QRect(100, 40, 141, 31));
         SAPChooser->setIcon(icon);
         gridLayoutWidget_4 = new QWidget(tabSAP);
         gridLayoutWidget_4->setObjectName(QStringLiteral("gridLayoutWidget_4"));
-        gridLayoutWidget_4->setGeometry(QRect(90, 130, 160, 154));
+        gridLayoutWidget_4->setGeometry(QRect(90, 80, 160, 178));
         gridLayout_4 = new QGridLayout(gridLayoutWidget_4);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
         gridLayout_4->setContentsMargins(0, 0, 0, 0);
@@ -668,7 +936,7 @@ public:
         SAP_image_label_original->setOpenExternalLinks(false);
         layoutWidget_4 = new QWidget(tabSAP);
         layoutWidget_4->setObjectName(QStringLiteral("layoutWidget_4"));
-        layoutWidget_4->setGeometry(QRect(10, 300, 311, 34));
+        layoutWidget_4->setGeometry(QRect(10, 320, 311, 34));
         horizontalLayout_5 = new QHBoxLayout(layoutWidget_4);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
@@ -733,14 +1001,66 @@ public:
         label_18 = new QLabel(tabSAP);
         label_18->setObjectName(QStringLiteral("label_18"));
         label_18->setGeometry(QRect(870, 260, 161, 20));
+        scrollArea_15 = new QScrollArea(tabSAP);
+        scrollArea_15->setObjectName(QStringLiteral("scrollArea_15"));
+        scrollArea_15->setGeometry(QRect(420, 0, 320, 240));
+        scrollArea_15->setWidgetResizable(true);
+        scrollAreaWidgetContents_15 = new QWidget();
+        scrollAreaWidgetContents_15->setObjectName(QStringLiteral("scrollAreaWidgetContents_15"));
+        scrollAreaWidgetContents_15->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_15->setWidget(scrollAreaWidgetContents_15);
+        scrollArea_16 = new QScrollArea(tabSAP);
+        scrollArea_16->setObjectName(QStringLiteral("scrollArea_16"));
+        scrollArea_16->setGeometry(QRect(790, 0, 320, 240));
+        scrollArea_16->setWidgetResizable(true);
+        scrollAreaWidgetContents_16 = new QWidget();
+        scrollAreaWidgetContents_16->setObjectName(QStringLiteral("scrollAreaWidgetContents_16"));
+        scrollAreaWidgetContents_16->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_16->setWidget(scrollAreaWidgetContents_16);
+        scrollArea_17 = new QScrollArea(tabSAP);
+        scrollArea_17->setObjectName(QStringLiteral("scrollArea_17"));
+        scrollArea_17->setGeometry(QRect(420, 320, 320, 240));
+        scrollArea_17->setWidgetResizable(true);
+        scrollAreaWidgetContents_17 = new QWidget();
+        scrollAreaWidgetContents_17->setObjectName(QStringLiteral("scrollAreaWidgetContents_17"));
+        scrollAreaWidgetContents_17->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_17->setWidget(scrollAreaWidgetContents_17);
+        scrollArea_18 = new QScrollArea(tabSAP);
+        scrollArea_18->setObjectName(QStringLiteral("scrollArea_18"));
+        scrollArea_18->setGeometry(QRect(790, 320, 320, 240));
+        scrollArea_18->setWidgetResizable(true);
+        scrollAreaWidgetContents_18 = new QWidget();
+        scrollAreaWidgetContents_18->setObjectName(QStringLiteral("scrollAreaWidgetContents_18"));
+        scrollAreaWidgetContents_18->setGeometry(QRect(0, 0, 318, 238));
+        scrollArea_18->setWidget(scrollAreaWidgetContents_18);
+        label_progressSAP = new QLabel(tabSAP);
+        label_progressSAP->setObjectName(QStringLiteral("label_progressSAP"));
+        label_progressSAP->setGeometry(QRect(75, 270, 191, 20));
+        label_progressSAP->setAlignment(Qt::AlignCenter);
         tabWidget->addTab(tabSAP, QString());
+        SAPChooser->raise();
+        gridLayoutWidget_4->raise();
+        layoutWidget_4->raise();
+        label_15->raise();
+        label_16->raise();
+        label_17->raise();
+        label_18->raise();
+        scrollArea_15->raise();
+        scrollArea_16->raise();
+        scrollArea_17->raise();
+        scrollArea_18->raise();
+        SAP_image_label_original->raise();
+        SAP_image_label_mask->raise();
+        SAP_image_label_back->raise();
+        SAP_image_label_foreground->raise();
+        label_progressSAP->raise();
 
-        gridLayout_6->addWidget(tabWidget, 0, 0, 1, 1);
+        gridLayout_6->addWidget(tabWidget, 1, 0, 1, 1);
 
 
         retranslateUi(Chooser);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(4);
 
 
         QMetaObject::connectSlotsByName(Chooser);
@@ -749,6 +1069,7 @@ public:
     void retranslateUi(QWidget *Chooser)
     {
         Chooser->setWindowTitle(QApplication::translate("Chooser", "Form", 0));
+        exit->setText(QApplication::translate("Chooser", "Quitter", 0));
         gradiantChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
         labelGradAlpha->setText(QApplication::translate("Chooser", "alpha", 0));
         labelGradAlphaValue->setText(QString());
@@ -765,8 +1086,8 @@ public:
         speedUp->setText(QString());
         accel->setText(QString());
         end->setText(QString());
+        label_progressGrad->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabGradiantMorph), QApplication::translate("Chooser", "Gradiant mophologique oublieux", 0));
-        arithChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
         begin_Arith->setText(QString());
         deccel_Arith->setText(QString());
         speedDown_Arith->setText(QString());
@@ -782,6 +1103,8 @@ public:
         label_10->setText(QApplication::translate("Chooser", "Arri\303\250re plan", 0));
         label_8->setText(QApplication::translate("Chooser", "Masque de mouvement", 0));
         label_9->setText(QApplication::translate("Chooser", "Avant plan", 0));
+        label_progressArith->setText(QString());
+        arithChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabMoyArith), QApplication::translate("Chooser", "Moyenne arithm\303\251tique", 0));
         recChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
         labelRecAlpha->setText(QApplication::translate("Chooser", "alpha", 0));
@@ -801,6 +1124,7 @@ public:
         label_12->setText(QApplication::translate("Chooser", "Image originale", 0));
         label_13->setText(QApplication::translate("Chooser", "Arri\303\250re plan", 0));
         label_14->setText(QApplication::translate("Chooser", "Avant plan", 0));
+        label_progressRec->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabMoyRec), QApplication::translate("Chooser", "Moyenne r\303\251cursive", 0));
         SDChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
         labelSDN->setText(QApplication::translate("Chooser", "N", 0));
@@ -817,6 +1141,7 @@ public:
         speedUp_SD->setText(QString());
         accel_SD->setText(QString());
         end_SD->setText(QString());
+        label_progressSD->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabMoySD), QApplication::translate("Chooser", "Moyenne \316\243-\342\210\206", 0));
         SAPChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
 #ifndef QT_NO_TOOLTIP
@@ -843,6 +1168,7 @@ public:
         label_16->setText(QApplication::translate("Chooser", "Avant plan", 0));
         label_17->setText(QApplication::translate("Chooser", "Arri\303\250re plan", 0));
         label_18->setText(QApplication::translate("Chooser", "Masque de mouvement", 0));
+        label_progressSAP->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabSAP), QApplication::translate("Chooser", "SAP", 0));
     } // retranslateUi
 

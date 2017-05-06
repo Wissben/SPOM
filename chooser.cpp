@@ -58,12 +58,12 @@ Chooser::Chooser(QWidget *parent) :
     ui->setupUi(this);
 
 
-//    QPixmap bkgnd("Resources/backgrouds/bgip8.png");
-//        bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-//        QPalette palette;
-//        palette.setBrush(QPalette::Background, bkgnd);
-//        this->setPalette(palette);
-//        this->setStyleSheet("background: url(Resources/backgrouds/bgip8.png);");
+    QPixmap bkgnd("Resources/backgrouds/bgmat.jpg");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    //this->setPalette(palette);
+    //this->setStyleSheet("background: url(Resources/backgrouds/bgmat.jpg);");
 
     //setting up Gradiant
     std::string str;
@@ -145,24 +145,8 @@ Chooser::~Chooser()
 }
 
 
-void Chooser::on_gradiantMorph_clicked()
-{
-    //ui->verticalWidget->lower();
-    ui->tabWidget->setVisible(true);
-    ui->tabWidget->setEnabled(true);
 
-}
 
-void Chooser::on_pushButton_clicked()
-{
-    QString filename = QFileDialog::getOpenFileName(this,
-                                                    tr("Open Image"), "", tr("Image Files (*.avi *.mp4)"));
-    if(filename != NULL)
-    {
-        //Method::gradiantOublieux(filename.toStdString(),0.2f);
-
-    }
-}
 
 void Chooser::on_alphaChooserSAP_valueChanged(int value)
 {
@@ -312,26 +296,26 @@ void Chooser::on_speedUp_clicked(bool checked)
 void Chooser::on_end_clicked(bool checked)
 {
     timerGrad->stop();
-     gradIndex=gradFramesOriginal.size()-1;
-     ui->gradiantChooser->setEnabled(true);
-     ui->accel->setEnabled(false);
-     ui->deccel->setEnabled(false);
-     ui->speedDown->setEnabled(false);
-     ui->speedUp->setEnabled(false);
+    gradIndex=gradFramesOriginal.size()-1;
+    ui->gradiantChooser->setEnabled(true);
+    ui->accel->setEnabled(false);
+    ui->deccel->setEnabled(false);
+    ui->speedDown->setEnabled(false);
+    ui->speedUp->setEnabled(false);
     timerGrad->start(speedGrad);
 }
 
 void Chooser::on_begin_clicked(bool checked)
 {
     timerGrad->stop();
-     gradIndex=0;
-     ui->control->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
-     ui->control->setEnabled(true);
-     ui->accel->setEnabled(true);
-     ui->deccel->setEnabled(true);
-     ui->speedDown->setEnabled(true);
-     ui->speedUp->setEnabled(true);
-     ui->gradiantChooser->setEnabled(false);
+    gradIndex=0;
+    ui->control->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+    ui->control->setEnabled(true);
+    ui->accel->setEnabled(true);
+    ui->deccel->setEnabled(true);
+    ui->speedDown->setEnabled(true);
+    ui->speedUp->setEnabled(true);
+    ui->gradiantChooser->setEnabled(false);
     timerGrad->start(speedGrad);
 }
 
@@ -343,10 +327,10 @@ void Chooser::on_alphaChooserGrad_valueChanged(int value)
     ui->labelGradAlphaValue->setText(tmp);
 }
 
-void Chooser::on_horizontalSlider_valueChanged(int value)
-{
-    //std::cout << ui->horizontalSlider->value();
-}
+//void Chooser::on_horizontalSlider_valueChanged(int value)
+//{
+//    //std::cout << ui->horizontalSlider->value();
+//}
 
 void Chooser::on_horizontalSlider_sliderReleased()
 {
@@ -486,26 +470,26 @@ void Chooser::on_speedDown_Arith_clicked(bool checked)
 void Chooser::on_end_Arith_clicked(bool checked)
 {
     timerArith->stop();
-     arithIndex=arithFramesOriginal.size()-1;
-     ui->arithChooser->setEnabled(true);
-     ui->accel_Arith->setEnabled(false);
-     ui->deccel_Arith->setEnabled(false);
-     ui->speedDown_Arith->setEnabled(false);
-     ui->speedUp_Arith->setEnabled(false);
+    arithIndex=arithFramesOriginal.size()-1;
+    ui->arithChooser->setEnabled(true);
+    ui->accel_Arith->setEnabled(false);
+    ui->deccel_Arith->setEnabled(false);
+    ui->speedDown_Arith->setEnabled(false);
+    ui->speedUp_Arith->setEnabled(false);
     timerArith->start(speedArith);
 }
 
 void Chooser::on_begin_Arith_clicked(bool checked)
 {
     timerArith->stop();
-     arithIndex=0;
-     ui->controlArith->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
-     ui->controlArith->setEnabled(true);
-     ui->accel_Arith->setEnabled(true);
-     ui->deccel_Arith->setEnabled(true);
-     ui->speedDown_Arith->setEnabled(true);
-     ui->speedUp_Arith->setEnabled(true);
-     ui->arithChooser->setEnabled(false);
+    arithIndex=0;
+    ui->controlArith->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+    ui->controlArith->setEnabled(true);
+    ui->accel_Arith->setEnabled(true);
+    ui->deccel_Arith->setEnabled(true);
+    ui->speedDown_Arith->setEnabled(true);
+    ui->speedUp_Arith->setEnabled(true);
+    ui->arithChooser->setEnabled(false);
     timerArith->start(speedArith);
 }
 
@@ -637,26 +621,26 @@ void Chooser::on_accel_Rec_clicked(bool checked)
 void Chooser::on_begin_Rec_clicked(bool checked)
 {
     timerRec->stop();
-     recIndex=0;
-     ui->controlRec->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
-     ui->controlRec->setEnabled(true);
-     ui->accel_Rec->setEnabled(true);
-     ui->deccel_Rec->setEnabled(true);
-     ui->speedDown_Rec->setEnabled(true);
-     ui->speedUp_Rec->setEnabled(true);
-     ui->recChooser->setEnabled(false);
+    recIndex=0;
+    ui->controlRec->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+    ui->controlRec->setEnabled(true);
+    ui->accel_Rec->setEnabled(true);
+    ui->deccel_Rec->setEnabled(true);
+    ui->speedDown_Rec->setEnabled(true);
+    ui->speedUp_Rec->setEnabled(true);
+    ui->recChooser->setEnabled(false);
     timerRec->start(speedRec);
 }
 
 void Chooser::on_end_Rec_clicked(bool checked)
 {
     timerRec->stop();
-     recIndex=recFramesOriginal.size()-1;
-     ui->recChooser->setEnabled(true);
-     ui->accel_Rec->setEnabled(false);
-     ui->deccel_Rec->setEnabled(false);
-     ui->speedDown_Rec->setEnabled(false);
-     ui->speedUp_Rec->setEnabled(false);
+    recIndex=recFramesOriginal.size()-1;
+    ui->recChooser->setEnabled(true);
+    ui->accel_Rec->setEnabled(false);
+    ui->deccel_Rec->setEnabled(false);
+    ui->speedDown_Rec->setEnabled(false);
+    ui->speedUp_Rec->setEnabled(false);
     timerRec->start(speedRec);
 }
 
@@ -743,14 +727,14 @@ void Chooser::on_controlSD_clicked(bool checked)
 void Chooser::on_begin_SD_clicked(bool checked)
 {
     timerSD->stop();
-     SDIndex=0;
-     ui->controlSD->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
-     ui->controlSD->setEnabled(true);
-     ui->accel_SD->setEnabled(true);
-     ui->deccel_SD->setEnabled(true);
-     ui->speedDown_SD->setEnabled(true);
-     ui->speedUp_SD->setEnabled(true);
-     ui->SDChooser->setEnabled(false);
+    SDIndex=0;
+    ui->controlSD->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+    ui->controlSD->setEnabled(true);
+    ui->accel_SD->setEnabled(true);
+    ui->deccel_SD->setEnabled(true);
+    ui->speedDown_SD->setEnabled(true);
+    ui->speedUp_SD->setEnabled(true);
+    ui->SDChooser->setEnabled(false);
     timerSD->start(speedSD);
 }
 
@@ -793,12 +777,12 @@ void Chooser::on_accel_SD_clicked(bool checked)
 void Chooser::on_end_SD_clicked(bool checked)
 {
     timerSD->stop();
-     SDIndex=SDFramesOriginal.size()-1;
-     ui->SDChooser->setEnabled(true);
-     ui->accel_SD->setEnabled(false);
-     ui->deccel_SD->setEnabled(false);
-     ui->speedDown_SD->setEnabled(false);
-     ui->speedUp_SD->setEnabled(false);
+    SDIndex=SDFramesOriginal.size()-1;
+    ui->SDChooser->setEnabled(true);
+    ui->accel_SD->setEnabled(false);
+    ui->deccel_SD->setEnabled(false);
+    ui->speedDown_SD->setEnabled(false);
+    ui->speedUp_SD->setEnabled(false);
     timerSD->start(speedSD);
 }
 
@@ -925,26 +909,26 @@ void Chooser::on_accel_SAP_clicked(bool checked)
 void Chooser::on_begin_SAP_clicked(bool checked)
 {
     timerSAP->stop();
-     SAPIndex=0;
-     ui->controlSAP->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
-     ui->controlSAP->setEnabled(true);
-     ui->accel_SAP->setEnabled(true);
-     ui->deccel_SAP->setEnabled(true);
-     ui->speedDown_SAP->setEnabled(true);
-     ui->speedUp_SAP->setEnabled(true);
-     ui->SAPChooser->setEnabled(false);
+    SAPIndex=0;
+    ui->controlSAP->setIcon(QIcon("Resources/MediaControl/Pause-26-Disabled.png"));
+    ui->controlSAP->setEnabled(true);
+    ui->accel_SAP->setEnabled(true);
+    ui->deccel_SAP->setEnabled(true);
+    ui->speedDown_SAP->setEnabled(true);
+    ui->speedUp_SAP->setEnabled(true);
+    ui->SAPChooser->setEnabled(false);
     timerSAP->start(speedSAP);
 }
 
 void Chooser::on_end_SAP_clicked(bool checked)
 {
     timerSAP->stop();
-     SAPIndex=SAPFramesOriginal.size()-1;
-     ui->SAPChooser->setEnabled(true);
-     ui->accel_SAP->setEnabled(false);
-     ui->deccel_SAP->setEnabled(false);
-     ui->speedDown_SAP->setEnabled(false);
-     ui->speedUp_SAP->setEnabled(false);
+    SAPIndex=SAPFramesOriginal.size()-1;
+    ui->SAPChooser->setEnabled(true);
+    ui->accel_SAP->setEnabled(false);
+    ui->deccel_SAP->setEnabled(false);
+    ui->speedDown_SAP->setEnabled(false);
+    ui->speedUp_SAP->setEnabled(false);
     timerSAP->start(speedSAP);
 }
 
@@ -983,6 +967,8 @@ void Chooser::moyenne_Reccur(string path, double alpha,Chooser* c)
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
+    c->ui->label_progressRec->setText("Cacluls du fond statique ...");
+
     while (vc.get(CV_CAP_PROP_POS_FRAMES)<= vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
         frame = vc.get(CV_CAP_PROP_POS_FRAMES);
@@ -1022,9 +1008,12 @@ void Chooser::moyenne_Reccur(string path, double alpha,Chooser* c)
     //waitKey(0);
     cvtColor(M, M, COLOR_BGR2GRAY);//Convertion de l'espace de couleur de la matrice M de RGB en GrayScale
     VideoCapture v(path);//Creation d'un autre objet de lecture de video.
+    int frames = v.get(CV_CAP_PROP_FRAME_COUNT);
+    c->ui->label_progressRec->setText("Cacluls en cours ...");
     while (v.get(CV_CAP_PROP_POS_FRAMES) <= v.get(CV_CAP_PROP_FRAME_COUNT)) // Tant que la video n'est pas finie
     {
-        cout << v.get(CV_CAP_PROP_POS_FRAMES) << "/" << v.get(CV_CAP_PROP_FRAME_COUNT) << endl;
+        //cout << v.get(CV_CAP_PROP_POS_FRAMES) << "/" << v.get(CV_CAP_PROP_FRAME_COUNT) << endl;
+        c->ui->backgroundProgressRec->setValue((int)v.get(CV_CAP_PROP_POS_FRAMES)*100/frames);
         Mat foreground = Mat::zeros(M.rows,M.cols,CV_8UC3);
         v >> original;
         if (original.empty())
@@ -1073,6 +1062,11 @@ void Chooser::moyenne_Reccur(string path, double alpha,Chooser* c)
 
         //        }
     }
+    if(c->ui->backgroundProgressRec->value()<100)
+    {
+        c->ui->backgroundProgressRec->setValue(100);
+    }
+    c->ui->label_progressRec->setText("Terminé");
     v.release();
     //    if(waitKey(0)=='\33')
     //    {
@@ -1113,8 +1107,11 @@ void Chooser::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
     X.copyTo(M);
     X.copyTo(m);
     Mat diff;
+    int frames=capture.get(CV_CAP_PROP_FRAME_COUNT);
+    c->ui->label_progressGrad->setText("Calculs en cours ...");
     while (capture.get(CV_CAP_PROP_POS_FRAMES)<=capture.get(CV_CAP_PROP_FRAME_COUNT))
     {
+        c->ui->progressBarGrad->setValue((int)capture.get(CV_CAP_PROP_POS_FRAMES)*100/frames);
         capture >> original;
         Mat mask;
         if (!original.empty() )
@@ -1212,6 +1209,9 @@ void Chooser::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
         }
 
     }
+    if(c->ui->progressBarGrad->value()<100)
+        c->ui->progressBarGrad->setValue(100);
+    c->ui->label_progressGrad->setText("Terminé");
     //    imshow("fore",c->gradFramesFore.at(0));
     //    imshow("mask",c->gradFramesMask.at(0));
     //    imshow("ori",c->gradFramesOriginal.at(0));
@@ -1422,7 +1422,8 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
     Mat foreGroundGray;
     vector<Mat> images;
 
-    background = Chooser::getBackGroundRGB_8UC3(path,c->ui->backgroundProgressArith);
+    c->ui->label_progressArith->setText("Cacluls du fond statique ...");
+    background = Chooser::getBackGroundRGB_8UC3(path,c,c->ui->backgroundProgressArith);
     background.convertTo(background, CV_8UC3);
 
     Mat backRGB;
@@ -1435,17 +1436,21 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
     cvtColor(background, backGroundGray, COLOR_BGR2GRAY);
     backGroundGray.convertTo(backGroundGray, CV_32F);
     Mat diff = Mat::zeros(background.rows,background.cols,CV_32F);
+    int frames = v.get(CV_CAP_PROP_FRAME_COUNT);
+    c->ui->label_progressArith->setText("Calculs en cours..");
     while (v.get(CV_CAP_PROP_POS_FRAMES) <= v.get(CV_CAP_PROP_FRAME_COUNT))
     {
+        c->ui->backgroundProgressArith->setValue((int)v.get(CV_CAP_PROP_POS_FRAMES)*100/frames);
         v >> X;
         if (!X.empty())
         {
-            //Mat nonShadow = Chooser::shadowRemoval_HSV(&X,tmp,s);
+            //Mat nonShadow = Chooser::shadowRemoval_HSV(&X,background,c);
             //imshow("nonshadow",nonShadow);
+            waitKey(0);
             X.copyTo(original);
             cvtColor(X, X, COLOR_BGR2GRAY);
             X.convertTo(X, CV_32F);
-            cout << v.get(CV_CAP_PROP_POS_FRAMES) << "/" << v.get(CV_CAP_PROP_FRAME_COUNT) << endl;
+            //cout << v.get(CV_CAP_PROP_POS_FRAMES) << "/" << v.get(CV_CAP_PROP_FRAME_COUNT) << endl;
             absdiff(X, backGroundGray, diff);
             threshold(diff, diff, 30, 255, THRESH_BINARY);
             cv::erode(diff, diff, Mat());
@@ -1532,6 +1537,9 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
             break;
         }
     }
+    if(c->ui->backgroundProgressArith->value()<100)
+        c->ui->backgroundProgressArith->setValue(100);
+    c->ui->label_progressArith->setText("Terminé");
     v.release();
     //    if(waitKey(0)=='\33')
     //    {
@@ -1573,6 +1581,7 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
+    c->ui->label_progressSAP->setText("Calcul du fond statique ...");
     while (vc.get(CV_CAP_PROP_POS_FRAMES) <= vc.get(CV_CAP_PROP_FRAME_COUNT))
     {
         frame = vc.get(CV_CAP_PROP_POS_FRAMES);
@@ -1618,9 +1627,10 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
 
 
     sigma=Mat::zeros(Moy.size(),CV_32SC3);
-
+    //c->ui->label_progressSAP->setText("Calculs de la variance ...");
     for (int i = 0; i < Moy.rows; ++i)
     {
+        //c->ui->backgroundProgressSAP->setValue((int)i*100/Moy.rows);
         for (int j = 0; j < Moy.cols; ++j)
         {
             Moy.at<Vec3i>(i,j)[0]/=N;
@@ -1635,7 +1645,10 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
     }
     vc.release();
     Moy.convertTo(Moy,CV_8UC3);
-
+    //cheat begin
+    //if(c->ui->backgroundProgressSAP->value()<100)
+    //  c->ui->backgroundProgressSAP->setValue(100);
+    //cheat end
     Mat MoyRGB;
     cvtColor(Moy,MoyRGB,CV_BGR2RGB);
     c->SAPFramesBack.push_back(MoyRGB);
@@ -1649,9 +1662,12 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
         cout << "Error while opening video " << endl;
         exit(EXIT_FAILURE);
     }
+    int frames = capt.get(CV_CAP_PROP_FRAME_COUNT);
+    c->ui->label_progressSAP->setText("Calculs en cours");
     while (capt.get(CV_CAP_PROP_POS_FRAMES) <= capt.get(CV_CAP_PROP_FRAME_COUNT))
     {
-        cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
+        //cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
+        c->ui->backgroundProgressSAP->setValue((int)capt.get(CV_CAP_PROP_POS_FRAMES)*100/frames);
         QCoreApplication::processEvents();
 
         capt >> I;
@@ -1755,6 +1771,10 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
             break;
         }
     }
+
+    if(c->ui->backgroundProgressSAP->value()<100)
+        c->ui->backgroundProgressSAP->setValue(100);
+    c->ui->label_progressSAP->setText("Terminé");
     capt.release();
     //destroyAllWindows();
     //    if(waitKey(0)=='\33')
@@ -1803,8 +1823,11 @@ void Chooser::SD2(std::string path,int mul,Chooser*c )
     Mat E = Mat::zeros(M.rows,M.cols,CV_8U);
     Mat foreGround = Mat::zeros(M.rows,M.cols,CV_8UC3);
     vector<Mat> images;
+    c->ui->label_progressSD->setText("Cacluls en cours ...");
+    int frames = capt.get(CV_CAP_PROP_FRAME_COUNT);
     while (capt.get(CV_CAP_PROP_POS_FRAMES) <= capt.get(CV_CAP_PROP_FRAME_COUNT))
     {
+        c->ui->progressBarSD->setValue((int)capt.get(CV_CAP_PROP_POS_FRAMES)*100/frames);
         capt >> I;
         if (!I.empty())
         {
@@ -1889,7 +1912,7 @@ void Chooser::SD2(std::string path,int mul,Chooser*c )
             c->SDFramesMask.push_back(maskRGB);
 
             //images.push_back(E8UC3);
-            cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
+            //cout << capt.get(CV_CAP_PROP_POS_FRAMES) << "/" << capt.get(CV_CAP_PROP_FRAME_COUNT) << endl;
 
 
             //            if(waitKey(0)=='\33')
@@ -1905,6 +1928,11 @@ void Chooser::SD2(std::string path,int mul,Chooser*c )
             break;
         }
     }
+    if(c->ui->progressBarSD->value()<100)
+    {
+        c->ui->progressBarSD->setValue(100);
+    }
+    c->ui->label_progressSD->setText("Terminé");
     //    if(waitKey(0)=='\33')
     //    {
     //        destroyAllWindows();
@@ -1914,7 +1942,7 @@ void Chooser::SD2(std::string path,int mul,Chooser*c )
 }
 
 
-cv::Mat Chooser::getBackGroundRGB_8UC3(std::string path,QProgressBar* s)
+cv::Mat Chooser::getBackGroundRGB_8UC3(std::string path,Chooser* c,QProgressBar* s)
 {
     VideoCapture vc(path);
     Mat X;
@@ -2108,19 +2136,19 @@ cv::Mat Chooser::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Chooser* c)
     }
 
     //colorier les pixel de difference en blanc I.e : la personne sera en blanc (seuilage classique quoi -_- )
-    //            for(int i=0;i<dif.rows;i++)
-    //            {
-    //                for(int j=0;j<dif.cols;j++)
-    //                {
-    //                    if((dif.at<Vec3b>(i,j)[2])>min)
-    //                    {
-    //                        imageHSV.at<Vec3b>(i,j)[0]=255;
-    //                        imageHSV.at<Vec3b>(i,j)[1]=255;
-    //                        imageHSV.at<Vec3b>(i,j)[2]=255;
-    //                    }
-    //                }
-    //            }
-    imshow("personnes",imageHSV);
+//                for(int i=0;i<dif.rows;i++)
+//                {
+//                    for(int j=0;j<dif.cols;j++)
+//                    {
+//                        if((dif.at<Vec3b>(i,j)[2])>min)
+//                        {
+//                            imageHSV.at<Vec3b>(i,j)[0]=0;
+//                            imageHSV.at<Vec3b>(i,j)[1]=0;
+//                            imageHSV.at<Vec3b>(i,j)[2]=255;
+//                        }
+//                    }
+//                }
+//                imshow("personnes",imageHSV);
     //chercher les zone d'ombre et les colorier en bleu
     for(int i=0;i<dif.rows;i++)
     {
@@ -2128,9 +2156,9 @@ cv::Mat Chooser::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Chooser* c)
         {
             if((imageHSV.at<Vec3b>(i,j)[0])!=255 && (imageHSV.at<Vec3b>(i,j)[1])!=255 && (imageHSV.at<Vec3b>(i,j)[2])!=255 )
             {
-                if(((backGroundHSV.at<Vec3b>(i,j)[2]))>(imageHSV.at<Vec3b>(i,j)[2])) //verifier si fidderence > au seuil 10 alors colorier cette zonne en bleu
+                if((imageHSV.at<Vec3b>(i,j)[2]) - (backGroundHSV.at<Vec3b>(i,j)[2]) <= min )
                 {
-                    imageHSV.at<Vec3b>(i,j)[0]=0;
+                    imageHSV.at<Vec3b>(i,j)[0]=255;
                     imageHSV.at<Vec3b>(i,j)[1]=0;
                     imageHSV.at<Vec3b>(i,j)[2]=0;
                 }
@@ -2144,11 +2172,14 @@ cv::Mat Chooser::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Chooser* c)
     {
         for(int j=0;j<dif.cols;j++)
         {
-            if((imageHSV.at<Vec3b>(i,j)[0])==0 && (imageHSV.at<Vec3b>(i,j)[1])==0 && (imageHSV.at<Vec3b>(i,j)[2])==0 )
+            if((imageHSV.at<Vec3b>(i,j)[0])==255 && (imageHSV.at<Vec3b>(i,j)[1])==0 && (imageHSV.at<Vec3b>(i,j)[2])==0 )
             {
-                imageHSV.at<Vec3b>(i,j)[0]=backGroundHSV.at<Vec3b>(i,j)[0];
-                imageHSV.at<Vec3b>(i,j)[1]=backGroundHSV.at<Vec3b>(i,j)[1];
-                imageHSV.at<Vec3b>(i,j)[2]=backGroundHSV.at<Vec3b>(i,j)[2];
+                if(((imageHSV.at<Vec3b>(i,j)[2])- (backGroundHSV.at<Vec3b>(i,j)[2]) <= 10))
+                {
+                    imageHSV.at<Vec3b>(i,j)[0]=backGroundHSV.at<Vec3b>(i,j)[0];
+                    imageHSV.at<Vec3b>(i,j)[1]=backGroundHSV.at<Vec3b>(i,j)[1];
+                    imageHSV.at<Vec3b>(i,j)[2]=backGroundHSV.at<Vec3b>(i,j)[2];
+                }
             }
         }
     }
@@ -2156,28 +2187,29 @@ cv::Mat Chooser::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Chooser* c)
 
     //cvtColor(imageHSV,*image,CV_BGR2HSV);
     //apres elimination
-    for(int i=0;i<dif.rows;i++)
-    {
-        for(int j=0;j<dif.cols;j++)
-        {
-            if((imageHSV.at<Vec3b>(i,j)[0])!=255 && (imageHSV.at<Vec3b>(i,j)[1])!=255 && (imageHSV.at<Vec3b>(i,j)[2])!=255 )
-            {
-                if(((backGroundHSV.at<Vec3b>(i,j)[2])>(imageHSV.at<Vec3b>(i,j)[2])+10))
-                {
-                    imageHSV.at<Vec3b>(i,j)[0]=0;
-                    imageHSV.at<Vec3b>(i,j)[1]=0;
-                    imageHSV.at<Vec3b>(i,j)[2]=0;
-                }
-            }
-        }
-    }
+    //                    for(int i=0;i<dif.rows;i++)
+    //                    {
+    //                        for(int j=0;j<dif.cols;j++)
+    //                        {
+    //                            if((imageHSV.at<Vec3b>(i,j)[0])!=255 && (imageHSV.at<Vec3b>(i,j)[1])!=255 && (imageHSV.at<Vec3b>(i,j)[2])!=255 )
+    //                            {
+    //                                if(((imageHSV.at<Vec3b>(i,j)[2])<(backGroundHSV.at<Vec3b>(i,j)[2])))
+    //                                {
+    //                                    imageHSV.at<Vec3b>(i,j)[0]=255;
+    //                                    imageHSV.at<Vec3b>(i,j)[1]=0;
+    //                                    imageHSV.at<Vec3b>(i,j)[2]=0;
+    //                                }
+    //                            }
+    //                        }
+    //                    }
     Mat img;
     cvtColor(imageHSV,img,CV_HSV2BGR);
-    imshow("apres elim",imageHSV);
+    // imshow("apres elim",imageHSV);
     cvtColor(imageHSV,img,CV_HSV2BGR);
     imshow("apres elimBGR",img);
     return (imageHSV);
 }
+
 
 
 cv::Mat Chooser::getMultipleImage_8UC3(std::vector<cv::Mat> &images,char* windowName,Chooser*c,bool background )
@@ -2351,3 +2383,8 @@ Mat Chooser::hist(Mat gray)
 
 
 
+
+void Chooser::on_exit_clicked()
+{
+    exit(EXIT_SUCCESS);
+}
