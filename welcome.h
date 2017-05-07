@@ -18,12 +18,14 @@ public:
 
 public slots:
     void on_pushButton_3_clicked();
+    void hideThisWidget();
 
 public:
     Ui::Welcome *ui;
     Chooser x;
 private slots:
     void on_about_clicked(bool checked);
+    void on_pushButton_clicked();
 };
 
 #endif // WELCOME_H

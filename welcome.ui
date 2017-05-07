@@ -16,11 +16,16 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>475</y>
+     <x>380</x>
+     <y>600</y>
      <width>86</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton { 
+color: 000000;
+}</string>
    </property>
    <property name="text">
     <string> Quitter</string>
@@ -35,15 +40,23 @@
      <height>20</height>
     </size>
    </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QPushButton" name="about">
    <property name="geometry">
     <rect>
-     <x>215</x>
-     <y>355</y>
+     <x>10</x>
+     <y>600</y>
      <width>90</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton { 
+color: 000000;
+}</string>
    </property>
    <property name="text">
     <string> À propos</string>
@@ -58,15 +71,23 @@
      <height>20</height>
     </size>
    </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>190</y>
+     <x>150</x>
+     <y>30</y>
      <width>171</width>
      <height>61</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton { 
+color: 000000;
+}</string>
    </property>
    <property name="text">
     <string>VIVE MATOUB</string>
@@ -75,7 +96,30 @@
     <iconset>
      <normaloff>Resources/Ok-520.png</normaloff>Resources/Ok-520.png</iconset>
    </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>480</width>
+     <height>640</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>Resources/backgrouds/Plandetravail1VGA.png</pixmap>
+   </property>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>pushButton</zorder>
+  <zorder>about</zorder>
+  <zorder>pushButton_3</zorder>
  </widget>
  <resources/>
  <connections/>

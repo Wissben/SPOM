@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
@@ -25,6 +26,7 @@ public:
     QPushButton *pushButton;
     QPushButton *about;
     QPushButton *pushButton_3;
+    QLabel *label;
 
     void setupUi(QWidget *Welcome)
     {
@@ -33,24 +35,44 @@ public:
         Welcome->resize(480, 640);
         pushButton = new QPushButton(Welcome);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(220, 475, 86, 31));
+        pushButton->setGeometry(QRect(380, 600, 86, 31));
+        pushButton->setStyleSheet(QLatin1String("QPushButton { \n"
+"color: 000000;\n"
+"}"));
         QIcon icon;
         icon.addFile(QStringLiteral("Resources/Cancel-26.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButton->setIcon(icon);
         pushButton->setIconSize(QSize(20, 20));
+        pushButton->setFlat(true);
         about = new QPushButton(Welcome);
         about->setObjectName(QStringLiteral("about"));
-        about->setGeometry(QRect(215, 355, 90, 31));
+        about->setGeometry(QRect(10, 600, 90, 31));
+        about->setStyleSheet(QLatin1String("QPushButton { \n"
+"color: 000000;\n"
+"}"));
         QIcon icon1;
         icon1.addFile(QStringLiteral("Resources/Info-528.png"), QSize(), QIcon::Normal, QIcon::Off);
         about->setIcon(icon1);
         about->setIconSize(QSize(20, 20));
+        about->setFlat(true);
         pushButton_3 = new QPushButton(Welcome);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(180, 190, 171, 61));
+        pushButton_3->setGeometry(QRect(150, 30, 171, 61));
+        pushButton_3->setStyleSheet(QLatin1String("QPushButton { \n"
+"color: 000000;\n"
+"}"));
         QIcon icon2;
         icon2.addFile(QStringLiteral("Resources/Ok-520.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButton_3->setIcon(icon2);
+        pushButton_3->setFlat(true);
+        label = new QLabel(Welcome);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(0, 0, 480, 640));
+        label->setPixmap(QPixmap(QString::fromUtf8("Resources/backgrouds/Plandetravail1VGA.png")));
+        label->raise();
+        pushButton->raise();
+        about->raise();
+        pushButton_3->raise();
 
         retranslateUi(Welcome);
 
@@ -63,6 +85,7 @@ public:
         pushButton->setText(QApplication::translate("Welcome", " Quitter", 0));
         about->setText(QApplication::translate("Welcome", " \303\200 propos", 0));
         pushButton_3->setText(QApplication::translate("Welcome", "VIVE MATOUB", 0));
+        label->setText(QString());
     } // retranslateUi
 
 };

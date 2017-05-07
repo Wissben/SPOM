@@ -16,22 +16,15 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_6">
    <item row="2" column="0">
-    <widget class="QPushButton" name="exit">
-     <property name="text">
-      <string>Quitter</string>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="contextMenuPolicy">
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <property name="tabsClosable">
       <bool>false</bool>
@@ -72,6 +65,9 @@
        <layout class="QGridLayout" name="gridLayout">
         <item row="1" column="0">
          <widget class="QSlider" name="alphaChooserGrad">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="maximum">
            <number>1000</number>
           </property>
@@ -183,7 +179,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Masque de mouvemennt</string>
+        <string>Masque de mouvement</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_3">
@@ -211,6 +207,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QPushButton" name="begin">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -228,6 +227,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="deccel">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -245,6 +247,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="speedDown">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -262,6 +267,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="control">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -279,6 +287,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="speedUp">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -296,6 +307,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="accel">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -313,6 +327,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="end">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -427,6 +444,56 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>345</y>
+         <width>67</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="shadowToggleGrad">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-style: solid;
+border-width: 5px;
+border-radius: 15px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>Resources/Toggle Off.png</normaloff>Resources/Toggle Off.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_19">
+          <property name="text">
+           <string>Shadows</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <zorder>gradiantChooser</zorder>
       <zorder>gridLayoutWidget</zorder>
       <zorder>label</zorder>
@@ -440,6 +507,9 @@
       <zorder>grad_image_label_mask</zorder>
       <zorder>grad_image_label_original</zorder>
       <zorder>label_progressGrad</zorder>
+      <zorder>shadowToggleGrad</zorder>
+      <zorder>label_19</zorder>
+      <zorder>shadowToggleGrad</zorder>
      </widget>
      <widget class="QWidget" name="tabMoyArith">
       <attribute name="title">
@@ -833,6 +903,56 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="layoutWidget_5">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>340</y>
+         <width>67</width>
+         <height>86</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="shadowToggleArith">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-style: solid;
+border-width: 5px;
+border-radius: 15px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>Resources/Toggle Off.png</normaloff>Resources/Toggle Off.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_20">
+          <property name="text">
+           <string>Shadows</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <zorder>layoutWidget</zorder>
       <zorder>layoutWidget</zorder>
       <zorder>label_7</zorder>
@@ -848,6 +968,7 @@
       <zorder>arith_image_label_mask</zorder>
       <zorder>arith_image_label_original</zorder>
       <zorder>label_progressArith</zorder>
+      <zorder>layoutWidget_5</zorder>
      </widget>
      <widget class="QWidget" name="tabMoyRec">
       <attribute name="title">
@@ -1274,6 +1395,56 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QWidget" name="layoutWidget_6">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>340</y>
+         <width>67</width>
+         <height>86</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QPushButton" name="shadowToggleRec">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-style: solid;
+border-width: 5px;
+border-radius: 15px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>Resources/Toggle Off.png</normaloff>Resources/Toggle Off.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_21">
+          <property name="text">
+           <string>Shadows</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <zorder>recChooser</zorder>
       <zorder>gridLayoutWidget_2</zorder>
       <zorder>layoutWidget_2</zorder>
@@ -1290,7 +1461,7 @@
       <zorder>rec_image_label_mask</zorder>
       <zorder>rec_image_label_original</zorder>
       <zorder>label_progressRec</zorder>
-      <zorder>label_progressRec</zorder>
+      <zorder>layoutWidget_6</zorder>
      </widget>
      <widget class="QWidget" name="tabMoySD">
       <attribute name="title">
@@ -1655,6 +1826,56 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QWidget" name="layoutWidget_7">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>370</y>
+         <width>67</width>
+         <height>86</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QPushButton" name="shadowToggleSD">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-style: solid;
+border-width: 5px;
+border-radius: 15px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>Resources/Toggle Off.png</normaloff>Resources/Toggle Off.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_22">
+          <property name="text">
+           <string>Shadows</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <zorder>SDChooser</zorder>
       <zorder>gridLayoutWidget_3</zorder>
       <zorder>label_4</zorder>
@@ -1668,6 +1889,7 @@
       <zorder>SD_image_label_foreground</zorder>
       <zorder>SD_image_label_mask</zorder>
       <zorder>label_progressSD</zorder>
+      <zorder>layoutWidget_7</zorder>
      </widget>
      <widget class="QWidget" name="tabSAP">
       <attribute name="title">
@@ -2117,6 +2339,56 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QWidget" name="layoutWidget_8">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>390</y>
+         <width>67</width>
+         <height>86</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QPushButton" name="shadowToggleSAP">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-style: solid;
+border-width: 5px;
+border-radius: 15px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>Resources/Toggle Off.png</normaloff>Resources/Toggle Off.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_23">
+          <property name="text">
+           <string>Shadows</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <zorder>SAPChooser</zorder>
       <zorder>gridLayoutWidget_4</zorder>
       <zorder>layoutWidget_4</zorder>
@@ -2133,7 +2405,18 @@
       <zorder>SAP_image_label_back</zorder>
       <zorder>SAP_image_label_foreground</zorder>
       <zorder>label_progressSAP</zorder>
+      <zorder>layoutWidget_8</zorder>
      </widget>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="exit">
+     <property name="text">
+      <string>Quitter</string>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
   </layout>

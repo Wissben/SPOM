@@ -143,6 +143,17 @@ private slots:
 
     void on_exit_clicked();
 
+
+    void on_shadowToggleGrad_clicked();
+
+    void on_shadowToggleArith_clicked();
+
+    void on_shadowToggleRec_clicked();
+
+    void on_shadowToggleSD_clicked();
+
+    void on_shadowToggleSAP_clicked();
+
 public:
     Ui::Chooser *ui;
     bool valueChanged;
@@ -191,6 +202,13 @@ public:
 
     QTimer* timerSAP;
     int speedSAP;
+
+
+    bool shadowGrad;
+    bool shadowArith;
+    bool shadowRec;
+    bool shadowSD;
+    bool shadowSAP;
 
 
 public slots:

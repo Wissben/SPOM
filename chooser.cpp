@@ -47,6 +47,7 @@
 #include <QTimer>
 #include <thread>
 #include <QPushButton>
+#include <QThread>
 using namespace std;
 using namespace cv;
 
@@ -56,7 +57,24 @@ Chooser::Chooser(QWidget *parent) :
 {
 
     ui->setupUi(this);
+    QPixmap pixmap( 200, 190 );
+      pixmap.fill( Qt::black );
 
+      QPainter painter( &pixmap );
+      painter.setRenderHint( QPainter::Antialiasing );
+      painter.setPen( Qt::black );
+
+      painter.drawEllipse( 10, 10, 10, 80 );
+      painter.drawEllipse( 30, 10, 20, 80 );
+      painter.drawEllipse( 60, 10, 40, 80 );
+      painter.drawEllipse( QRect( 110, 10, 80, 80 ) );
+
+      painter.drawArc( 10, 100, 10, 80, 30*16, 240*16 );
+      painter.drawArc( 30, 100, 20, 80, 45*16, 200*16 );
+      painter.drawArc( 60, 100, 40, 80, 60*16, 160*16 );
+      painter.drawArc( QRect( 110, 100, 80, 80 ), 75*16, 120*16 );
+
+      pixmap.save( "Resources/backgrouds/circles.png" );
 
     QPixmap bkgnd("Resources/backgrouds/bgmat.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -86,6 +104,12 @@ Chooser::Chooser(QWidget *parent) :
     recIndex=0;
     SDIndex=0;
     SAPIndex=0;
+
+    shadowArith=true;
+    shadowGrad=true;
+    shadowRec=true;
+    shadowSAP=true;
+    shadowSD=true;
 
     speedArith=30;
     speedGrad=30;
@@ -265,6 +289,7 @@ void Chooser::on_deccel_clicked(bool checked)
     gradIndex-=15;
     if(gradIndex<0)
         gradIndex=0;
+    QThread::msleep(50);
     timerGrad->start(speedGrad);
 
 }
@@ -2382,9 +2407,91 @@ Mat Chooser::hist(Mat gray)
 
 
 
-
-
 void Chooser::on_exit_clicked()
 {
     exit(EXIT_SUCCESS);
+}
+
+
+
+void Chooser::on_shadowToggleGrad_clicked()
+{
+    shadowGrad=!shadowGrad;
+    if(shadowGrad)
+    {
+        ui->shadowToggleGrad->setIcon(QIcon("Resources/Toggle Off.png"));
+        shadowGrad=true;
+    }
+    else
+    {
+
+        ui->shadowToggleGrad->setIcon(QIcon("Resources/Toggle On-96.png"));
+        shadowGrad=false;
+    }
+}
+
+
+
+void Chooser::on_shadowToggleArith_clicked()
+{
+    shadowArith=!shadowArith;
+    if(shadowArith)
+    {
+        ui->shadowToggleArith->setIcon(QIcon("Resources/Toggle Off.png"));
+        shadowArith=true;
+    }
+    else
+    {
+
+        ui->shadowToggleArith->setIcon(QIcon("Resources/Toggle On-96.png"));
+        shadowArith=false;
+    }
+}
+
+void Chooser::on_shadowToggleRec_clicked()
+{
+    shadowRec=!shadowRec;
+    if(shadowRec)
+    {
+        ui->shadowToggleRec->setIcon(QIcon("Resources/Toggle Off.png"));
+        shadowRec=true;
+    }
+    else
+    {
+
+        ui->shadowToggleRec->setIcon(QIcon("Resources/Toggle On-96.png"));
+        shadowRec=false;
+    }
+}
+
+void Chooser::on_shadowToggleSD_clicked()
+{
+    shadowSD=!shadowSD;
+    if(shadowSD)
+    {
+        ui->shadowToggleSD->setIcon(QIcon("Resources/Toggle Off.png"));
+        shadowSD=true;
+    }
+    else
+    {
+
+        ui->shadowToggleSD->setIcon(QIcon("Resources/Toggle On-96.png"));
+        shadowSD=false;
+    }
+}
+
+void Chooser::on_shadowToggleSAP_clicked()
+{
+    shadowSAP=!shadowSAP;
+    if(shadowSAP)
+    {
+        ui->shadowToggleSAP->setIcon(QIcon("Resources/Toggle Off.png"));
+        shadowSAP=true;
+    }
+    else
+    {
+
+        ui->shadowToggleSAP->setIcon(QIcon("Resources/Toggle On-96.png"));
+        shadowSAP=false;
+    }
 }

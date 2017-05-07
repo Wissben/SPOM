@@ -41,3 +41,5 @@ QMAKE += core
 QT += widgets
 
 CONFIG += c++11
+QT += multimedia
+
