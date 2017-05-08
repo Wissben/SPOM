@@ -16,6 +16,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -27,6 +28,8 @@ public:
     QPushButton *about;
     QPushButton *pushButton_3;
     QLabel *label;
+    QTextBrowser *aboutText;
+    QPushButton *help;
 
     void setupUi(QWidget *Welcome)
     {
@@ -69,10 +72,29 @@ public:
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(0, 0, 480, 640));
         label->setPixmap(QPixmap(QString::fromUtf8("Resources/backgrouds/Plandetravail1VGA.png")));
+        aboutText = new QTextBrowser(Welcome);
+        aboutText->setObjectName(QStringLiteral("aboutText"));
+        aboutText->setEnabled(false);
+        aboutText->setGeometry(QRect(20, 30, 440, 560));
+        aboutText->setUndoRedoEnabled(false);
+        help = new QPushButton(Welcome);
+        help->setObjectName(QStringLiteral("help"));
+        help->setGeometry(QRect(195, 600, 90, 31));
+        help->setAutoFillBackground(false);
+        help->setStyleSheet(QLatin1String("QPushButton { \n"
+"color: 000000;\n"
+"}"));
+        QIcon icon3;
+        icon3.addFile(QStringLiteral("Resources/Help Filled-500.png"), QSize(), QIcon::Normal, QIcon::Off);
+        help->setIcon(icon3);
+        help->setIconSize(QSize(20, 20));
+        help->setFlat(true);
+        aboutText->raise();
         label->raise();
         pushButton->raise();
         about->raise();
         pushButton_3->raise();
+        help->raise();
 
         retranslateUi(Welcome);
 
@@ -86,6 +108,7 @@ public:
         about->setText(QApplication::translate("Welcome", " \303\200 propos", 0));
         pushButton_3->setText(QApplication::translate("Welcome", "VIVE MATOUB", 0));
         label->setText(QString());
+        help->setText(QApplication::translate("Welcome", " Aide", 0));
     } // retranslateUi
 
 };

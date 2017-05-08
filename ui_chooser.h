@@ -63,12 +63,12 @@ public:
     QScrollArea *scrollArea_3;
     QWidget *scrollAreaWidgetContents_3;
     QLabel *label_progressGrad;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_2;
     QPushButton *shadowToggleGrad;
     QLabel *label_19;
     QWidget *tabMoyArith;
-    QWidget *layoutWidget1;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *begin_Arith;
     QPushButton *deccel_Arith;
@@ -94,7 +94,7 @@ public:
     QScrollArea *scrollArea_7;
     QWidget *scrollAreaWidgetContents_7;
     QLabel *label_progressArith;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout;
     QPushButton *arithChooser;
     QProgressBar *backgroundProgressArith;
@@ -220,6 +220,9 @@ public:
         if (Chooser->objectName().isEmpty())
             Chooser->setObjectName(QStringLiteral("Chooser"));
         Chooser->resize(1300, 768);
+        QIcon icon;
+        icon.addFile(QStringLiteral("Resources/backgrouds/Sans-titre-1.png"), QSize(), QIcon::Normal, QIcon::Off);
+        Chooser->setWindowIcon(icon);
         gridLayout_6 = new QGridLayout(Chooser);
         gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
         tabWidget = new QTabWidget(Chooser);
@@ -233,9 +236,10 @@ public:
         gradiantChooser = new QPushButton(tabGradiantMorph);
         gradiantChooser->setObjectName(QStringLiteral("gradiantChooser"));
         gradiantChooser->setGeometry(QRect(100, 40, 141, 31));
-        QIcon icon;
-        icon.addFile(QStringLiteral("Resources/Multiple Choice-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        gradiantChooser->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral("Resources/Multiple Choice-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        gradiantChooser->setIcon(icon1);
+        gradiantChooser->setIconSize(QSize(26, 26));
         gridLayoutWidget = new QWidget(tabGradiantMorph);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(90, 80, 160, 121));
@@ -299,9 +303,9 @@ public:
         begin = new QPushButton(layoutWidget);
         begin->setObjectName(QStringLiteral("begin"));
         begin->setFocusPolicy(Qt::NoFocus);
-        QIcon icon1;
-        icon1.addFile(QStringLiteral("Resources/MediaControl/Redo-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        begin->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QStringLiteral("Resources/MediaControl/Redo-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        begin->setIcon(icon2);
         begin->setIconSize(QSize(26, 26));
 
         horizontalLayout->addWidget(begin);
@@ -309,9 +313,9 @@ public:
         deccel = new QPushButton(layoutWidget);
         deccel->setObjectName(QStringLiteral("deccel"));
         deccel->setFocusPolicy(Qt::NoFocus);
-        QIcon icon2;
-        icon2.addFile(QStringLiteral("Resources/MediaControl/Rewind-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        deccel->setIcon(icon2);
+        QIcon icon3;
+        icon3.addFile(QStringLiteral("Resources/MediaControl/Rewind-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        deccel->setIcon(icon3);
         deccel->setIconSize(QSize(26, 26));
 
         horizontalLayout->addWidget(deccel);
@@ -319,9 +323,9 @@ public:
         speedDown = new QPushButton(layoutWidget);
         speedDown->setObjectName(QStringLiteral("speedDown"));
         speedDown->setFocusPolicy(Qt::NoFocus);
-        QIcon icon3;
-        icon3.addFile(QStringLiteral("Resources/MediaControl/Back-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        speedDown->setIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QStringLiteral("Resources/MediaControl/Back-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        speedDown->setIcon(icon4);
         speedDown->setIconSize(QSize(26, 26));
 
         horizontalLayout->addWidget(speedDown);
@@ -329,9 +333,9 @@ public:
         control = new QPushButton(layoutWidget);
         control->setObjectName(QStringLiteral("control"));
         control->setFocusPolicy(Qt::NoFocus);
-        QIcon icon4;
-        icon4.addFile(QStringLiteral("Resources/MediaControl/Pause-26-Disabled.png"), QSize(), QIcon::Normal, QIcon::Off);
-        control->setIcon(icon4);
+        QIcon icon5;
+        icon5.addFile(QStringLiteral("Resources/MediaControl/Pause-26-Disabled.png"), QSize(), QIcon::Normal, QIcon::Off);
+        control->setIcon(icon5);
         control->setIconSize(QSize(26, 26));
 
         horizontalLayout->addWidget(control);
@@ -339,9 +343,9 @@ public:
         speedUp = new QPushButton(layoutWidget);
         speedUp->setObjectName(QStringLiteral("speedUp"));
         speedUp->setFocusPolicy(Qt::NoFocus);
-        QIcon icon5;
-        icon5.addFile(QStringLiteral("Resources/MediaControl/Forward-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        speedUp->setIcon(icon5);
+        QIcon icon6;
+        icon6.addFile(QStringLiteral("Resources/MediaControl/Forward-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        speedUp->setIcon(icon6);
         speedUp->setIconSize(QSize(26, 26));
 
         horizontalLayout->addWidget(speedUp);
@@ -349,9 +353,9 @@ public:
         accel = new QPushButton(layoutWidget);
         accel->setObjectName(QStringLiteral("accel"));
         accel->setFocusPolicy(Qt::NoFocus);
-        QIcon icon6;
-        icon6.addFile(QStringLiteral("Resources/MediaControl/Fast Forward-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        accel->setIcon(icon6);
+        QIcon icon7;
+        icon7.addFile(QStringLiteral("Resources/MediaControl/Fast Forward-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        accel->setIcon(icon7);
         accel->setIconSize(QSize(26, 26));
 
         horizontalLayout->addWidget(accel);
@@ -359,9 +363,9 @@ public:
         end = new QPushButton(layoutWidget);
         end->setObjectName(QStringLiteral("end"));
         end->setFocusPolicy(Qt::NoFocus);
-        QIcon icon7;
-        icon7.addFile(QStringLiteral("Resources/MediaControl/End-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        end->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QStringLiteral("Resources/MediaControl/End-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        end->setIcon(icon8);
         end->setIconSize(QSize(26, 26));
 
         horizontalLayout->addWidget(end);
@@ -397,33 +401,34 @@ public:
         label_progressGrad->setMidLineWidth(0);
         label_progressGrad->setTextFormat(Qt::AutoText);
         label_progressGrad->setAlignment(Qt::AlignCenter);
-        widget = new QWidget(tabGradiantMorph);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(140, 345, 67, 71));
-        verticalLayout_2 = new QVBoxLayout(widget);
+        layoutWidget1 = new QWidget(tabGradiantMorph);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(140, 345, 67, 86));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget1);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        shadowToggleGrad = new QPushButton(widget);
+        shadowToggleGrad = new QPushButton(layoutWidget1);
         shadowToggleGrad->setObjectName(QStringLiteral("shadowToggleGrad"));
         shadowToggleGrad->setFocusPolicy(Qt::NoFocus);
         shadowToggleGrad->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 15px;"));
-        QIcon icon8;
-        icon8.addFile(QStringLiteral("Resources/Toggle Off.png"), QSize(), QIcon::Normal, QIcon::Off);
-        shadowToggleGrad->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QStringLiteral("Resources/Toggle Off.png"), QSize(), QIcon::Normal, QIcon::Off);
+        shadowToggleGrad->setIcon(icon9);
         shadowToggleGrad->setIconSize(QSize(50, 50));
         shadowToggleGrad->setCheckable(false);
         shadowToggleGrad->setFlat(true);
 
         verticalLayout_2->addWidget(shadowToggleGrad);
 
-        label_19 = new QLabel(widget);
+        label_19 = new QLabel(layoutWidget1);
         label_19->setObjectName(QStringLiteral("label_19"));
 
         verticalLayout_2->addWidget(label_19);
 
         tabWidget->addTab(tabGradiantMorph, QString());
+        layoutWidget->raise();
         gradiantChooser->raise();
         gridLayoutWidget->raise();
         label->raise();
@@ -437,64 +442,61 @@ public:
         grad_image_label_mask->raise();
         grad_image_label_original->raise();
         label_progressGrad->raise();
-        shadowToggleGrad->raise();
-        label_19->raise();
-        shadowToggleGrad->raise();
         tabMoyArith = new QWidget();
         tabMoyArith->setObjectName(QStringLiteral("tabMoyArith"));
-        layoutWidget1 = new QWidget(tabMoyArith);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 273, 304, 34));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
+        layoutWidget2 = new QWidget(tabMoyArith);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(10, 273, 304, 34));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        begin_Arith = new QPushButton(layoutWidget1);
+        begin_Arith = new QPushButton(layoutWidget2);
         begin_Arith->setObjectName(QStringLiteral("begin_Arith"));
-        begin_Arith->setIcon(icon1);
+        begin_Arith->setIcon(icon2);
         begin_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(begin_Arith);
 
-        deccel_Arith = new QPushButton(layoutWidget1);
+        deccel_Arith = new QPushButton(layoutWidget2);
         deccel_Arith->setObjectName(QStringLiteral("deccel_Arith"));
-        deccel_Arith->setIcon(icon2);
+        deccel_Arith->setIcon(icon3);
         deccel_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(deccel_Arith);
 
-        speedDown_Arith = new QPushButton(layoutWidget1);
+        speedDown_Arith = new QPushButton(layoutWidget2);
         speedDown_Arith->setObjectName(QStringLiteral("speedDown_Arith"));
-        speedDown_Arith->setIcon(icon3);
+        speedDown_Arith->setIcon(icon4);
         speedDown_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(speedDown_Arith);
 
-        controlArith = new QPushButton(layoutWidget1);
+        controlArith = new QPushButton(layoutWidget2);
         controlArith->setObjectName(QStringLiteral("controlArith"));
-        QIcon icon9;
-        icon9.addFile(QStringLiteral("Resources/MediaControl/Pause-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        controlArith->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QStringLiteral("Resources/MediaControl/Pause-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        controlArith->setIcon(icon10);
         controlArith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(controlArith);
 
-        speedUp_Arith = new QPushButton(layoutWidget1);
+        speedUp_Arith = new QPushButton(layoutWidget2);
         speedUp_Arith->setObjectName(QStringLiteral("speedUp_Arith"));
-        speedUp_Arith->setIcon(icon5);
+        speedUp_Arith->setIcon(icon6);
         speedUp_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(speedUp_Arith);
 
-        accel_Arith = new QPushButton(layoutWidget1);
+        accel_Arith = new QPushButton(layoutWidget2);
         accel_Arith->setObjectName(QStringLiteral("accel_Arith"));
-        accel_Arith->setIcon(icon6);
+        accel_Arith->setIcon(icon7);
         accel_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(accel_Arith);
 
-        end_Arith = new QPushButton(layoutWidget1);
+        end_Arith = new QPushButton(layoutWidget2);
         end_Arith->setObjectName(QStringLiteral("end_Arith"));
-        end_Arith->setIcon(icon7);
+        end_Arith->setIcon(icon8);
         end_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(end_Arith);
@@ -506,28 +508,28 @@ public:
         arith_image_label_original->setOpenExternalLinks(false);
         arith_image_label_back = new QLabel(tabMoyArith);
         arith_image_label_back->setObjectName(QStringLiteral("arith_image_label_back"));
-        arith_image_label_back->setGeometry(QRect(790, 320, 320, 240));
+        arith_image_label_back->setGeometry(QRect(790, 0, 320, 240));
         arith_image_label_back->setScaledContents(true);
         label_7 = new QLabel(tabMoyArith);
         label_7->setObjectName(QStringLiteral("label_7"));
         label_7->setGeometry(QRect(525, 260, 111, 20));
         arith_image_label_foreground = new QLabel(tabMoyArith);
         arith_image_label_foreground->setObjectName(QStringLiteral("arith_image_label_foreground"));
-        arith_image_label_foreground->setGeometry(QRect(420, 320, 320, 240));
+        arith_image_label_foreground->setGeometry(QRect(790, 320, 320, 240));
         arith_image_label_foreground->setScaledContents(true);
         arith_image_label_mask = new QLabel(tabMoyArith);
         arith_image_label_mask->setObjectName(QStringLiteral("arith_image_label_mask"));
-        arith_image_label_mask->setGeometry(QRect(790, 0, 320, 240));
+        arith_image_label_mask->setGeometry(QRect(420, 320, 320, 240));
         arith_image_label_mask->setScaledContents(true);
         label_10 = new QLabel(tabMoyArith);
         label_10->setObjectName(QStringLiteral("label_10"));
-        label_10->setGeometry(QRect(910, 580, 81, 18));
+        label_10->setGeometry(QRect(910, 260, 81, 18));
         label_8 = new QLabel(tabMoyArith);
         label_8->setObjectName(QStringLiteral("label_8"));
-        label_8->setGeometry(QRect(870, 260, 161, 20));
+        label_8->setGeometry(QRect(510, 580, 161, 20));
         label_9 = new QLabel(tabMoyArith);
         label_9->setObjectName(QStringLiteral("label_9"));
-        label_9->setGeometry(QRect(550, 580, 81, 20));
+        label_9->setGeometry(QRect(910, 580, 81, 20));
         scrollArea_4 = new QScrollArea(tabMoyArith);
         scrollArea_4->setObjectName(QStringLiteral("scrollArea_4"));
         scrollArea_4->setGeometry(QRect(420, 0, 320, 240));
@@ -564,19 +566,20 @@ public:
         label_progressArith->setObjectName(QStringLiteral("label_progressArith"));
         label_progressArith->setGeometry(QRect(65, 210, 191, 20));
         label_progressArith->setAlignment(Qt::AlignCenter);
-        layoutWidget2 = new QWidget(tabMoyArith);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(80, 110, 161, 84));
-        verticalLayout = new QVBoxLayout(layoutWidget2);
+        layoutWidget3 = new QWidget(tabMoyArith);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(80, 110, 161, 84));
+        verticalLayout = new QVBoxLayout(layoutWidget3);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        arithChooser = new QPushButton(layoutWidget2);
+        arithChooser = new QPushButton(layoutWidget3);
         arithChooser->setObjectName(QStringLiteral("arithChooser"));
-        arithChooser->setIcon(icon);
+        arithChooser->setIcon(icon1);
+        arithChooser->setIconSize(QSize(26, 26));
 
         verticalLayout->addWidget(arithChooser);
 
-        backgroundProgressArith = new QProgressBar(layoutWidget2);
+        backgroundProgressArith = new QProgressBar(layoutWidget3);
         backgroundProgressArith->setObjectName(QStringLiteral("backgroundProgressArith"));
         backgroundProgressArith->setValue(0);
 
@@ -594,7 +597,7 @@ public:
         shadowToggleArith->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 15px;"));
-        shadowToggleArith->setIcon(icon8);
+        shadowToggleArith->setIcon(icon9);
         shadowToggleArith->setIconSize(QSize(50, 50));
         shadowToggleArith->setCheckable(false);
         shadowToggleArith->setFlat(true);
@@ -628,7 +631,8 @@ public:
         recChooser = new QPushButton(tabMoyRec);
         recChooser->setObjectName(QStringLiteral("recChooser"));
         recChooser->setGeometry(QRect(90, 20, 141, 31));
-        recChooser->setIcon(icon);
+        recChooser->setIcon(icon1);
+        recChooser->setIconSize(QSize(26, 26));
         gridLayoutWidget_2 = new QWidget(tabMoyRec);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
         gridLayoutWidget_2->setGeometry(QRect(80, 60, 160, 121));
@@ -661,11 +665,11 @@ public:
 
         rec_image_label_mask = new QLabel(tabMoyRec);
         rec_image_label_mask->setObjectName(QStringLiteral("rec_image_label_mask"));
-        rec_image_label_mask->setGeometry(QRect(790, 0, 320, 240));
+        rec_image_label_mask->setGeometry(QRect(790, 320, 320, 240));
         rec_image_label_mask->setScaledContents(true);
         rec_image_label_back = new QLabel(tabMoyRec);
         rec_image_label_back->setObjectName(QStringLiteral("rec_image_label_back"));
-        rec_image_label_back->setGeometry(QRect(790, 320, 320, 240));
+        rec_image_label_back->setGeometry(QRect(790, 0, 320, 240));
         rec_image_label_back->setScaledContents(true);
         rec_image_label_foreground = new QLabel(tabMoyRec);
         rec_image_label_foreground->setObjectName(QStringLiteral("rec_image_label_foreground"));
@@ -684,62 +688,62 @@ public:
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
         begin_Rec = new QPushButton(layoutWidget_2);
         begin_Rec->setObjectName(QStringLiteral("begin_Rec"));
-        begin_Rec->setIcon(icon1);
+        begin_Rec->setIcon(icon2);
         begin_Rec->setIconSize(QSize(26, 26));
 
         horizontalLayout_3->addWidget(begin_Rec);
 
         deccel_Rec = new QPushButton(layoutWidget_2);
         deccel_Rec->setObjectName(QStringLiteral("deccel_Rec"));
-        deccel_Rec->setIcon(icon2);
+        deccel_Rec->setIcon(icon3);
         deccel_Rec->setIconSize(QSize(26, 26));
 
         horizontalLayout_3->addWidget(deccel_Rec);
 
         speedDown_Rec = new QPushButton(layoutWidget_2);
         speedDown_Rec->setObjectName(QStringLiteral("speedDown_Rec"));
-        speedDown_Rec->setIcon(icon3);
+        speedDown_Rec->setIcon(icon4);
         speedDown_Rec->setIconSize(QSize(26, 26));
 
         horizontalLayout_3->addWidget(speedDown_Rec);
 
         controlRec = new QPushButton(layoutWidget_2);
         controlRec->setObjectName(QStringLiteral("controlRec"));
-        controlRec->setIcon(icon9);
+        controlRec->setIcon(icon10);
         controlRec->setIconSize(QSize(26, 26));
 
         horizontalLayout_3->addWidget(controlRec);
 
         speedUp_Rec = new QPushButton(layoutWidget_2);
         speedUp_Rec->setObjectName(QStringLiteral("speedUp_Rec"));
-        speedUp_Rec->setIcon(icon5);
+        speedUp_Rec->setIcon(icon6);
         speedUp_Rec->setIconSize(QSize(26, 26));
 
         horizontalLayout_3->addWidget(speedUp_Rec);
 
         accel_Rec = new QPushButton(layoutWidget_2);
         accel_Rec->setObjectName(QStringLiteral("accel_Rec"));
-        accel_Rec->setIcon(icon6);
+        accel_Rec->setIcon(icon7);
         accel_Rec->setIconSize(QSize(26, 26));
 
         horizontalLayout_3->addWidget(accel_Rec);
 
         end_Rec = new QPushButton(layoutWidget_2);
         end_Rec->setObjectName(QStringLiteral("end_Rec"));
-        end_Rec->setIcon(icon7);
+        end_Rec->setIcon(icon8);
         end_Rec->setIconSize(QSize(26, 26));
 
         horizontalLayout_3->addWidget(end_Rec);
 
         label_11 = new QLabel(tabMoyRec);
         label_11->setObjectName(QStringLiteral("label_11"));
-        label_11->setGeometry(QRect(870, 260, 161, 20));
+        label_11->setGeometry(QRect(870, 580, 161, 20));
         label_12 = new QLabel(tabMoyRec);
         label_12->setObjectName(QStringLiteral("label_12"));
         label_12->setGeometry(QRect(525, 260, 111, 20));
         label_13 = new QLabel(tabMoyRec);
         label_13->setObjectName(QStringLiteral("label_13"));
-        label_13->setGeometry(QRect(910, 580, 81, 18));
+        label_13->setGeometry(QRect(910, 260, 81, 18));
         label_14 = new QLabel(tabMoyRec);
         label_14->setObjectName(QStringLiteral("label_14"));
         label_14->setGeometry(QRect(550, 580, 81, 20));
@@ -791,7 +795,7 @@ public:
         shadowToggleRec->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 15px;"));
-        shadowToggleRec->setIcon(icon8);
+        shadowToggleRec->setIcon(icon9);
         shadowToggleRec->setIconSize(QSize(50, 50));
         shadowToggleRec->setCheckable(false);
         shadowToggleRec->setFlat(true);
@@ -826,10 +830,11 @@ public:
         SDChooser = new QPushButton(tabMoySD);
         SDChooser->setObjectName(QStringLiteral("SDChooser"));
         SDChooser->setGeometry(QRect(80, 40, 141, 31));
-        SDChooser->setIcon(icon);
+        SDChooser->setIcon(icon1);
+        SDChooser->setIconSize(QSize(26, 26));
         gridLayoutWidget_3 = new QWidget(tabMoySD);
         gridLayoutWidget_3->setObjectName(QStringLiteral("gridLayoutWidget_3"));
-        gridLayoutWidget_3->setGeometry(QRect(70, 80, 160, 109));
+        gridLayoutWidget_3->setGeometry(QRect(70, 80, 160, 91));
         gridLayout_3 = new QGridLayout(gridLayoutWidget_3);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         gridLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -881,49 +886,49 @@ public:
         horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
         begin_SD = new QPushButton(layoutWidget_3);
         begin_SD->setObjectName(QStringLiteral("begin_SD"));
-        begin_SD->setIcon(icon1);
+        begin_SD->setIcon(icon2);
         begin_SD->setIconSize(QSize(26, 26));
 
         horizontalLayout_4->addWidget(begin_SD);
 
         deccel_SD = new QPushButton(layoutWidget_3);
         deccel_SD->setObjectName(QStringLiteral("deccel_SD"));
-        deccel_SD->setIcon(icon2);
+        deccel_SD->setIcon(icon3);
         deccel_SD->setIconSize(QSize(26, 26));
 
         horizontalLayout_4->addWidget(deccel_SD);
 
         speedDown_SD = new QPushButton(layoutWidget_3);
         speedDown_SD->setObjectName(QStringLiteral("speedDown_SD"));
-        speedDown_SD->setIcon(icon3);
+        speedDown_SD->setIcon(icon4);
         speedDown_SD->setIconSize(QSize(26, 26));
 
         horizontalLayout_4->addWidget(speedDown_SD);
 
         controlSD = new QPushButton(layoutWidget_3);
         controlSD->setObjectName(QStringLiteral("controlSD"));
-        controlSD->setIcon(icon9);
+        controlSD->setIcon(icon10);
         controlSD->setIconSize(QSize(26, 26));
 
         horizontalLayout_4->addWidget(controlSD);
 
         speedUp_SD = new QPushButton(layoutWidget_3);
         speedUp_SD->setObjectName(QStringLiteral("speedUp_SD"));
-        speedUp_SD->setIcon(icon5);
+        speedUp_SD->setIcon(icon6);
         speedUp_SD->setIconSize(QSize(26, 26));
 
         horizontalLayout_4->addWidget(speedUp_SD);
 
         accel_SD = new QPushButton(layoutWidget_3);
         accel_SD->setObjectName(QStringLiteral("accel_SD"));
-        accel_SD->setIcon(icon6);
+        accel_SD->setIcon(icon7);
         accel_SD->setIconSize(QSize(26, 26));
 
         horizontalLayout_4->addWidget(accel_SD);
 
         end_SD = new QPushButton(layoutWidget_3);
         end_SD->setObjectName(QStringLiteral("end_SD"));
-        end_SD->setIcon(icon7);
+        end_SD->setIcon(icon8);
         end_SD->setIconSize(QSize(26, 26));
 
         horizontalLayout_4->addWidget(end_SD);
@@ -968,7 +973,7 @@ public:
         shadowToggleSD->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 15px;"));
-        shadowToggleSD->setIcon(icon8);
+        shadowToggleSD->setIcon(icon9);
         shadowToggleSD->setIconSize(QSize(50, 50));
         shadowToggleSD->setCheckable(false);
         shadowToggleSD->setFlat(true);
@@ -1000,7 +1005,8 @@ public:
         SAPChooser = new QPushButton(tabSAP);
         SAPChooser->setObjectName(QStringLiteral("SAPChooser"));
         SAPChooser->setGeometry(QRect(100, 40, 141, 31));
-        SAPChooser->setIcon(icon);
+        SAPChooser->setIcon(icon1);
+        SAPChooser->setIconSize(QSize(26, 26));
         gridLayoutWidget_4 = new QWidget(tabSAP);
         gridLayoutWidget_4->setObjectName(QStringLiteral("gridLayoutWidget_4"));
         gridLayoutWidget_4->setGeometry(QRect(90, 80, 160, 178));
@@ -1045,15 +1051,15 @@ public:
 
         SAP_image_label_foreground = new QLabel(tabSAP);
         SAP_image_label_foreground->setObjectName(QStringLiteral("SAP_image_label_foreground"));
-        SAP_image_label_foreground->setGeometry(QRect(420, 320, 320, 240));
+        SAP_image_label_foreground->setGeometry(QRect(790, 320, 320, 240));
         SAP_image_label_foreground->setScaledContents(true);
         SAP_image_label_back = new QLabel(tabSAP);
         SAP_image_label_back->setObjectName(QStringLiteral("SAP_image_label_back"));
-        SAP_image_label_back->setGeometry(QRect(790, 320, 320, 240));
+        SAP_image_label_back->setGeometry(QRect(790, 0, 320, 240));
         SAP_image_label_back->setScaledContents(true);
         SAP_image_label_mask = new QLabel(tabSAP);
         SAP_image_label_mask->setObjectName(QStringLiteral("SAP_image_label_mask"));
-        SAP_image_label_mask->setGeometry(QRect(790, 0, 320, 240));
+        SAP_image_label_mask->setGeometry(QRect(420, 320, 320, 240));
         SAP_image_label_mask->setScaledContents(true);
         SAP_image_label_original = new QLabel(tabSAP);
         SAP_image_label_original->setObjectName(QStringLiteral("SAP_image_label_original"));
@@ -1068,49 +1074,49 @@ public:
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
         begin_SAP = new QPushButton(layoutWidget_4);
         begin_SAP->setObjectName(QStringLiteral("begin_SAP"));
-        begin_SAP->setIcon(icon1);
+        begin_SAP->setIcon(icon2);
         begin_SAP->setIconSize(QSize(26, 26));
 
         horizontalLayout_5->addWidget(begin_SAP);
 
         deccel_SAP = new QPushButton(layoutWidget_4);
         deccel_SAP->setObjectName(QStringLiteral("deccel_SAP"));
-        deccel_SAP->setIcon(icon2);
+        deccel_SAP->setIcon(icon3);
         deccel_SAP->setIconSize(QSize(26, 26));
 
         horizontalLayout_5->addWidget(deccel_SAP);
 
         speedDown_SAP = new QPushButton(layoutWidget_4);
         speedDown_SAP->setObjectName(QStringLiteral("speedDown_SAP"));
-        speedDown_SAP->setIcon(icon3);
+        speedDown_SAP->setIcon(icon4);
         speedDown_SAP->setIconSize(QSize(26, 26));
 
         horizontalLayout_5->addWidget(speedDown_SAP);
 
         controlSAP = new QPushButton(layoutWidget_4);
         controlSAP->setObjectName(QStringLiteral("controlSAP"));
-        controlSAP->setIcon(icon9);
+        controlSAP->setIcon(icon10);
         controlSAP->setIconSize(QSize(26, 26));
 
         horizontalLayout_5->addWidget(controlSAP);
 
         speedUp_SAP = new QPushButton(layoutWidget_4);
         speedUp_SAP->setObjectName(QStringLiteral("speedUp_SAP"));
-        speedUp_SAP->setIcon(icon5);
+        speedUp_SAP->setIcon(icon6);
         speedUp_SAP->setIconSize(QSize(26, 26));
 
         horizontalLayout_5->addWidget(speedUp_SAP);
 
         accel_SAP = new QPushButton(layoutWidget_4);
         accel_SAP->setObjectName(QStringLiteral("accel_SAP"));
-        accel_SAP->setIcon(icon6);
+        accel_SAP->setIcon(icon7);
         accel_SAP->setIconSize(QSize(26, 26));
 
         horizontalLayout_5->addWidget(accel_SAP);
 
         end_SAP = new QPushButton(layoutWidget_4);
         end_SAP->setObjectName(QStringLiteral("end_SAP"));
-        end_SAP->setIcon(icon7);
+        end_SAP->setIcon(icon8);
         end_SAP->setIconSize(QSize(26, 26));
 
         horizontalLayout_5->addWidget(end_SAP);
@@ -1120,13 +1126,13 @@ public:
         label_15->setGeometry(QRect(525, 260, 111, 20));
         label_16 = new QLabel(tabSAP);
         label_16->setObjectName(QStringLiteral("label_16"));
-        label_16->setGeometry(QRect(550, 580, 81, 20));
+        label_16->setGeometry(QRect(910, 580, 81, 20));
         label_17 = new QLabel(tabSAP);
         label_17->setObjectName(QStringLiteral("label_17"));
-        label_17->setGeometry(QRect(910, 580, 81, 18));
+        label_17->setGeometry(QRect(910, 260, 81, 18));
         label_18 = new QLabel(tabSAP);
         label_18->setObjectName(QStringLiteral("label_18"));
-        label_18->setGeometry(QRect(870, 260, 161, 20));
+        label_18->setGeometry(QRect(500, 580, 161, 20));
         scrollArea_15 = new QScrollArea(tabSAP);
         scrollArea_15->setObjectName(QStringLiteral("scrollArea_15"));
         scrollArea_15->setGeometry(QRect(420, 0, 320, 240));
@@ -1175,7 +1181,7 @@ public:
         shadowToggleSAP->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 15px;"));
-        shadowToggleSAP->setIcon(icon8);
+        shadowToggleSAP->setIcon(icon9);
         shadowToggleSAP->setIconSize(QSize(50, 50));
         shadowToggleSAP->setCheckable(false);
         shadowToggleSAP->setFlat(true);
@@ -1225,7 +1231,7 @@ public:
 
     void retranslateUi(QWidget *Chooser)
     {
-        Chooser->setWindowTitle(QApplication::translate("Chooser", "Form", 0));
+        Chooser->setWindowTitle(QApplication::translate("Chooser", "Methodes de detection", 0));
         gradiantChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
         labelGradAlpha->setText(QApplication::translate("Chooser", "alpha", 0));
         labelGradAlphaValue->setText(QString());
@@ -1289,6 +1295,9 @@ public:
         label_21->setText(QApplication::translate("Chooser", "Shadows", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabMoyRec), QApplication::translate("Chooser", "Moyenne r\303\251cursive", 0));
         SDChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
+#ifndef QT_NO_TOOLTIP
+        labelSDN->setToolTip(QApplication::translate("Chooser", "Param\303\250tre de", 0));
+#endif // QT_NO_TOOLTIP
         labelSDN->setText(QApplication::translate("Chooser", "N", 0));
         SD_image_label_foreground->setText(QString());
         SD_image_label_original->setText(QString());

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "chooser.h"
+#include <QString>
 
 namespace Ui {
 class Welcome;
@@ -26,6 +27,11 @@ public:
 private slots:
     void on_about_clicked(bool checked);
     void on_pushButton_clicked();
+
+public:
+    void paintEvent(QPaintEvent *e);
+    bool paint;
+    QString aboutText;
 };
 
 #endif // WELCOME_H

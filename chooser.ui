@@ -12,7 +12,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Methodes de detection</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>Resources/backgrouds/Sans-titre-1.png</normaloff>Resources/backgrouds/Sans-titre-1.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_6">
    <item row="2" column="0">
@@ -51,6 +55,12 @@
        <property name="icon">
         <iconset>
          <normaloff>Resources/Multiple Choice-26.png</normaloff>Resources/Multiple Choice-26.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>26</width>
+         <height>26</height>
+        </size>
        </property>
       </widget>
       <widget class="QWidget" name="gridLayoutWidget">
@@ -444,13 +454,13 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>140</x>
          <y>345</y>
          <width>67</width>
-         <height>71</height>
+         <height>86</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -494,6 +504,7 @@ border-radius: 15px;</string>
         </item>
        </layout>
       </widget>
+      <zorder>layoutWidget</zorder>
       <zorder>gradiantChooser</zorder>
       <zorder>gridLayoutWidget</zorder>
       <zorder>label</zorder>
@@ -507,9 +518,6 @@ border-radius: 15px;</string>
       <zorder>grad_image_label_mask</zorder>
       <zorder>grad_image_label_original</zorder>
       <zorder>label_progressGrad</zorder>
-      <zorder>shadowToggleGrad</zorder>
-      <zorder>label_19</zorder>
-      <zorder>shadowToggleGrad</zorder>
      </widget>
      <widget class="QWidget" name="tabMoyArith">
       <attribute name="title">
@@ -669,7 +677,7 @@ border-radius: 15px;</string>
        <property name="geometry">
         <rect>
          <x>790</x>
-         <y>320</y>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -697,7 +705,7 @@ border-radius: 15px;</string>
       <widget class="QLabel" name="arith_image_label_foreground">
        <property name="geometry">
         <rect>
-         <x>420</x>
+         <x>790</x>
          <y>320</y>
          <width>320</width>
          <height>240</height>
@@ -713,8 +721,8 @@ border-radius: 15px;</string>
       <widget class="QLabel" name="arith_image_label_mask">
        <property name="geometry">
         <rect>
-         <x>790</x>
-         <y>0</y>
+         <x>420</x>
+         <y>320</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -730,7 +738,7 @@ border-radius: 15px;</string>
        <property name="geometry">
         <rect>
          <x>910</x>
-         <y>580</y>
+         <y>260</y>
          <width>81</width>
          <height>18</height>
         </rect>
@@ -742,8 +750,8 @@ border-radius: 15px;</string>
       <widget class="QLabel" name="label_8">
        <property name="geometry">
         <rect>
-         <x>870</x>
-         <y>260</y>
+         <x>510</x>
+         <y>580</y>
          <width>161</width>
          <height>20</height>
         </rect>
@@ -755,7 +763,7 @@ border-radius: 15px;</string>
       <widget class="QLabel" name="label_9">
        <property name="geometry">
         <rect>
-         <x>550</x>
+         <x>910</x>
          <y>580</y>
          <width>81</width>
          <height>20</height>
@@ -892,6 +900,12 @@ border-radius: 15px;</string>
            <iconset>
             <normaloff>Resources/Multiple Choice-26.png</normaloff>Resources/Multiple Choice-26.png</iconset>
           </property>
+          <property name="iconSize">
+           <size>
+            <width>26</width>
+            <height>26</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item>
@@ -990,6 +1004,12 @@ border-radius: 15px;</string>
         <iconset>
          <normaloff>Resources/Multiple Choice-26.png</normaloff>Resources/Multiple Choice-26.png</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>26</width>
+         <height>26</height>
+        </size>
+       </property>
       </widget>
       <widget class="QWidget" name="gridLayoutWidget_2">
        <property name="geometry">
@@ -1041,7 +1061,7 @@ border-radius: 15px;</string>
        <property name="geometry">
         <rect>
          <x>790</x>
-         <y>0</y>
+         <y>320</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -1057,7 +1077,7 @@ border-radius: 15px;</string>
        <property name="geometry">
         <rect>
          <x>790</x>
-         <y>320</y>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -1239,7 +1259,7 @@ border-radius: 15px;</string>
        <property name="geometry">
         <rect>
          <x>870</x>
-         <y>260</y>
+         <y>580</y>
          <width>161</width>
          <height>20</height>
         </rect>
@@ -1265,7 +1285,7 @@ border-radius: 15px;</string>
        <property name="geometry">
         <rect>
          <x>910</x>
-         <y>580</y>
+         <y>260</y>
          <width>81</width>
          <height>18</height>
         </rect>
@@ -1483,6 +1503,12 @@ border-radius: 15px;</string>
         <iconset>
          <normaloff>Resources/Multiple Choice-26.png</normaloff>Resources/Multiple Choice-26.png</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>26</width>
+         <height>26</height>
+        </size>
+       </property>
       </widget>
       <widget class="QWidget" name="gridLayoutWidget_3">
        <property name="geometry">
@@ -1490,7 +1516,7 @@ border-radius: 15px;</string>
          <x>70</x>
          <y>80</y>
          <width>160</width>
-         <height>109</height>
+         <height>91</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
@@ -1506,6 +1532,9 @@ border-radius: 15px;</string>
         </item>
         <item row="1" column="0" alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="labelSDN">
+          <property name="toolTip">
+           <string>Paramètre de</string>
+          </property>
           <property name="text">
            <string>N</string>
           </property>
@@ -1911,6 +1940,12 @@ border-radius: 15px;</string>
         <iconset>
          <normaloff>Resources/Multiple Choice-26.png</normaloff>Resources/Multiple Choice-26.png</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>26</width>
+         <height>26</height>
+        </size>
+       </property>
       </widget>
       <widget class="QWidget" name="gridLayoutWidget_4">
        <property name="geometry">
@@ -1984,7 +2019,7 @@ border-radius: 15px;</string>
       <widget class="QLabel" name="SAP_image_label_foreground">
        <property name="geometry">
         <rect>
-         <x>420</x>
+         <x>790</x>
          <y>320</y>
          <width>320</width>
          <height>240</height>
@@ -2001,7 +2036,7 @@ border-radius: 15px;</string>
        <property name="geometry">
         <rect>
          <x>790</x>
-         <y>320</y>
+         <y>0</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -2016,8 +2051,8 @@ border-radius: 15px;</string>
       <widget class="QLabel" name="SAP_image_label_mask">
        <property name="geometry">
         <rect>
-         <x>790</x>
-         <y>0</y>
+         <x>420</x>
+         <y>320</y>
          <width>320</width>
          <height>240</height>
         </rect>
@@ -2195,7 +2230,7 @@ border-radius: 15px;</string>
       <widget class="QLabel" name="label_16">
        <property name="geometry">
         <rect>
-         <x>550</x>
+         <x>910</x>
          <y>580</y>
          <width>81</width>
          <height>20</height>
@@ -2209,7 +2244,7 @@ border-radius: 15px;</string>
        <property name="geometry">
         <rect>
          <x>910</x>
-         <y>580</y>
+         <y>260</y>
          <width>81</width>
          <height>18</height>
         </rect>
@@ -2221,8 +2256,8 @@ border-radius: 15px;</string>
       <widget class="QLabel" name="label_18">
        <property name="geometry">
         <rect>
-         <x>870</x>
-         <y>260</y>
+         <x>500</x>
+         <y>580</y>
          <width>161</width>
          <height>20</height>
         </rect>

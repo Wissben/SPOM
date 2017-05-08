@@ -116,10 +116,62 @@ color: 000000;
     <pixmap>Resources/backgrouds/Plandetravail1VGA.png</pixmap>
    </property>
   </widget>
+  <widget class="QTextBrowser" name="aboutText">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>440</width>
+     <height>560</height>
+    </rect>
+   </property>
+   <property name="undoRedoEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="help">
+   <property name="geometry">
+    <rect>
+     <x>195</x>
+     <y>600</y>
+     <width>90</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton { 
+color: 000000;
+}</string>
+   </property>
+   <property name="text">
+    <string> Aide</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/Help Filled-500.png</normaloff>Resources/Help Filled-500.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>20</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <zorder>aboutText</zorder>
   <zorder>label</zorder>
   <zorder>pushButton</zorder>
   <zorder>about</zorder>
   <zorder>pushButton_3</zorder>
+  <zorder>help</zorder>
  </widget>
  <resources/>
  <connections/>

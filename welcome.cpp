@@ -32,16 +32,21 @@
 #include <QPropertyAnimation>
 #include <QThread>
 #include <QMediaPlayer>
-#include <QtMultimedia/QMediaPlayer>
-#include <QtDebug>
-
+#include <QDebug>
+#include <QSound>
 Welcome::Welcome(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Welcome)
 {
     ui->setupUi(this);
     this->setFixedSize(480,640);
-
+    paint = false;
+    ui->aboutText->setVisible(false);
+    aboutText="is a cross-platform application framework that is used for developing application software that can be run on various software a"
+              "nd hardware platforms with little or no change in the underlying codebase, while still being a native application with native "
+              "capabilities and speed. Qt is currently being developed both by The Qt Company, a company listed on the Nasdaq Helsinki Stock "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Qt.[10][11][12] Qt is available with both commercial[4] and open source[13] GPL 2.0, GPL 3.0, and LGPL 3.0 licenses.[5][6]";
     //QPixmap bkgnd("Resources/backgrouds/Plandetravail1VGA.png");
       //      bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
         //    QPalette palette;
@@ -56,16 +61,20 @@ Welcome::Welcome(QWidget *parent) :
 
              ui->pushButton_3->setVisible(false);
              ui->pushButton_3->setEnabled(false);
+
+             ui->help->setVisible(false);
+             ui->help->setEnabled(false);
             // w is your widget
             QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
             ui->label->setGraphicsEffect(eff);
             QPropertyAnimation *a = new QPropertyAnimation(eff,"opacity");
-            //PLay the sound
-//            QMediaPlayer *player = new QMediaPlayer;
-//            player->setMedia(QUrl::fromLocalFile("Resources/Sounds/soo.mp3"));
-//            player->setVolume(100);
-//            player->play();
-            //end
+           // PLay the sound
+
+            QMediaPlayer *player = new QMediaPlayer;
+            player->setMedia(QUrl::fromLocalFile("Resources/Sounds/soo.mp3"));
+            player->setVolume(100);
+            player->play();
+           // end
             a->setDuration(3000);
             a->setStartValue(0);
             a->setEndValue(1);
@@ -80,6 +89,7 @@ Welcome::Welcome(QWidget *parent) :
 //            a->setEasingCurve(QEasingCurve::OutBack);
 //            a->start(QPropertyAnimation::DeleteWhenStopped);
             connect(a,SIGNAL(finished()),this,SLOT(hideThisWidget()));
+            //connect(ui->help,SIGNAL(clicked(bool)),ui->about,SLOT(click()));
             // now implement a slot called hideThisWidget() to do
             // things like hide any background dimmer, etc.
 
@@ -95,7 +105,7 @@ Welcome::Welcome(QWidget *parent) :
 }
 void Welcome::hideThisWidget()
 {
-    ui->about->setVisible(true);
+                ui->about->setVisible(true);
                 ui->about->setEnabled(true);
 
                 ui->pushButton->setVisible(true);
@@ -103,6 +113,9 @@ void Welcome::hideThisWidget()
 
                 ui->pushButton_3->setVisible(true);
                 ui->pushButton_3->setEnabled(true);
+
+                ui->help->setVisible(true);
+                ui->help->setEnabled(true);
 }
 
 Welcome::~Welcome()
@@ -118,23 +131,28 @@ void Welcome::on_pushButton_3_clicked()
 
 void Welcome::on_about_clicked(bool checked)
 {
-//    QMediaPlayer *player = new QMediaPlayer;
-//    player->setMedia(QUrl::fromLocalFile("Resources/Sounds/soo.mp3"));
-//    player->setVolume(100);
-//    player->play();
-    QPixmap("Resources/backgrounds/circles.png");
-    QPainter painter;
-    QColor yellow("#f0d048");
-    Qt::BrushStyle style = Qt::SolidPattern;
-    QBrush brush(yellow, style);
-    painter.setBrush(brush);
-    painter.setPen(Qt::NoPen);
-    painter.drawEllipse(100,100,100,100);
-
+    paint = !paint;
+    if(paint)
+    {
+        ui->aboutText->setVisible(true);
+        ui->aboutText->raise();
+        ui->aboutText->setEnabled(true);
+        ui->aboutText->setText(aboutText);
+    }
+    else
+    {
+        ui->aboutText->setVisible(false);
+        ui->aboutText->lower();
+        ui->aboutText->setEnabled(false);
+    }
 
 }
 
 void Welcome::on_pushButton_clicked()
 {
     exit(EXIT_SUCCESS);
+}
+
+void Welcome::paintEvent(QPaintEvent *e)
+{
 }

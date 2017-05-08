@@ -371,6 +371,7 @@ void Chooser::on_horizontalSlider_sliderPressed()
 
 void Chooser::on_Chooser_destroyed()
 {
+    delete ui;
     exit(EXIT_SUCCESS);
 }
 
