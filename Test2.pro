@@ -18,19 +18,22 @@ SOURCES += main.cpp\
     method.cpp \
     mymath.cpp \
     chooser.cpp \
-    welcome.cpp
+    welcome.cpp \
+    tutorial.cpp
 
 HEADERS  += mainwindow.h \
     selector.h \
     method.h \
     mymath.h \
     chooser.h \
-    welcome.h
+    welcome.h \
+    tutorial.h
 
 FORMS    += mainwindow.ui \
     selector.ui \
     chooser.ui \
-    welcome.ui
+    welcome.ui \
+    tutorial.ui
 
 INCLUDEPATH += "/usr/local/include/"
 

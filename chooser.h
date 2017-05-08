@@ -162,30 +162,30 @@ public:
     std::vector<cv::Mat> gradFramesFore;
     std::vector<cv::Mat> gradFramesMask;
     std::vector<cv::Mat> gradFramesOriginal;
-    unsigned int gradIndex;
+     int gradIndex;
 
     std::vector<cv::Mat> arithFramesFore;
     std::vector<cv::Mat> arithFramesMask;
     std::vector<cv::Mat> arithFramesOriginal;
     std::vector<cv::Mat> arithFramesBack;
-    unsigned int arithIndex;
+     int arithIndex;
 
     std::vector<cv::Mat> recFramesFore;
     std::vector<cv::Mat> recFramesMask;
     std::vector<cv::Mat> recFramesOriginal;
     std::vector<cv::Mat> recFramesBack;
-    unsigned int recIndex;
+     int recIndex;
 
     std::vector<cv::Mat> SDFramesFore;
     std::vector<cv::Mat> SDFramesMask;
     std::vector<cv::Mat> SDFramesOriginal;
-    unsigned int SDIndex;
+     int SDIndex;
 
     std::vector<cv::Mat> SAPFramesFore;
     std::vector<cv::Mat> SAPFramesMask;
     std::vector<cv::Mat> SAPFramesOriginal;
     std::vector<cv::Mat> SAPFramesBack;
-    unsigned int SAPIndex;
+     int SAPIndex;
 
 
     QTimer* timerGrad;

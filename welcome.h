@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "chooser.h"
 #include <QString>
-
+#include "tutorial.h"
 namespace Ui {
 class Welcome;
 }
@@ -24,9 +24,12 @@ public slots:
 public:
     Ui::Welcome *ui;
     Chooser x;
+    Tutorial t;
 private slots:
     void on_about_clicked(bool checked);
     void on_pushButton_clicked();
+
+    void on_help_clicked();
 
 public:
     void paintEvent(QPaintEvent *e);

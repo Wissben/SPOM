@@ -105,10 +105,14 @@ public:
     {
         Welcome->setWindowTitle(QApplication::translate("Welcome", "Form", 0));
         pushButton->setText(QApplication::translate("Welcome", " Quitter", 0));
+        pushButton->setShortcut(QApplication::translate("Welcome", "Ctrl+Q", 0));
         about->setText(QApplication::translate("Welcome", " \303\200 propos", 0));
+        about->setShortcut(QApplication::translate("Welcome", "Ctrl+A", 0));
         pushButton_3->setText(QApplication::translate("Welcome", "VIVE MATOUB", 0));
+        pushButton_3->setShortcut(QApplication::translate("Welcome", "Ctrl+Enter", 0));
         label->setText(QString());
         help->setText(QApplication::translate("Welcome", " Aide", 0));
+        help->setShortcut(QApplication::translate("Welcome", "Ctrl+I", 0));
     } // retranslateUi
 
 };

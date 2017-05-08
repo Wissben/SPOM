@@ -156,3 +156,8 @@ void Welcome::on_pushButton_clicked()
 void Welcome::paintEvent(QPaintEvent *e)
 {
 }
+
+void Welcome::on_help_clicked()
+{
+ t.show();
+}

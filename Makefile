@@ -54,10 +54,12 @@ SOURCES       = main.cpp \
 		method.cpp \
 		mymath.cpp \
 		chooser.cpp \
-		welcome.cpp moc_mainwindow.cpp \
+		welcome.cpp \
+		tutorial.cpp moc_mainwindow.cpp \
 		moc_selector.cpp \
 		moc_chooser.cpp \
-		moc_welcome.cpp
+		moc_welcome.cpp \
+		moc_tutorial.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		selector.o \
@@ -65,10 +67,12 @@ OBJECTS       = main.o \
 		mymath.o \
 		chooser.o \
 		welcome.o \
+		tutorial.o \
 		moc_mainwindow.o \
 		moc_selector.o \
 		moc_chooser.o \
-		moc_welcome.o
+		moc_welcome.o \
+		moc_tutorial.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -133,13 +137,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		method.h \
 		mymath.h \
 		chooser.h \
-		welcome.h main.cpp \
+		welcome.h \
+		tutorial.h main.cpp \
 		mainwindow.cpp \
 		selector.cpp \
 		method.cpp \
 		mymath.cpp \
 		chooser.cpp \
-		welcome.cpp
+		welcome.cpp \
+		tutorial.cpp
 QMAKE_TARGET  = Test2
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = Test2
@@ -167,7 +173,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_selector.h ui_chooser.h ui_welcome.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_selector.h ui_chooser.h ui_welcome.h ui_tutorial.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: Test2.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -315,9 +321,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h selector.h method.h mymath.h chooser.h welcome.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp selector.cpp method.cpp mymath.cpp chooser.cpp welcome.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui selector.ui chooser.ui welcome.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h selector.h method.h mymath.h chooser.h welcome.h tutorial.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp selector.cpp method.cpp mymath.cpp chooser.cpp welcome.cpp tutorial.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui selector.ui chooser.ui welcome.ui tutorial.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -340,9 +346,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_selector.cpp moc_chooser.cpp moc_welcome.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_selector.cpp moc_chooser.cpp moc_welcome.cpp moc_tutorial.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_selector.cpp moc_chooser.cpp moc_welcome.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_selector.cpp moc_chooser.cpp moc_welcome.cpp moc_tutorial.cpp
 moc_mainwindow.cpp: selector.h \
 		mainwindow.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/wiss/CODES/Qt/Test2 -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
@@ -356,14 +362,18 @@ moc_chooser.cpp: selector.h \
 
 moc_welcome.cpp: chooser.h \
 		selector.h \
+		tutorial.h \
 		welcome.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/wiss/CODES/Qt/Test2 -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include welcome.h -o moc_welcome.cpp
 
+moc_tutorial.cpp: tutorial.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/wiss/CODES/Qt/Test2 -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include tutorial.h -o moc_tutorial.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_selector.h ui_chooser.h ui_welcome.h
+compiler_uic_make_all: ui_mainwindow.h ui_selector.h ui_chooser.h ui_welcome.h ui_tutorial.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_selector.h ui_chooser.h ui_welcome.h
+	-$(DEL_FILE) ui_mainwindow.h ui_selector.h ui_chooser.h ui_welcome.h ui_tutorial.h
 ui_mainwindow.h: mainwindow.ui
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
 
@@ -375,6 +385,9 @@ ui_chooser.h: chooser.ui
 
 ui_welcome.h: welcome.ui
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic welcome.ui -o ui_welcome.h
+
+ui_tutorial.h: tutorial.ui
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic tutorial.ui -o ui_tutorial.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -391,7 +404,8 @@ main.o: main.cpp mainwindow.h \
 		method.h \
 		ui_selector.h \
 		chooser.h \
-		welcome.h
+		welcome.h \
+		tutorial.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
@@ -435,10 +449,15 @@ chooser.o: chooser.cpp chooser.h \
 welcome.o: welcome.cpp welcome.h \
 		chooser.h \
 		selector.h \
+		tutorial.h \
 		ui_welcome.h \
 		method.h \
 		ui_selector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o welcome.o welcome.cpp
+
+tutorial.o: tutorial.cpp tutorial.h \
+		ui_tutorial.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tutorial.o tutorial.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -451,6 +470,9 @@ moc_chooser.o: moc_chooser.cpp
 
 moc_welcome.o: moc_welcome.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_welcome.o moc_welcome.cpp
+
+moc_tutorial.o: moc_tutorial.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tutorial.o moc_tutorial.cpp
 
 ####### Install
 
