@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "selector.h"
 #include "opencv2/opencv.hpp"
 #include "opencv2/highgui/highgui.hpp"
 namespace Ui {
@@ -27,7 +26,6 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    Selector selector;
     cv::VideoCapture capWebcam;
     cv::Mat matWebcam;
     QImage qimgWebcam;

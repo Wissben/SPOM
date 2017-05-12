@@ -24,8 +24,6 @@
 #include "opencv2/videoio.hpp"
 #include <QFileDialog>
 #include <QSpinBox>
-#include "method.h"
-#include "selector.h"
 #include <QShortcut>
 #include "chooser.h"
 
@@ -55,6 +53,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    Selector x;
-    x.show();
+
 }

@@ -1,0 +1,90 @@
+cv::Mat Method::shadowRemoval_HSV(cv::Mat* image,cv::Mat backGround,Selector* s)
+{
+    Mat imageHSV=Mat::zeros(image->rows,image->cols,CV_8UC3);
+    Mat backGroundHSV=Mat::zeros(backGround.rows,backGround.cols,CV_8UC3);
+    int min = 255;
+    Mat dif=Mat::zeros(image->rows,image->cols,CV_8UC3);;
+
+
+    //convertir l'image d'entrée en HSV
+    cvtColor(*image,imageHSV,CV_BGR2HSV);
+   imageHSV.convertTo(imageHSV,CV_8UC3);
+    cvtColor(backGround,backGroundHSV,CV_BGR2HSV);
+   backGroundHSV.convertTo(backGroundHSV,CV_8UC3);
+
+    absdiff(imageHSV,backGroundHSV,dif);
+    //calcul de l'histogramme de valeur pour l'image de fond et l'image courante
+    int effectifimg[256];
+    int effectifbg[256];
+    int diff[256];
+    //calculer les histo de "value" pour l'image courante et le background
+    calculHist(imageHSV,effectifimg);
+    calculHist(backGroundHSV,effectifbg);
+
+    //faire la difference des effictifs
+    for(int i=0;i<256;i++)
+    {
+        diff[i]=abs(effectifimg[i]-effectifbg[i]);
+    }
+
+    //chercher le minimum de "value" pour le background
+        for(int i=0;i<backGroundHSV.rows;i++)
+        {
+            for(int j=0;j<backGroundHSV.cols;j++)
+            {
+                if((backGroundHSV.at<Vec3b>(i,j)[2]) < min)
+                    min=backGroundHSV.at<Vec3b>(i,j)[2];
+            }
+        }
+//cout << min << endl;
+            //chercher les zone d'ombre et les colorier en bleu
+            for(int i=0;i<dif.rows;i++)
+                {
+                    for(int j=0;j<dif.cols;j++)
+                    {
+                        if((imageHSV.at<Vec3b>(i,j)[0])!=255 && (imageHSV.at<Vec3b>(i,j)[1])!=255 && (imageHSV.at<Vec3b>(i,j)[2])!=255 )
+                        {
+
+                            if((imageHSV.at<Vec3b>(i,j)[2]) - (backGroundHSV.at<Vec3b>(i,j)[2]) <= min )
+                            {
+                                imageHSV.at<Vec3b>(i,j)[0]=255;
+                                imageHSV.at<Vec3b>(i,j)[1]=0;
+                                imageHSV.at<Vec3b>(i,j)[2]=0;
+                            }
+
+                        }
+                    }
+                }
+                imshow("ombre",imageHSV);
+
+                //detecter les zone d'ombre et les eliminer (Classification des pixel)
+                for(int i=0;i<dif.rows;i++)
+                {
+                    for(int j=0;j<dif.cols;j++)
+                    {
+                        if((imageHSV.at<Vec3b>(i,j)[0])==255 && (imageHSV.at<Vec3b>(i,j)[1])==0 && (imageHSV.at<Vec3b>(i,j)[2])==0 )
+                        {
+                             {
+                                if(((imageHSV.at<Vec3b>(i,j)[2])- (backGroundHSV.at<Vec3b>(i,j)[2]) <= 10))
+                                {
+                                     if((imageHSV.at<Vec3b>(i,j)[2]) < (backGroundHSV.at<Vec3b>(i,j)[2]))
+                                     {
+                                        imageHSV.at<Vec3b>(i,j)[0]=backGroundHSV.at<Vec3b>(i,j)[0];
+                                        imageHSV.at<Vec3b>(i,j)[1]=backGroundHSV.at<Vec3b>(i,j)[1];
+                                        imageHSV.at<Vec3b>(i,j)[2]=backGroundHSV.at<Vec3b>(i,j)[2];
+                                     }
+                                }
+                          }
+                        }
+                    }
+                }
+                imshow("elimination",imageHSV);
+                    Mat img;
+                   cvtColor(imageHSV,img,CV_HSV2BGR);
+                  // imshow("apres elim",imageHSV);
+                   cvtColor(imageHSV,img,CV_HSV2BGR);
+                   imshow("apres elimBGR",img);
+                    return (imageHSV);
+           
+}
+

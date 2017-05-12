@@ -36,7 +36,7 @@ public:
         Tutorial->resize(1368, 680);
         pushButton = new QPushButton(Tutorial);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(0, 315, 50, 50));
+        pushButton->setGeometry(QRect(0, 4, 50, 671));
         pushButton->setFocusPolicy(Qt::NoFocus);
         QIcon icon;
         icon.addFile(QStringLiteral("Resources/MediaControl/Back-104.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -45,7 +45,7 @@ public:
         pushButton->setFlat(true);
         pushButton_2 = new QPushButton(Tutorial);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(1320, 315, 50, 50));
+        pushButton_2->setGeometry(QRect(1320, 5, 50, 671));
         pushButton_2->setFocusPolicy(Qt::NoFocus);
         QIcon icon1;
         icon1.addFile(QStringLiteral("Resources/MediaControl/Forward-104.png"), QSize(), QIcon::Normal, QIcon::Off);

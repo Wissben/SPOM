@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Chooser_t {
-    QByteArrayData data[61];
-    char stringdata0[1276];
+    QByteArrayData data[65];
+    char stringdata0[1335];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -80,16 +80,20 @@ QT_MOC_LITERAL(47, 1010, 20), // "on_accel_SAP_clicked"
 QT_MOC_LITERAL(48, 1031, 20), // "on_begin_SAP_clicked"
 QT_MOC_LITERAL(49, 1052, 18), // "on_end_SAP_clicked"
 QT_MOC_LITERAL(50, 1071, 15), // "on_exit_clicked"
-QT_MOC_LITERAL(51, 1087, 27), // "on_shadowToggleGrad_clicked"
-QT_MOC_LITERAL(52, 1115, 28), // "on_shadowToggleArith_clicked"
-QT_MOC_LITERAL(53, 1144, 26), // "on_shadowToggleRec_clicked"
-QT_MOC_LITERAL(54, 1171, 25), // "on_shadowToggleSD_clicked"
-QT_MOC_LITERAL(55, 1197, 26), // "on_shadowToggleSAP_clicked"
-QT_MOC_LITERAL(56, 1224, 10), // "updateGrad"
-QT_MOC_LITERAL(57, 1235, 9), // "updateRec"
-QT_MOC_LITERAL(58, 1245, 8), // "updateSD"
-QT_MOC_LITERAL(59, 1254, 9), // "updateSAP"
-QT_MOC_LITERAL(60, 1264, 11) // "updateArith"
+QT_MOC_LITERAL(51, 1087, 28), // "on_shadowToggleArith_clicked"
+QT_MOC_LITERAL(52, 1116, 26), // "on_shadowToggleRec_clicked"
+QT_MOC_LITERAL(53, 1143, 25), // "on_shadowToggleSD_clicked"
+QT_MOC_LITERAL(54, 1169, 26), // "on_shadowToggleSAP_clicked"
+QT_MOC_LITERAL(55, 1196, 10), // "updateGrad"
+QT_MOC_LITERAL(56, 1207, 9), // "updateRec"
+QT_MOC_LITERAL(57, 1217, 8), // "updateSD"
+QT_MOC_LITERAL(58, 1226, 9), // "updateSAP"
+QT_MOC_LITERAL(59, 1236, 11), // "updateArith"
+QT_MOC_LITERAL(60, 1248, 17), // "updateControlGrad"
+QT_MOC_LITERAL(61, 1266, 18), // "updateControlArith"
+QT_MOC_LITERAL(62, 1285, 16), // "updateControlRec"
+QT_MOC_LITERAL(63, 1302, 15), // "updateControlSD"
+QT_MOC_LITERAL(64, 1318, 16) // "updateControlSAP"
 
     },
     "Chooser\0on_alphaChooserSAP_valueChanged\0"
@@ -119,12 +123,14 @@ QT_MOC_LITERAL(60, 1264, 11) // "updateArith"
     "on_speedUp_SAP_clicked\0on_speedDown_SAP_clicked\0"
     "on_deccel_SAP_clicked\0on_accel_SAP_clicked\0"
     "on_begin_SAP_clicked\0on_end_SAP_clicked\0"
-    "on_exit_clicked\0on_shadowToggleGrad_clicked\0"
-    "on_shadowToggleArith_clicked\0"
+    "on_exit_clicked\0on_shadowToggleArith_clicked\0"
     "on_shadowToggleRec_clicked\0"
     "on_shadowToggleSD_clicked\0"
     "on_shadowToggleSAP_clicked\0updateGrad\0"
-    "updateRec\0updateSD\0updateSAP\0updateArith"
+    "updateRec\0updateSD\0updateSAP\0updateArith\0"
+    "updateControlGrad\0updateControlArith\0"
+    "updateControlRec\0updateControlSD\0"
+    "updateControlSAP"
 };
 #undef QT_MOC_LITERAL
 
@@ -134,7 +140,7 @@ static const uint qt_meta_data_Chooser[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      57,   14, // methods
+      61,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -142,63 +148,67 @@ static const uint qt_meta_data_Chooser[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,  299,    2, 0x08 /* Private */,
-       4,    1,  302,    2, 0x08 /* Private */,
-       5,    0,  305,    2, 0x08 /* Private */,
-       6,    0,  306,    2, 0x08 /* Private */,
-       7,    1,  307,    2, 0x08 /* Private */,
-       8,    0,  310,    2, 0x08 /* Private */,
-       9,    0,  311,    2, 0x08 /* Private */,
-      10,    0,  312,    2, 0x08 /* Private */,
-      11,    1,  313,    2, 0x08 /* Private */,
-      13,    1,  316,    2, 0x08 /* Private */,
-      14,    0,  319,    2, 0x08 /* Private */,
-      15,    1,  320,    2, 0x08 /* Private */,
-      16,    1,  323,    2, 0x08 /* Private */,
-      17,    1,  326,    2, 0x08 /* Private */,
-      18,    1,  329,    2, 0x08 /* Private */,
-      19,    1,  332,    2, 0x08 /* Private */,
-      20,    1,  335,    2, 0x08 /* Private */,
-      21,    1,  338,    2, 0x08 /* Private */,
-      22,    1,  341,    2, 0x08 /* Private */,
-      23,    1,  344,    2, 0x08 /* Private */,
-      24,    1,  347,    2, 0x08 /* Private */,
-      25,    1,  350,    2, 0x08 /* Private */,
-      26,    1,  353,    2, 0x08 /* Private */,
-      27,    0,  356,    2, 0x08 /* Private */,
-      28,    1,  357,    2, 0x08 /* Private */,
-      29,    1,  360,    2, 0x08 /* Private */,
-      30,    1,  363,    2, 0x08 /* Private */,
-      31,    1,  366,    2, 0x08 /* Private */,
-      32,    1,  369,    2, 0x08 /* Private */,
-      33,    1,  372,    2, 0x08 /* Private */,
-      34,    0,  375,    2, 0x08 /* Private */,
-      35,    1,  376,    2, 0x08 /* Private */,
-      36,    1,  379,    2, 0x08 /* Private */,
-      37,    1,  382,    2, 0x08 /* Private */,
-      38,    1,  385,    2, 0x08 /* Private */,
-      39,    1,  388,    2, 0x08 /* Private */,
-      40,    1,  391,    2, 0x08 /* Private */,
-      41,    1,  394,    2, 0x08 /* Private */,
-      42,    1,  397,    2, 0x08 /* Private */,
-      43,    1,  400,    2, 0x08 /* Private */,
-      44,    1,  403,    2, 0x08 /* Private */,
-      45,    1,  406,    2, 0x08 /* Private */,
-      46,    1,  409,    2, 0x08 /* Private */,
-      47,    1,  412,    2, 0x08 /* Private */,
-      48,    1,  415,    2, 0x08 /* Private */,
-      49,    1,  418,    2, 0x08 /* Private */,
-      50,    0,  421,    2, 0x08 /* Private */,
-      51,    0,  422,    2, 0x08 /* Private */,
-      52,    0,  423,    2, 0x08 /* Private */,
-      53,    0,  424,    2, 0x08 /* Private */,
-      54,    0,  425,    2, 0x08 /* Private */,
-      55,    0,  426,    2, 0x08 /* Private */,
-      56,    0,  427,    2, 0x0a /* Public */,
-      57,    0,  428,    2, 0x0a /* Public */,
-      58,    0,  429,    2, 0x0a /* Public */,
-      59,    0,  430,    2, 0x0a /* Public */,
-      60,    0,  431,    2, 0x0a /* Public */,
+       1,    1,  319,    2, 0x08 /* Private */,
+       4,    1,  322,    2, 0x08 /* Private */,
+       5,    0,  325,    2, 0x08 /* Private */,
+       6,    0,  326,    2, 0x08 /* Private */,
+       7,    1,  327,    2, 0x08 /* Private */,
+       8,    0,  330,    2, 0x08 /* Private */,
+       9,    0,  331,    2, 0x08 /* Private */,
+      10,    0,  332,    2, 0x08 /* Private */,
+      11,    1,  333,    2, 0x08 /* Private */,
+      13,    1,  336,    2, 0x08 /* Private */,
+      14,    0,  339,    2, 0x08 /* Private */,
+      15,    1,  340,    2, 0x08 /* Private */,
+      16,    1,  343,    2, 0x08 /* Private */,
+      17,    1,  346,    2, 0x08 /* Private */,
+      18,    1,  349,    2, 0x08 /* Private */,
+      19,    1,  352,    2, 0x08 /* Private */,
+      20,    1,  355,    2, 0x08 /* Private */,
+      21,    1,  358,    2, 0x08 /* Private */,
+      22,    1,  361,    2, 0x08 /* Private */,
+      23,    1,  364,    2, 0x08 /* Private */,
+      24,    1,  367,    2, 0x08 /* Private */,
+      25,    1,  370,    2, 0x08 /* Private */,
+      26,    1,  373,    2, 0x08 /* Private */,
+      27,    0,  376,    2, 0x08 /* Private */,
+      28,    1,  377,    2, 0x08 /* Private */,
+      29,    1,  380,    2, 0x08 /* Private */,
+      30,    1,  383,    2, 0x08 /* Private */,
+      31,    1,  386,    2, 0x08 /* Private */,
+      32,    1,  389,    2, 0x08 /* Private */,
+      33,    1,  392,    2, 0x08 /* Private */,
+      34,    0,  395,    2, 0x08 /* Private */,
+      35,    1,  396,    2, 0x08 /* Private */,
+      36,    1,  399,    2, 0x08 /* Private */,
+      37,    1,  402,    2, 0x08 /* Private */,
+      38,    1,  405,    2, 0x08 /* Private */,
+      39,    1,  408,    2, 0x08 /* Private */,
+      40,    1,  411,    2, 0x08 /* Private */,
+      41,    1,  414,    2, 0x08 /* Private */,
+      42,    1,  417,    2, 0x08 /* Private */,
+      43,    1,  420,    2, 0x08 /* Private */,
+      44,    1,  423,    2, 0x08 /* Private */,
+      45,    1,  426,    2, 0x08 /* Private */,
+      46,    1,  429,    2, 0x08 /* Private */,
+      47,    1,  432,    2, 0x08 /* Private */,
+      48,    1,  435,    2, 0x08 /* Private */,
+      49,    1,  438,    2, 0x08 /* Private */,
+      50,    0,  441,    2, 0x08 /* Private */,
+      51,    0,  442,    2, 0x08 /* Private */,
+      52,    0,  443,    2, 0x08 /* Private */,
+      53,    0,  444,    2, 0x08 /* Private */,
+      54,    0,  445,    2, 0x08 /* Private */,
+      55,    0,  446,    2, 0x0a /* Public */,
+      56,    0,  447,    2, 0x0a /* Public */,
+      57,    0,  448,    2, 0x0a /* Public */,
+      58,    0,  449,    2, 0x0a /* Public */,
+      59,    0,  450,    2, 0x0a /* Public */,
+      60,    0,  451,    2, 0x0a /* Public */,
+      61,    0,  452,    2, 0x0a /* Public */,
+      62,    0,  453,    2, 0x0a /* Public */,
+      63,    0,  454,    2, 0x0a /* Public */,
+      64,    0,  455,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -247,6 +257,10 @@ static const uint qt_meta_data_Chooser[] = {
     QMetaType::Void, QMetaType::Bool,   12,
     QMetaType::Void, QMetaType::Bool,   12,
     QMetaType::Void, QMetaType::Bool,   12,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -315,16 +329,20 @@ void Chooser::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 44: _t->on_begin_SAP_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 45: _t->on_end_SAP_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 46: _t->on_exit_clicked(); break;
-        case 47: _t->on_shadowToggleGrad_clicked(); break;
-        case 48: _t->on_shadowToggleArith_clicked(); break;
-        case 49: _t->on_shadowToggleRec_clicked(); break;
-        case 50: _t->on_shadowToggleSD_clicked(); break;
-        case 51: _t->on_shadowToggleSAP_clicked(); break;
-        case 52: _t->updateGrad(); break;
-        case 53: _t->updateRec(); break;
-        case 54: _t->updateSD(); break;
-        case 55: _t->updateSAP(); break;
-        case 56: _t->updateArith(); break;
+        case 47: _t->on_shadowToggleArith_clicked(); break;
+        case 48: _t->on_shadowToggleRec_clicked(); break;
+        case 49: _t->on_shadowToggleSD_clicked(); break;
+        case 50: _t->on_shadowToggleSAP_clicked(); break;
+        case 51: _t->updateGrad(); break;
+        case 52: _t->updateRec(); break;
+        case 53: _t->updateSD(); break;
+        case 54: _t->updateSAP(); break;
+        case 55: _t->updateArith(); break;
+        case 56: _t->updateControlGrad(); break;
+        case 57: _t->updateControlArith(); break;
+        case 58: _t->updateControlRec(); break;
+        case 59: _t->updateControlSD(); break;
+        case 60: _t->updateControlSAP(); break;
         default: ;
         }
     }
@@ -355,13 +373,13 @@ int Chooser::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 57)
+        if (_id < 61)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 57;
+        _id -= 61;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 57)
+        if (_id < 61)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 57;
+        _id -= 61;
     }
     return _id;
 }

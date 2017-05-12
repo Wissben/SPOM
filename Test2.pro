@@ -14,23 +14,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     mainwindow.cpp \
-    selector.cpp \
-    method.cpp \
     mymath.cpp \
     chooser.cpp \
     welcome.cpp \
     tutorial.cpp
 
 HEADERS  += mainwindow.h \
-    selector.h \
-    method.h \
     mymath.h \
     chooser.h \
     welcome.h \
     tutorial.h
 
 FORMS    += mainwindow.ui \
-    selector.ui \
     chooser.ui \
     welcome.ui \
     tutorial.ui

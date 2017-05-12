@@ -6,11 +6,11 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/opencv.hpp"
 #include "opencv2/highgui.hpp"
-#include "selector.h"
 #include "qprogressbar.h"
 #include <QTimer>
 #include <vector>
 #include <QTimer>
+#include <map>
 namespace Ui {
 class Chooser;
 }
@@ -144,7 +144,6 @@ private slots:
     void on_exit_clicked();
 
 
-    void on_shadowToggleGrad_clicked();
 
     void on_shadowToggleArith_clicked();
 
@@ -211,12 +210,26 @@ public:
     bool shadowSAP;
 
 
+    std::map<float,float> grad_Alpha_Map;
+    std::map<int , float> SAP_Mul_Map;
+    std::map<float,float> rec_Alpha_Map;
+    std::map<int,float> SD_N_Map;
+    int grad_Stat_Index;
+    int SAP_Stat_Index;
+    int rec_Stat_Index;
+    int SD_Stat_Index;
+
 public slots:
     void updateGrad();
     void updateRec();
     void updateSD();
     void updateSAP();
     void updateArith();
+    void updateControlGrad();
+    void updateControlArith();
+    void updateControlRec();
+    void updateControlSD();
+    void updateControlSAP();
 
 
 };

@@ -24,8 +24,6 @@
 #include "opencv2/videoio.hpp"
 #include <QFileDialog>
 #include <QSpinBox>
-#include "method.h"
-#include "selector.h"
 #include <QShortcut>
 #include "chooser.h"
 #include <QGraphicsEffect>
@@ -39,12 +37,55 @@ Welcome::Welcome(QWidget *parent) :
     ui(new Ui::Welcome)
 {
     ui->setupUi(this);
+    this->setGeometry(QRect(408,20,480,640));
     this->setFixedSize(480,640);
+    this->setWindowTitle("");
     paint = false;
     ui->aboutText->setVisible(false);
-    aboutText="is a cross-platform application framework that is used for developing application software that can be run on various software a"
+    ui->aboutText->setOpenExternalLinks(true);
+
+    aboutText="<a href=\"https://en.wikipedia.org/wiki/Qt_(software)\">More</a>"
+              "Qt is a cross-platform application framework that is used for developing application software that can be run on various software a"
               "nd hardware platforms with little or no change in the underlying codebase, while still being a native application with native "
               "capabilities and speed. Qt is currently being developed both by The Qt Company, a company listed on the Nasdaq Helsinki Stock "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
+              "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
               "Exchange, and the Qt Project under open-source governance, involving individual developers and firms working to advance "
               "Qt.[10][11][12] Qt is available with both commercial[4] and open source[13] GPL 2.0, GPL 3.0, and LGPL 3.0 licenses.[5][6]";
     //QPixmap bkgnd("Resources/backgrouds/Plandetravail1VGA.png");
@@ -75,7 +116,7 @@ Welcome::Welcome(QWidget *parent) :
             player->setVolume(100);
             player->play();
            // end
-            a->setDuration(3000);
+            a->setDuration(1500);
             a->setStartValue(0);
             a->setEndValue(1);
             a->setEasingCurve(QEasingCurve::InBack);

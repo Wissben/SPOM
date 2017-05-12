@@ -23,6 +23,7 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -32,15 +33,16 @@ class Ui_Chooser
 {
 public:
     QGridLayout *gridLayout_6;
+    QPushButton *exit;
     QTabWidget *tabWidget;
     QWidget *tabGradiantMorph;
-    QPushButton *gradiantChooser;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
     QSlider *alphaChooserGrad;
     QLabel *labelGradAlpha;
     QProgressBar *progressBarGrad;
     QLabel *labelGradAlphaValue;
+    QPushButton *gradiantChooser;
     QLabel *grad_image_label_original;
     QLabel *grad_image_label_mask;
     QLabel *grad_image_label_foreground;
@@ -63,12 +65,11 @@ public:
     QScrollArea *scrollArea_3;
     QWidget *scrollAreaWidgetContents_3;
     QLabel *label_progressGrad;
-    QWidget *layoutWidget1;
-    QVBoxLayout *verticalLayout_2;
-    QPushButton *shadowToggleGrad;
-    QLabel *label_19;
+    QSlider *GradControl;
+    QLabel *counterGrad;
+    QTableWidget *grad_results_table;
     QWidget *tabMoyArith;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *begin_Arith;
     QPushButton *deccel_Arith;
@@ -94,7 +95,7 @@ public:
     QScrollArea *scrollArea_7;
     QWidget *scrollAreaWidgetContents_7;
     QLabel *label_progressArith;
-    QWidget *layoutWidget3;
+    QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout;
     QPushButton *arithChooser;
     QProgressBar *backgroundProgressArith;
@@ -102,6 +103,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QPushButton *shadowToggleArith;
     QLabel *label_20;
+    QSlider *arithControl;
     QWidget *tabMoyRec;
     QPushButton *recChooser;
     QWidget *gridLayoutWidget_2;
@@ -140,6 +142,7 @@ public:
     QVBoxLayout *verticalLayout_4;
     QPushButton *shadowToggleRec;
     QLabel *label_21;
+    QSlider *RecControl;
     QWidget *tabMoySD;
     QPushButton *SDChooser;
     QWidget *gridLayoutWidget_3;
@@ -173,16 +176,17 @@ public:
     QVBoxLayout *verticalLayout_5;
     QPushButton *shadowToggleSD;
     QLabel *label_22;
+    QSlider *SDControl;
     QWidget *tabSAP;
     QPushButton *SAPChooser;
     QWidget *gridLayoutWidget_4;
     QGridLayout *gridLayout_4;
     QSpinBox *multipleChooser;
-    QSlider *alphaChooserSAP;
     QLabel *labelSAPMultiple;
-    QLabel *labelSAPAlpha;
-    QLabel *labelSAPAlphaValue;
     QProgressBar *backgroundProgressSAP;
+    QLabel *labelSAPAlphaValue;
+    QLabel *labelSAPAlpha;
+    QSlider *alphaChooserSAP;
     QLabel *SAP_image_label_foreground;
     QLabel *SAP_image_label_back;
     QLabel *SAP_image_label_mask;
@@ -213,7 +217,7 @@ public:
     QVBoxLayout *verticalLayout_6;
     QPushButton *shadowToggleSAP;
     QLabel *label_23;
-    QPushButton *exit;
+    QSlider *SAPControl;
 
     void setupUi(QWidget *Chooser)
     {
@@ -225,6 +229,13 @@ public:
         Chooser->setWindowIcon(icon);
         gridLayout_6 = new QGridLayout(Chooser);
         gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
+        exit = new QPushButton(Chooser);
+        exit->setObjectName(QStringLiteral("exit"));
+        exit->setFocusPolicy(Qt::NoFocus);
+        exit->setFlat(true);
+
+        gridLayout_6->addWidget(exit, 3, 0, 1, 1);
+
         tabWidget = new QTabWidget(Chooser);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setFocusPolicy(Qt::NoFocus);
@@ -233,16 +244,9 @@ public:
         tabGradiantMorph = new QWidget();
         tabGradiantMorph->setObjectName(QStringLiteral("tabGradiantMorph"));
         tabGradiantMorph->setMouseTracking(false);
-        gradiantChooser = new QPushButton(tabGradiantMorph);
-        gradiantChooser->setObjectName(QStringLiteral("gradiantChooser"));
-        gradiantChooser->setGeometry(QRect(100, 40, 141, 31));
-        QIcon icon1;
-        icon1.addFile(QStringLiteral("Resources/Multiple Choice-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        gradiantChooser->setIcon(icon1);
-        gradiantChooser->setIconSize(QSize(26, 26));
         gridLayoutWidget = new QWidget(tabGradiantMorph);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(90, 80, 160, 121));
+        gridLayoutWidget->setGeometry(QRect(100, 10, 160, 151));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -253,24 +257,34 @@ public:
         alphaChooserGrad->setValue(400);
         alphaChooserGrad->setOrientation(Qt::Horizontal);
 
-        gridLayout->addWidget(alphaChooserGrad, 1, 0, 1, 1);
+        gridLayout->addWidget(alphaChooserGrad, 2, 0, 1, 1);
 
         labelGradAlpha = new QLabel(gridLayoutWidget);
         labelGradAlpha->setObjectName(QStringLiteral("labelGradAlpha"));
 
-        gridLayout->addWidget(labelGradAlpha, 3, 0, 1, 1, Qt::AlignHCenter);
+        gridLayout->addWidget(labelGradAlpha, 4, 0, 1, 1, Qt::AlignHCenter);
 
         progressBarGrad = new QProgressBar(gridLayoutWidget);
         progressBarGrad->setObjectName(QStringLiteral("progressBarGrad"));
         progressBarGrad->setValue(0);
         progressBarGrad->setInvertedAppearance(false);
 
-        gridLayout->addWidget(progressBarGrad, 4, 0, 1, 1);
+        gridLayout->addWidget(progressBarGrad, 5, 0, 1, 1);
 
         labelGradAlphaValue = new QLabel(gridLayoutWidget);
         labelGradAlphaValue->setObjectName(QStringLiteral("labelGradAlphaValue"));
 
-        gridLayout->addWidget(labelGradAlphaValue, 0, 0, 1, 1);
+        gridLayout->addWidget(labelGradAlphaValue, 1, 0, 1, 1);
+
+        gradiantChooser = new QPushButton(gridLayoutWidget);
+        gradiantChooser->setObjectName(QStringLiteral("gradiantChooser"));
+        gradiantChooser->setFocusPolicy(Qt::NoFocus);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral("Resources/Multiple Choice-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        gradiantChooser->setIcon(icon1);
+        gradiantChooser->setIconSize(QSize(26, 26));
+
+        gridLayout->addWidget(gradiantChooser, 0, 0, 1, 1);
 
         grad_image_label_original = new QLabel(tabGradiantMorph);
         grad_image_label_original->setObjectName(QStringLiteral("grad_image_label_original"));
@@ -296,7 +310,7 @@ public:
         label_3->setGeometry(QRect(700, 580, 81, 20));
         layoutWidget = new QWidget(tabGradiantMorph);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(30, 263, 304, 34));
+        layoutWidget->setGeometry(QRect(23, 263, 321, 34));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -396,45 +410,33 @@ public:
         scrollArea_3->setWidget(scrollAreaWidgetContents_3);
         label_progressGrad = new QLabel(tabGradiantMorph);
         label_progressGrad->setObjectName(QStringLiteral("label_progressGrad"));
-        label_progressGrad->setGeometry(QRect(90, 210, 161, 20));
-        label_progressGrad->setMaximumSize(QSize(161, 20));
+        label_progressGrad->setGeometry(QRect(25, 210, 311, 20));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label_progressGrad->sizePolicy().hasHeightForWidth());
+        label_progressGrad->setSizePolicy(sizePolicy);
+        label_progressGrad->setMaximumSize(QSize(393, 48));
         label_progressGrad->setMidLineWidth(0);
         label_progressGrad->setTextFormat(Qt::AutoText);
         label_progressGrad->setAlignment(Qt::AlignCenter);
-        layoutWidget1 = new QWidget(tabGradiantMorph);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(140, 345, 67, 86));
-        verticalLayout_2 = new QVBoxLayout(layoutWidget1);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        shadowToggleGrad = new QPushButton(layoutWidget1);
-        shadowToggleGrad->setObjectName(QStringLiteral("shadowToggleGrad"));
-        shadowToggleGrad->setFocusPolicy(Qt::NoFocus);
-        shadowToggleGrad->setStyleSheet(QLatin1String("border-style: solid;\n"
-"border-width: 5px;\n"
-"border-radius: 15px;"));
-        QIcon icon9;
-        icon9.addFile(QStringLiteral("Resources/Toggle Off.png"), QSize(), QIcon::Normal, QIcon::Off);
-        shadowToggleGrad->setIcon(icon9);
-        shadowToggleGrad->setIconSize(QSize(50, 50));
-        shadowToggleGrad->setCheckable(false);
-        shadowToggleGrad->setFlat(true);
-
-        verticalLayout_2->addWidget(shadowToggleGrad);
-
-        label_19 = new QLabel(layoutWidget1);
-        label_19->setObjectName(QStringLiteral("label_19"));
-
-        verticalLayout_2->addWidget(label_19);
-
+        GradControl = new QSlider(tabGradiantMorph);
+        GradControl->setObjectName(QStringLiteral("GradControl"));
+        GradControl->setGeometry(QRect(20, 240, 321, 20));
+        GradControl->setOrientation(Qt::Horizontal);
+        counterGrad = new QLabel(tabGradiantMorph);
+        counterGrad->setObjectName(QStringLiteral("counterGrad"));
+        counterGrad->setGeometry(QRect(24, 310, 321, 20));
+        counterGrad->setAlignment(Qt::AlignCenter);
+        grad_results_table = new QTableWidget(tabGradiantMorph);
+        grad_results_table->setObjectName(QStringLiteral("grad_results_table"));
+        grad_results_table->setGeometry(QRect(60, 350, 202, 192));
         tabWidget->addTab(tabGradiantMorph, QString());
         layoutWidget->raise();
-        gradiantChooser->raise();
         gridLayoutWidget->raise();
         label->raise();
         label_2->raise();
         label_3->raise();
-        layoutWidget->raise();
         scrollArea->raise();
         scrollArea_2->raise();
         scrollArea_3->raise();
@@ -442,59 +444,62 @@ public:
         grad_image_label_mask->raise();
         grad_image_label_original->raise();
         label_progressGrad->raise();
+        GradControl->raise();
+        counterGrad->raise();
+        grad_results_table->raise();
         tabMoyArith = new QWidget();
         tabMoyArith->setObjectName(QStringLiteral("tabMoyArith"));
-        layoutWidget2 = new QWidget(tabMoyArith);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 273, 304, 34));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget2);
+        layoutWidget1 = new QWidget(tabMoyArith);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 130, 325, 34));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        begin_Arith = new QPushButton(layoutWidget2);
+        begin_Arith = new QPushButton(layoutWidget1);
         begin_Arith->setObjectName(QStringLiteral("begin_Arith"));
         begin_Arith->setIcon(icon2);
         begin_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(begin_Arith);
 
-        deccel_Arith = new QPushButton(layoutWidget2);
+        deccel_Arith = new QPushButton(layoutWidget1);
         deccel_Arith->setObjectName(QStringLiteral("deccel_Arith"));
         deccel_Arith->setIcon(icon3);
         deccel_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(deccel_Arith);
 
-        speedDown_Arith = new QPushButton(layoutWidget2);
+        speedDown_Arith = new QPushButton(layoutWidget1);
         speedDown_Arith->setObjectName(QStringLiteral("speedDown_Arith"));
         speedDown_Arith->setIcon(icon4);
         speedDown_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(speedDown_Arith);
 
-        controlArith = new QPushButton(layoutWidget2);
+        controlArith = new QPushButton(layoutWidget1);
         controlArith->setObjectName(QStringLiteral("controlArith"));
-        QIcon icon10;
-        icon10.addFile(QStringLiteral("Resources/MediaControl/Pause-26.png"), QSize(), QIcon::Normal, QIcon::Off);
-        controlArith->setIcon(icon10);
+        QIcon icon9;
+        icon9.addFile(QStringLiteral("Resources/MediaControl/Pause-26.png"), QSize(), QIcon::Normal, QIcon::Off);
+        controlArith->setIcon(icon9);
         controlArith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(controlArith);
 
-        speedUp_Arith = new QPushButton(layoutWidget2);
+        speedUp_Arith = new QPushButton(layoutWidget1);
         speedUp_Arith->setObjectName(QStringLiteral("speedUp_Arith"));
         speedUp_Arith->setIcon(icon6);
         speedUp_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(speedUp_Arith);
 
-        accel_Arith = new QPushButton(layoutWidget2);
+        accel_Arith = new QPushButton(layoutWidget1);
         accel_Arith->setObjectName(QStringLiteral("accel_Arith"));
         accel_Arith->setIcon(icon7);
         accel_Arith->setIconSize(QSize(26, 26));
 
         horizontalLayout_2->addWidget(accel_Arith);
 
-        end_Arith = new QPushButton(layoutWidget2);
+        end_Arith = new QPushButton(layoutWidget1);
         end_Arith->setObjectName(QStringLiteral("end_Arith"));
         end_Arith->setIcon(icon8);
         end_Arith->setIconSize(QSize(26, 26));
@@ -512,7 +517,8 @@ public:
         arith_image_label_back->setScaledContents(true);
         label_7 = new QLabel(tabMoyArith);
         label_7->setObjectName(QStringLiteral("label_7"));
-        label_7->setGeometry(QRect(525, 260, 111, 20));
+        label_7->setGeometry(QRect(475, 260, 221, 20));
+        label_7->setAlignment(Qt::AlignCenter);
         arith_image_label_foreground = new QLabel(tabMoyArith);
         arith_image_label_foreground->setObjectName(QStringLiteral("arith_image_label_foreground"));
         arith_image_label_foreground->setGeometry(QRect(790, 320, 320, 240));
@@ -564,22 +570,22 @@ public:
         scrollArea_7->setWidget(scrollAreaWidgetContents_7);
         label_progressArith = new QLabel(tabMoyArith);
         label_progressArith->setObjectName(QStringLiteral("label_progressArith"));
-        label_progressArith->setGeometry(QRect(65, 210, 191, 20));
+        label_progressArith->setGeometry(QRect(15, 210, 311, 20));
         label_progressArith->setAlignment(Qt::AlignCenter);
-        layoutWidget3 = new QWidget(tabMoyArith);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(80, 110, 161, 84));
-        verticalLayout = new QVBoxLayout(layoutWidget3);
+        layoutWidget2 = new QWidget(tabMoyArith);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(80, 10, 161, 84));
+        verticalLayout = new QVBoxLayout(layoutWidget2);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        arithChooser = new QPushButton(layoutWidget3);
+        arithChooser = new QPushButton(layoutWidget2);
         arithChooser->setObjectName(QStringLiteral("arithChooser"));
         arithChooser->setIcon(icon1);
         arithChooser->setIconSize(QSize(26, 26));
 
         verticalLayout->addWidget(arithChooser);
 
-        backgroundProgressArith = new QProgressBar(layoutWidget3);
+        backgroundProgressArith = new QProgressBar(layoutWidget2);
         backgroundProgressArith->setObjectName(QStringLiteral("backgroundProgressArith"));
         backgroundProgressArith->setValue(0);
 
@@ -587,7 +593,7 @@ public:
 
         layoutWidget_5 = new QWidget(tabMoyArith);
         layoutWidget_5->setObjectName(QStringLiteral("layoutWidget_5"));
-        layoutWidget_5->setGeometry(QRect(130, 340, 67, 86));
+        layoutWidget_5->setGeometry(QRect(90, 190, 142, 86));
         verticalLayout_3 = new QVBoxLayout(layoutWidget_5);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -597,7 +603,9 @@ public:
         shadowToggleArith->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 15px;"));
-        shadowToggleArith->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QStringLiteral("Resources/Toggle On-96.png"), QSize(), QIcon::Normal, QIcon::Off);
+        shadowToggleArith->setIcon(icon10);
         shadowToggleArith->setIconSize(QSize(50, 50));
         shadowToggleArith->setCheckable(false);
         shadowToggleArith->setFlat(true);
@@ -609,6 +617,10 @@ public:
 
         verticalLayout_3->addWidget(label_20);
 
+        arithControl = new QSlider(tabMoyArith);
+        arithControl->setObjectName(QStringLiteral("arithControl"));
+        arithControl->setGeometry(QRect(5, 107, 332, 20));
+        arithControl->setOrientation(Qt::Horizontal);
         tabWidget->addTab(tabMoyArith, QString());
         layoutWidget->raise();
         layoutWidget->raise();
@@ -626,16 +638,19 @@ public:
         arith_image_label_original->raise();
         label_progressArith->raise();
         layoutWidget_5->raise();
+        arithControl->raise();
+        shadowToggleArith->raise();
         tabMoyRec = new QWidget();
         tabMoyRec->setObjectName(QStringLiteral("tabMoyRec"));
         recChooser = new QPushButton(tabMoyRec);
         recChooser->setObjectName(QStringLiteral("recChooser"));
-        recChooser->setGeometry(QRect(90, 20, 141, 31));
+        recChooser->setGeometry(QRect(100, 20, 141, 31));
+        recChooser->setFocusPolicy(Qt::NoFocus);
         recChooser->setIcon(icon1);
         recChooser->setIconSize(QSize(26, 26));
         gridLayoutWidget_2 = new QWidget(tabMoyRec);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(80, 60, 160, 121));
+        gridLayoutWidget_2->setGeometry(QRect(90, 60, 160, 121));
         gridLayout_2 = new QGridLayout(gridLayoutWidget_2);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -665,7 +680,7 @@ public:
 
         rec_image_label_mask = new QLabel(tabMoyRec);
         rec_image_label_mask->setObjectName(QStringLiteral("rec_image_label_mask"));
-        rec_image_label_mask->setGeometry(QRect(790, 320, 320, 240));
+        rec_image_label_mask->setGeometry(QRect(420, 320, 320, 240));
         rec_image_label_mask->setScaledContents(true);
         rec_image_label_back = new QLabel(tabMoyRec);
         rec_image_label_back->setObjectName(QStringLiteral("rec_image_label_back"));
@@ -673,7 +688,7 @@ public:
         rec_image_label_back->setScaledContents(true);
         rec_image_label_foreground = new QLabel(tabMoyRec);
         rec_image_label_foreground->setObjectName(QStringLiteral("rec_image_label_foreground"));
-        rec_image_label_foreground->setGeometry(QRect(420, 320, 320, 240));
+        rec_image_label_foreground->setGeometry(QRect(790, 320, 320, 240));
         rec_image_label_foreground->setScaledContents(true);
         rec_image_label_original = new QLabel(tabMoyRec);
         rec_image_label_original->setObjectName(QStringLiteral("rec_image_label_original"));
@@ -682,7 +697,7 @@ public:
         rec_image_label_original->setOpenExternalLinks(false);
         layoutWidget_2 = new QWidget(tabMoyRec);
         layoutWidget_2->setObjectName(QStringLiteral("layoutWidget_2"));
-        layoutWidget_2->setGeometry(QRect(20, 250, 304, 41));
+        layoutWidget_2->setGeometry(QRect(13, 250, 321, 41));
         horizontalLayout_3 = new QHBoxLayout(layoutWidget_2);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -709,7 +724,7 @@ public:
 
         controlRec = new QPushButton(layoutWidget_2);
         controlRec->setObjectName(QStringLiteral("controlRec"));
-        controlRec->setIcon(icon10);
+        controlRec->setIcon(icon9);
         controlRec->setIconSize(QSize(26, 26));
 
         horizontalLayout_3->addWidget(controlRec);
@@ -737,7 +752,7 @@ public:
 
         label_11 = new QLabel(tabMoyRec);
         label_11->setObjectName(QStringLiteral("label_11"));
-        label_11->setGeometry(QRect(870, 580, 161, 20));
+        label_11->setGeometry(QRect(500, 580, 161, 20));
         label_12 = new QLabel(tabMoyRec);
         label_12->setObjectName(QStringLiteral("label_12"));
         label_12->setGeometry(QRect(525, 260, 111, 20));
@@ -746,7 +761,7 @@ public:
         label_13->setGeometry(QRect(910, 260, 81, 18));
         label_14 = new QLabel(tabMoyRec);
         label_14->setObjectName(QStringLiteral("label_14"));
-        label_14->setGeometry(QRect(550, 580, 81, 20));
+        label_14->setGeometry(QRect(910, 580, 81, 20));
         scrollArea_8 = new QScrollArea(tabMoyRec);
         scrollArea_8->setObjectName(QStringLiteral("scrollArea_8"));
         scrollArea_8->setGeometry(QRect(420, 0, 320, 240));
@@ -781,11 +796,11 @@ public:
         scrollArea_11->setWidget(scrollAreaWidgetContents_11);
         label_progressRec = new QLabel(tabMoyRec);
         label_progressRec->setObjectName(QStringLiteral("label_progressRec"));
-        label_progressRec->setGeometry(QRect(65, 190, 191, 20));
+        label_progressRec->setGeometry(QRect(15, 190, 311, 20));
         label_progressRec->setAlignment(Qt::AlignCenter);
         layoutWidget_6 = new QWidget(tabMoyRec);
         layoutWidget_6->setObjectName(QStringLiteral("layoutWidget_6"));
-        layoutWidget_6->setGeometry(QRect(130, 340, 67, 86));
+        layoutWidget_6->setGeometry(QRect(100, 330, 142, 86));
         verticalLayout_4 = new QVBoxLayout(layoutWidget_6);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
@@ -795,7 +810,7 @@ public:
         shadowToggleRec->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 15px;"));
-        shadowToggleRec->setIcon(icon9);
+        shadowToggleRec->setIcon(icon10);
         shadowToggleRec->setIconSize(QSize(50, 50));
         shadowToggleRec->setCheckable(false);
         shadowToggleRec->setFlat(true);
@@ -807,6 +822,10 @@ public:
 
         verticalLayout_4->addWidget(label_21);
 
+        RecControl = new QSlider(tabMoyRec);
+        RecControl->setObjectName(QStringLiteral("RecControl"));
+        RecControl->setGeometry(QRect(10, 230, 321, 20));
+        RecControl->setOrientation(Qt::Horizontal);
         tabWidget->addTab(tabMoyRec, QString());
         recChooser->raise();
         gridLayoutWidget_2->raise();
@@ -825,16 +844,17 @@ public:
         rec_image_label_original->raise();
         label_progressRec->raise();
         layoutWidget_6->raise();
+        RecControl->raise();
         tabMoySD = new QWidget();
         tabMoySD->setObjectName(QStringLiteral("tabMoySD"));
         SDChooser = new QPushButton(tabMoySD);
         SDChooser->setObjectName(QStringLiteral("SDChooser"));
-        SDChooser->setGeometry(QRect(80, 40, 141, 31));
+        SDChooser->setGeometry(QRect(100, 40, 141, 31));
         SDChooser->setIcon(icon1);
         SDChooser->setIconSize(QSize(26, 26));
         gridLayoutWidget_3 = new QWidget(tabMoySD);
         gridLayoutWidget_3->setObjectName(QStringLiteral("gridLayoutWidget_3"));
-        gridLayoutWidget_3->setGeometry(QRect(70, 80, 160, 91));
+        gridLayoutWidget_3->setGeometry(QRect(90, 80, 160, 95));
         gridLayout_3 = new QGridLayout(gridLayoutWidget_3);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         gridLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -852,6 +872,7 @@ public:
 
         progressBarSD = new QProgressBar(gridLayoutWidget_3);
         progressBarSD->setObjectName(QStringLiteral("progressBarSD"));
+        progressBarSD->setAutoFillBackground(false);
         progressBarSD->setValue(0);
 
         gridLayout_3->addWidget(progressBarSD, 2, 0, 1, 1);
@@ -880,7 +901,7 @@ public:
         label_6->setGeometry(QRect(660, 580, 81, 20));
         layoutWidget_3 = new QWidget(tabMoySD);
         layoutWidget_3->setObjectName(QStringLiteral("layoutWidget_3"));
-        layoutWidget_3->setGeometry(QRect(10, 280, 311, 41));
+        layoutWidget_3->setGeometry(QRect(10, 280, 321, 41));
         horizontalLayout_4 = new QHBoxLayout(layoutWidget_3);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
@@ -907,7 +928,7 @@ public:
 
         controlSD = new QPushButton(layoutWidget_3);
         controlSD->setObjectName(QStringLiteral("controlSD"));
-        controlSD->setIcon(icon10);
+        controlSD->setIcon(icon9);
         controlSD->setIconSize(QSize(26, 26));
 
         horizontalLayout_4->addWidget(controlSD);
@@ -959,11 +980,11 @@ public:
         scrollArea_14->setWidget(scrollAreaWidgetContents_14);
         label_progressSD = new QLabel(tabMoySD);
         label_progressSD->setObjectName(QStringLiteral("label_progressSD"));
-        label_progressSD->setGeometry(QRect(55, 200, 191, 20));
+        label_progressSD->setGeometry(QRect(10, 190, 321, 20));
         label_progressSD->setAlignment(Qt::AlignCenter);
         layoutWidget_7 = new QWidget(tabMoySD);
         layoutWidget_7->setObjectName(QStringLiteral("layoutWidget_7"));
-        layoutWidget_7->setGeometry(QRect(130, 370, 67, 86));
+        layoutWidget_7->setGeometry(QRect(90, 350, 142, 86));
         verticalLayout_5 = new QVBoxLayout(layoutWidget_7);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
@@ -973,7 +994,7 @@ public:
         shadowToggleSD->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 15px;"));
-        shadowToggleSD->setIcon(icon9);
+        shadowToggleSD->setIcon(icon10);
         shadowToggleSD->setIconSize(QSize(50, 50));
         shadowToggleSD->setCheckable(false);
         shadowToggleSD->setFlat(true);
@@ -985,6 +1006,10 @@ public:
 
         verticalLayout_5->addWidget(label_22);
 
+        SDControl = new QSlider(tabMoySD);
+        SDControl->setObjectName(QStringLiteral("SDControl"));
+        SDControl->setGeometry(QRect(10, 260, 321, 20));
+        SDControl->setOrientation(Qt::Horizontal);
         tabWidget->addTab(tabMoySD, QString());
         SDChooser->raise();
         gridLayoutWidget_3->raise();
@@ -1000,6 +1025,7 @@ public:
         SD_image_label_mask->raise();
         label_progressSD->raise();
         layoutWidget_7->raise();
+        SDControl->raise();
         tabSAP = new QWidget();
         tabSAP->setObjectName(QStringLiteral("tabSAP"));
         SAPChooser = new QPushButton(tabSAP);
@@ -1021,33 +1047,33 @@ public:
 
         gridLayout_4->addWidget(multipleChooser, 4, 0, 1, 1);
 
-        alphaChooserSAP = new QSlider(gridLayoutWidget_4);
-        alphaChooserSAP->setObjectName(QStringLiteral("alphaChooserSAP"));
-        alphaChooserSAP->setMaximum(1000);
-        alphaChooserSAP->setOrientation(Qt::Horizontal);
-
-        gridLayout_4->addWidget(alphaChooserSAP, 1, 0, 1, 1);
-
         labelSAPMultiple = new QLabel(gridLayoutWidget_4);
         labelSAPMultiple->setObjectName(QStringLiteral("labelSAPMultiple"));
 
         gridLayout_4->addWidget(labelSAPMultiple, 5, 0, 1, 1, Qt::AlignHCenter);
-
-        labelSAPAlpha = new QLabel(gridLayoutWidget_4);
-        labelSAPAlpha->setObjectName(QStringLiteral("labelSAPAlpha"));
-
-        gridLayout_4->addWidget(labelSAPAlpha, 3, 0, 1, 1, Qt::AlignHCenter);
-
-        labelSAPAlphaValue = new QLabel(gridLayoutWidget_4);
-        labelSAPAlphaValue->setObjectName(QStringLiteral("labelSAPAlphaValue"));
-
-        gridLayout_4->addWidget(labelSAPAlphaValue, 0, 0, 1, 1, Qt::AlignHCenter);
 
         backgroundProgressSAP = new QProgressBar(gridLayoutWidget_4);
         backgroundProgressSAP->setObjectName(QStringLiteral("backgroundProgressSAP"));
         backgroundProgressSAP->setValue(0);
 
         gridLayout_4->addWidget(backgroundProgressSAP, 6, 0, 1, 1);
+
+        labelSAPAlphaValue = new QLabel(gridLayoutWidget_4);
+        labelSAPAlphaValue->setObjectName(QStringLiteral("labelSAPAlphaValue"));
+
+        gridLayout_4->addWidget(labelSAPAlphaValue, 0, 0, 1, 1, Qt::AlignHCenter);
+
+        labelSAPAlpha = new QLabel(gridLayoutWidget_4);
+        labelSAPAlpha->setObjectName(QStringLiteral("labelSAPAlpha"));
+
+        gridLayout_4->addWidget(labelSAPAlpha, 3, 0, 1, 1, Qt::AlignHCenter);
+
+        alphaChooserSAP = new QSlider(gridLayoutWidget_4);
+        alphaChooserSAP->setObjectName(QStringLiteral("alphaChooserSAP"));
+        alphaChooserSAP->setMaximum(1000);
+        alphaChooserSAP->setOrientation(Qt::Horizontal);
+
+        gridLayout_4->addWidget(alphaChooserSAP, 1, 0, 1, 1);
 
         SAP_image_label_foreground = new QLabel(tabSAP);
         SAP_image_label_foreground->setObjectName(QStringLiteral("SAP_image_label_foreground"));
@@ -1068,7 +1094,7 @@ public:
         SAP_image_label_original->setOpenExternalLinks(false);
         layoutWidget_4 = new QWidget(tabSAP);
         layoutWidget_4->setObjectName(QStringLiteral("layoutWidget_4"));
-        layoutWidget_4->setGeometry(QRect(10, 320, 311, 34));
+        layoutWidget_4->setGeometry(QRect(10, 320, 321, 34));
         horizontalLayout_5 = new QHBoxLayout(layoutWidget_4);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
@@ -1095,7 +1121,7 @@ public:
 
         controlSAP = new QPushButton(layoutWidget_4);
         controlSAP->setObjectName(QStringLiteral("controlSAP"));
-        controlSAP->setIcon(icon10);
+        controlSAP->setIcon(icon9);
         controlSAP->setIconSize(QSize(26, 26));
 
         horizontalLayout_5->addWidget(controlSAP);
@@ -1167,11 +1193,11 @@ public:
         scrollArea_18->setWidget(scrollAreaWidgetContents_18);
         label_progressSAP = new QLabel(tabSAP);
         label_progressSAP->setObjectName(QStringLiteral("label_progressSAP"));
-        label_progressSAP->setGeometry(QRect(75, 270, 191, 20));
+        label_progressSAP->setGeometry(QRect(15, 270, 311, 20));
         label_progressSAP->setAlignment(Qt::AlignCenter);
         layoutWidget_8 = new QWidget(tabSAP);
         layoutWidget_8->setObjectName(QStringLiteral("layoutWidget_8"));
-        layoutWidget_8->setGeometry(QRect(130, 390, 67, 86));
+        layoutWidget_8->setGeometry(QRect(90, 390, 142, 86));
         verticalLayout_6 = new QVBoxLayout(layoutWidget_8);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         verticalLayout_6->setContentsMargins(0, 0, 0, 0);
@@ -1181,7 +1207,7 @@ public:
         shadowToggleSAP->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 15px;"));
-        shadowToggleSAP->setIcon(icon9);
+        shadowToggleSAP->setIcon(icon10);
         shadowToggleSAP->setIconSize(QSize(50, 50));
         shadowToggleSAP->setCheckable(false);
         shadowToggleSAP->setFlat(true);
@@ -1193,6 +1219,10 @@ public:
 
         verticalLayout_6->addWidget(label_23);
 
+        SAPControl = new QSlider(tabSAP);
+        SAPControl->setObjectName(QStringLiteral("SAPControl"));
+        SAPControl->setGeometry(QRect(10, 300, 321, 20));
+        SAPControl->setOrientation(Qt::Horizontal);
         tabWidget->addTab(tabSAP, QString());
         SAPChooser->raise();
         gridLayoutWidget_4->raise();
@@ -1211,14 +1241,9 @@ public:
         SAP_image_label_foreground->raise();
         label_progressSAP->raise();
         layoutWidget_8->raise();
+        SAPControl->raise();
 
-        gridLayout_6->addWidget(tabWidget, 2, 0, 1, 1);
-
-        exit = new QPushButton(Chooser);
-        exit->setObjectName(QStringLiteral("exit"));
-        exit->setFlat(true);
-
-        gridLayout_6->addWidget(exit, 3, 0, 1, 1);
+        gridLayout_6->addWidget(tabWidget, 0, 0, 1, 1);
 
 
         retranslateUi(Chooser);
@@ -1232,9 +1257,10 @@ public:
     void retranslateUi(QWidget *Chooser)
     {
         Chooser->setWindowTitle(QApplication::translate("Chooser", "Methodes de detection", 0));
-        gradiantChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
+        exit->setText(QApplication::translate("Chooser", "Quitter", 0));
         labelGradAlpha->setText(QApplication::translate("Chooser", "alpha", 0));
         labelGradAlphaValue->setText(QString());
+        gradiantChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
         grad_image_label_original->setText(QString());
         grad_image_label_mask->setText(QString());
         grad_image_label_foreground->setText(QString());
@@ -1249,8 +1275,7 @@ public:
         accel->setText(QString());
         end->setText(QString());
         label_progressGrad->setText(QString());
-        shadowToggleGrad->setText(QString());
-        label_19->setText(QApplication::translate("Chooser", "Shadows", 0));
+        counterGrad->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tabGradiantMorph), QApplication::translate("Chooser", "Gradiant mophologique oublieux", 0));
         begin_Arith->setText(QString());
         deccel_Arith->setText(QString());
@@ -1270,7 +1295,7 @@ public:
         label_progressArith->setText(QString());
         arithChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
         shadowToggleArith->setText(QString());
-        label_20->setText(QApplication::translate("Chooser", "Shadows", 0));
+        label_20->setText(QApplication::translate("Chooser", "Elimination d'ombres", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabMoyArith), QApplication::translate("Chooser", "Moyenne arithm\303\251tique", 0));
         recChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
         labelRecAlpha->setText(QApplication::translate("Chooser", "alpha", 0));
@@ -1292,7 +1317,7 @@ public:
         label_14->setText(QApplication::translate("Chooser", "Avant plan", 0));
         label_progressRec->setText(QString());
         shadowToggleRec->setText(QString());
-        label_21->setText(QApplication::translate("Chooser", "Shadows", 0));
+        label_21->setText(QApplication::translate("Chooser", "Elimination d'ombres", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabMoyRec), QApplication::translate("Chooser", "Moyenne r\303\251cursive", 0));
         SDChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
 #ifndef QT_NO_TOOLTIP
@@ -1314,18 +1339,18 @@ public:
         end_SD->setText(QString());
         label_progressSD->setText(QString());
         shadowToggleSD->setText(QString());
-        label_22->setText(QApplication::translate("Chooser", "Shadows", 0));
+        label_22->setText(QApplication::translate("Chooser", "Elimination d'ombres", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabMoySD), QApplication::translate("Chooser", "Moyenne \316\243-\342\210\206", 0));
         SAPChooser->setText(QApplication::translate("Chooser", " Choisir la video", 0));
 #ifndef QT_NO_TOOLTIP
         labelSAPMultiple->setToolTip(QApplication::translate("Chooser", "Parametre pour le seuillage", 0));
 #endif // QT_NO_TOOLTIP
         labelSAPMultiple->setText(QApplication::translate("Chooser", "Multiple", 0));
+        labelSAPAlphaValue->setText(QString());
 #ifndef QT_NO_TOOLTIP
         labelSAPAlpha->setToolTip(QApplication::translate("Chooser", "Parametre pour la mise a jour automatique du fond", 0));
 #endif // QT_NO_TOOLTIP
         labelSAPAlpha->setText(QApplication::translate("Chooser", "\316\267", 0));
-        labelSAPAlphaValue->setText(QString());
         SAP_image_label_foreground->setText(QString());
         SAP_image_label_back->setText(QString());
         SAP_image_label_mask->setText(QString());
@@ -1343,9 +1368,8 @@ public:
         label_18->setText(QApplication::translate("Chooser", "Masque de mouvement", 0));
         label_progressSAP->setText(QString());
         shadowToggleSAP->setText(QString());
-        label_23->setText(QApplication::translate("Chooser", "Shadows", 0));
+        label_23->setText(QApplication::translate("Chooser", "Elimination d'ombres", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabSAP), QApplication::translate("Chooser", "SAP", 0));
-        exit->setText(QApplication::translate("Chooser", "Quitter", 0));
     } // retranslateUi
 
 };

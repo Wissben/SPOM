@@ -39,6 +39,7 @@ public:
         pushButton = new QPushButton(Welcome);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setGeometry(QRect(380, 600, 86, 31));
+        pushButton->setFocusPolicy(Qt::NoFocus);
         pushButton->setStyleSheet(QLatin1String("QPushButton { \n"
 "color: 000000;\n"
 "}"));
@@ -50,6 +51,7 @@ public:
         about = new QPushButton(Welcome);
         about->setObjectName(QStringLiteral("about"));
         about->setGeometry(QRect(10, 600, 90, 31));
+        about->setFocusPolicy(Qt::NoFocus);
         about->setStyleSheet(QLatin1String("QPushButton { \n"
 "color: 000000;\n"
 "}"));
@@ -60,7 +62,8 @@ public:
         about->setFlat(true);
         pushButton_3 = new QPushButton(Welcome);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(150, 30, 171, 61));
+        pushButton_3->setGeometry(QRect(140, 30, 191, 61));
+        pushButton_3->setFocusPolicy(Qt::NoFocus);
         pushButton_3->setStyleSheet(QLatin1String("QPushButton { \n"
 "color: 000000;\n"
 "}"));
@@ -80,6 +83,7 @@ public:
         help = new QPushButton(Welcome);
         help->setObjectName(QStringLiteral("help"));
         help->setGeometry(QRect(195, 600, 90, 31));
+        help->setFocusPolicy(Qt::NoFocus);
         help->setAutoFillBackground(false);
         help->setStyleSheet(QLatin1String("QPushButton { \n"
 "color: 000000;\n"
@@ -108,7 +112,7 @@ public:
         pushButton->setShortcut(QApplication::translate("Welcome", "Ctrl+Q", 0));
         about->setText(QApplication::translate("Welcome", " \303\200 propos", 0));
         about->setShortcut(QApplication::translate("Welcome", "Ctrl+A", 0));
-        pushButton_3->setText(QApplication::translate("Welcome", "VIVE MATOUB", 0));
+        pushButton_3->setText(QApplication::translate("Welcome", "Commencer le traitement", 0));
         pushButton_3->setShortcut(QApplication::translate("Welcome", "Ctrl+Enter", 0));
         label->setText(QString());
         help->setText(QApplication::translate("Welcome", " Aide", 0));

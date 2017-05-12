@@ -49,7 +49,7 @@ void Tutorial::on_pushButton_2_clicked()
     }
     (labels.at(index))->setVisible(true);
     (labels.at(index))->setPixmap(frames.at(index));
-    qDebug() << labels.at(index);
+    //qDebug() << labels.at(index);
 
 
 }
@@ -66,5 +66,5 @@ void Tutorial::on_pushButton_clicked()
     }
     (labels.at(index))->setVisible(true);
     (labels.at(index))->setPixmap(frames.at(index));
-    qDebug() << labels.at(index);
+    //qDebug() << labels.at(index);
 }

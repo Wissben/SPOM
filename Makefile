@@ -50,26 +50,20 @@ OBJECTS_DIR   = ./
 
 SOURCES       = main.cpp \
 		mainwindow.cpp \
-		selector.cpp \
-		method.cpp \
 		mymath.cpp \
 		chooser.cpp \
 		welcome.cpp \
 		tutorial.cpp moc_mainwindow.cpp \
-		moc_selector.cpp \
 		moc_chooser.cpp \
 		moc_welcome.cpp \
 		moc_tutorial.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
-		selector.o \
-		method.o \
 		mymath.o \
 		chooser.o \
 		welcome.o \
 		tutorial.o \
 		moc_mainwindow.o \
-		moc_selector.o \
 		moc_chooser.o \
 		moc_welcome.o \
 		moc_tutorial.o
@@ -133,15 +127,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		Test2.pro mainwindow.h \
-		selector.h \
-		method.h \
 		mymath.h \
 		chooser.h \
 		welcome.h \
 		tutorial.h main.cpp \
 		mainwindow.cpp \
-		selector.cpp \
-		method.cpp \
 		mymath.cpp \
 		chooser.cpp \
 		welcome.cpp \
@@ -173,7 +163,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_selector.h ui_chooser.h ui_welcome.h ui_tutorial.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_chooser.h ui_welcome.h ui_tutorial.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: Test2.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -321,9 +311,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h selector.h method.h mymath.h chooser.h welcome.h tutorial.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp selector.cpp method.cpp mymath.cpp chooser.cpp welcome.cpp tutorial.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui selector.ui chooser.ui welcome.ui tutorial.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h mymath.h chooser.h welcome.h tutorial.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp mymath.cpp chooser.cpp welcome.cpp tutorial.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui chooser.ui welcome.ui tutorial.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -346,22 +336,16 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_selector.cpp moc_chooser.cpp moc_welcome.cpp moc_tutorial.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_chooser.cpp moc_welcome.cpp moc_tutorial.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_selector.cpp moc_chooser.cpp moc_welcome.cpp moc_tutorial.cpp
-moc_mainwindow.cpp: selector.h \
-		mainwindow.h
+	-$(DEL_FILE) moc_mainwindow.cpp moc_chooser.cpp moc_welcome.cpp moc_tutorial.cpp
+moc_mainwindow.cpp: mainwindow.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/wiss/CODES/Qt/Test2 -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
-moc_selector.cpp: selector.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/wiss/CODES/Qt/Test2 -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include selector.h -o moc_selector.cpp
-
-moc_chooser.cpp: selector.h \
-		chooser.h
+moc_chooser.cpp: chooser.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/wiss/CODES/Qt/Test2 -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include chooser.h -o moc_chooser.cpp
 
 moc_welcome.cpp: chooser.h \
-		selector.h \
 		tutorial.h \
 		welcome.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/wiss/CODES/Qt/Test2 -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include welcome.h -o moc_welcome.cpp
@@ -371,14 +355,11 @@ moc_tutorial.cpp: tutorial.h
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_selector.h ui_chooser.h ui_welcome.h ui_tutorial.h
+compiler_uic_make_all: ui_mainwindow.h ui_chooser.h ui_welcome.h ui_tutorial.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_selector.h ui_chooser.h ui_welcome.h ui_tutorial.h
+	-$(DEL_FILE) ui_mainwindow.h ui_chooser.h ui_welcome.h ui_tutorial.h
 ui_mainwindow.h: mainwindow.ui
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
-
-ui_selector.h: selector.ui
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic selector.ui -o ui_selector.h
 
 ui_chooser.h: chooser.ui
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic chooser.ui -o ui_chooser.h
@@ -400,59 +381,30 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 ####### Compile
 
 main.o: main.cpp mainwindow.h \
-		selector.h \
-		method.h \
-		ui_selector.h \
 		chooser.h \
 		welcome.h \
 		tutorial.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
-		selector.h \
 		ui_mainwindow.h \
-		method.h \
-		ui_selector.h \
 		chooser.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
-
-selector.o: selector.cpp selector.h \
-		ui_selector.h \
-		mainwindow.h \
-		ui_mainwindow.h \
-		method.h \
-		chooser.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o selector.o selector.cpp
-
-method.o: method.cpp method.h \
-		selector.h \
-		ui_selector.h \
-		chooser.h \
-		mainwindow.h \
-		mymath.h \
-		ui_chooser.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o method.o method.cpp
 
 mymath.o: mymath.cpp mymath.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mymath.o mymath.cpp
 
 chooser.o: chooser.cpp chooser.h \
-		selector.h \
 		ui_chooser.h \
 		mainwindow.h \
 		ui_mainwindow.h \
-		method.h \
-		ui_selector.h \
 		mymath.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o chooser.o chooser.cpp
 
 welcome.o: welcome.cpp welcome.h \
 		chooser.h \
-		selector.h \
 		tutorial.h \
-		ui_welcome.h \
-		method.h \
-		ui_selector.h
+		ui_welcome.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o welcome.o welcome.cpp
 
 tutorial.o: tutorial.cpp tutorial.h \
@@ -461,9 +413,6 @@ tutorial.o: tutorial.cpp tutorial.h \
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
-
-moc_selector.o: moc_selector.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_selector.o moc_selector.cpp
 
 moc_chooser.o: moc_chooser.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_chooser.o moc_chooser.cpp

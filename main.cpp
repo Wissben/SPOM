@@ -8,7 +8,6 @@
 #include <stdint.h>
 #include "mainwindow.h"
 #include <QApplication>
-#include "method.h"
 #include "chooser.h"
 #include "welcome.h"
 using namespace std;
