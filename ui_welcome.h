@@ -58,7 +58,7 @@ public:
         QIcon icon1;
         icon1.addFile(QStringLiteral("Resources/Info-528.png"), QSize(), QIcon::Normal, QIcon::Off);
         about->setIcon(icon1);
-        about->setIconSize(QSize(20, 20));
+        about->setIconSize(QSize(22, 22));
         about->setFlat(true);
         pushButton_3 = new QPushButton(Welcome);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));

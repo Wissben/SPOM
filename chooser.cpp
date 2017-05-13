@@ -68,14 +68,58 @@ Chooser::Chooser(QWidget *parent) :
 
 
     ui->grad_results_table->setColumnCount(2);
+    ui->grad_results_table->verticalHeader()->setVisible(false);
+    ui->grad_results_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->grad_results_table->setHorizontalHeaderItem(0, new QTableWidgetItem("alpha"));
+    ui->grad_results_table->setColumnWidth(1,200);
+    ui->grad_results_table->setColumnWidth(0,48);
+    ui->grad_results_table->setHorizontalHeaderItem(1, new QTableWidgetItem("temps en secondes"));
     grad_Stat_Index=0;
-    SAP_Stat_Index=0;
-    SD_Stat_Index=0;
+
+    ui->rec_results_table->setColumnCount(2);
+    ui->rec_results_table->verticalHeader()->setVisible(false);
+    ui->rec_results_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->rec_results_table->setHorizontalHeaderItem(0, new QTableWidgetItem("alpha"));
+    ui->rec_results_table->setColumnWidth(1,200);
+    ui->rec_results_table->setColumnWidth(0,48);
+    ui->rec_results_table->setHorizontalHeaderItem(1, new QTableWidgetItem("temps en secondes"));
     rec_Stat_Index=0;
 
+    ui->SAP_results_table->setColumnCount(2);
+    ui->SAP_results_table->verticalHeader()->setVisible(false);
+    ui->SAP_results_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->SAP_results_table->setHorizontalHeaderItem(0, new QTableWidgetItem("alpha"));
+    ui->SAP_results_table->setColumnWidth(1,200);
+    ui->SAP_results_table->setColumnWidth(0,48);
+    ui->SAP_results_table->setHorizontalHeaderItem(1, new QTableWidgetItem("temps en secondes"));
+    SAP_Stat_Index=0;
 
+    ui->SD_results_table->setColumnCount(2);
+    ui->SD_results_table->verticalHeader()->setVisible(false);
+    ui->SD_results_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->SD_results_table->setHorizontalHeaderItem(0, new QTableWidgetItem("alpha"));
+    ui->SD_results_table->setColumnWidth(1,200);
+    ui->SD_results_table->setColumnWidth(0,48);
+    ui->SD_results_table->setHorizontalHeaderItem(1, new QTableWidgetItem("temps en secondes"));
+    SD_Stat_Index=0;
+    int insertRow;
+//    insertRow=ui->grad_results_table->rowCount();
+//    ui->grad_results_table->insertRow(insertRow);
+//    ui->grad_results_table->setItem(ui->grad_results_table->rowCount(), 0, new QTableWidgetItem("jdsjsj"));
+//    ui->grad_results_table->setItem(ui->grad_results_table->rowCount(), 1, new QTableWidgetItem("ésdd"));
+
+
+//    for (int i=0; i<ui->grad_results_table->rowCount();i++)
+//    {
+//        qDebug() << ui->grad_results_table->item(i,0)->text().toFloat();
+//        float col1=ui->grad_results_table->item(i,0)->text().toFloat();
+//        //float col2=tw->item(i,1)->text().toFloat();
+//            qDebug() << ui->grad_results_table->item(0,1)->text();
+
+//    }
     //setting up Gradiant
     std::string str;
+    //ui->alphaChooserGrad->setValue(400);
     str = std::to_string((float)ui->alphaChooserGrad->value()/1000).substr(0,5);
     QString tmp = QString(str.c_str());
     ui->labelGradAlphaValue->setText(tmp);
@@ -1097,10 +1141,14 @@ void Chooser::moyenne_Reccur(string path, double alpha,Chooser* c)
         original.copyTo(I);//Copie de l'image originale pour de futurs traitements
         cvtColor(I, I, COLOR_BGR2GRAY);
         absdiff(I, M, I);//equivalent a I=M-I
-        threshold(I, I, 50, 255, THRESH_BINARY);//Suillage statique d'une valeur d'intensité = 45
+        double min,max;
+        cv::minMaxLoc(I, &min, &max);//function that returns the max and min value of every pixel's intensity in an Mat object
+        threshold(I, I,(int) (max+min)/4 , 255, THRESH_BINARY);//Suillage statique d'une valeur d'intensité = 45
+        //cout << (int) (max+min)/3 << endl;
+        cv::erode(I,I,Mat());//Une erosion
         cv::erode(I,I,Mat());//Une erosion
         cv::dilate(I,I,Mat());//Une dilatation
-
+        cv::dilate(I,I,Mat());//Une dilatation
         original.convertTo(original,CV_8UC3);//Dunno what to do with that maybe it's useless
         I.convertTo(I,CV_8U);
         Mat I8UC3;
@@ -1144,9 +1192,13 @@ void Chooser::moyenne_Reccur(string path, double alpha,Chooser* c)
     {
         c->ui->backgroundProgressRec->setValue(100);
     }
-
-    QString res = "Terminé après : "+QString::number((float)etimer.elapsed()/1000)+" secondes";
+    float elapsed=(float)etimer.elapsed()/1000;
+    QString res = "Terminé après : "+QString::number(elapsed)+" secondes";
     c->ui->label_progressRec->setText(res);
+
+    c->rec_Alpha_Map[(float)c->ui->alphaChooserRec->value()/1000]=elapsed;
+    updateTableWidget(c->ui->rec_results_table,c->rec_Alpha_Map);
+
     v.release();
     //    if(waitKey(0)=='\33')
     //    {
@@ -1229,7 +1281,13 @@ void Chooser::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
             double min, max;
             cv::minMaxLoc(mask, &min, &max);//function that returns the max and min value of every pixel's intensity in an Mat object
             //double dynamicThresh = (max+min)/2;//the dynamicThresh is the average of the max and min values that we calculated earlier
-            threshold(mask, mask, (int) (min+max)/2, 255, THRESH_BINARY);
+            threshold(mask, mask, (int) (min+max)/4, 255, THRESH_BINARY);
+
+            cv::dilate(mask,mask,Mat());
+            cv::dilate(mask,mask,Mat());
+
+            cv::erode(mask,mask,Mat());
+            //cv::erode(mask,mask,Mat());
 
             Mat mask8UC3;
             cvtColor(mask,mask8UC3,COLOR_GRAY2BGR);
@@ -1285,26 +1343,16 @@ void Chooser::gradiantOublieux(string pathToVideo , double alpha,Chooser* c)
         //            //Display end
 
         //waitKey(1);
-        if(waitKey(10)=='\33')
-        {
-            destroyAllWindows();
-            return;
-
-        }
-
     }
     if(c->ui->progressBarGrad->value()<100)
         c->ui->progressBarGrad->setValue(100);
 
     float elapsed=(float)etimer.elapsed()/1000;
     QString res = "Terminé après : "+QString::number(elapsed)+" secondes";
-    c->grad_Alpha_Map[c->ui->alphaChooserGrad->value()]=elapsed;
     c->ui->label_progressGrad->setText(res);
 
-    c->ui->grad_results_table->setRowCount(c->ui->grad_results_table->rowCount()+1);
-    c->ui->grad_results_table->setItem(c->grad_Stat_Index, 0, new QTableWidgetItem(QString::number((float)c->ui->alphaChooserGrad->value()/1000)));
-    c->ui->grad_results_table->setItem(c->grad_Stat_Index, 1, new QTableWidgetItem(QString::number(elapsed)));
-    c->grad_Stat_Index++;
+    c->grad_Alpha_Map[(float)c->ui->alphaChooserGrad->value()/1000]=elapsed;
+    updateTableWidget(c->ui->grad_results_table,c->grad_Alpha_Map);
 
     capture.release();
 
@@ -1548,7 +1596,9 @@ void Chooser::moyenne_Arith(std::string path ,Chooser* c )
             X.convertTo(X, CV_32F);
             //cout << v.get(CV_CAP_PROP_POS_FRAMES) << "/" << v.get(CV_CAP_PROP_FRAME_COUNT) << endl;
             absdiff(X, backGroundGray, diff);
-            threshold(diff, diff, 30, 255, THRESH_BINARY);
+            double max,min;
+            cv::minMaxLoc(diff, &min, &max);//function that returns the max and min value of every pixel's intensity in an Mat object
+            threshold(diff, diff, (int) (max+min)/4, 255, THRESH_BINARY);
             cv::erode(diff, diff, Mat());
             cv::dilate(diff, diff, Mat());
 
@@ -1892,8 +1942,13 @@ void Chooser::SAP(string path, int multiple, double alpha,Chooser* c)
     if(c->ui->backgroundProgressSAP->value()<100)
         c->ui->backgroundProgressSAP->setValue(100);
 
-    QString res = "Terminé après : "+QString::number((float)etimer.elapsed()/1000)+" secondes";
+    float elapsed=(float)etimer.elapsed()/1000;
+    QString res = "Terminé après : "+QString::number(elapsed)+" secondes";
     c->ui->label_progressSAP->setText(res);
+
+    c->SAP_Mul_Map[c->ui->multipleChooser->value()]=elapsed;
+    updateTableWidget(c->ui->SAP_results_table,c->SAP_Mul_Map);
+
     capt.release();
     //destroyAllWindows();
     //    if(waitKey(0)=='\33')
@@ -2063,8 +2118,13 @@ void Chooser::SD2(std::string path,int mul,Chooser*c )
     {
         c->ui->progressBarSD->setValue(100);
     }
-    QString res = "Terminé après : "+QString::number((float)etimer.elapsed()/1000)+" secondes";
+    float elapsed=(float)etimer.elapsed()/1000;
+    QString res = "Terminé après : "+QString::number(elapsed)+" secondes";
     c->ui->label_progressSD->setText(res);
+
+    c->SD_N_Map[c->ui->NChooser->value()]=elapsed;
+    updateTableWidget(c->ui->SD_results_table,c->SD_N_Map);
+
     //    if(waitKey(0)=='\33')
     //    {
     //        destroyAllWindows();

@@ -211,9 +211,9 @@ public:
 
 
     std::map<float,float> grad_Alpha_Map;
-    std::map<int , float> SAP_Mul_Map;
+    std::map<float , float> SAP_Mul_Map;
     std::map<float,float> rec_Alpha_Map;
-    std::map<int,float> SD_N_Map;
+    std::map<float,float> SD_N_Map;
     int grad_Stat_Index;
     int SAP_Stat_Index;
     int rec_Stat_Index;

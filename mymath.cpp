@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include <QDebug>
+#include <map>
 using namespace std;
 
 double myAnd(double a, double b)
@@ -60,4 +61,35 @@ QString framesToTime(int frames)
     QString res(str.c_str());
     //qDebug() << res;
     return res;
+}
+void updateTableWidget(QTableWidget *tw , std::map<float,float> map)
+{
+    bool found=false;
+    for (std::map<float,float>::iterator it = map.begin();it!=map.end();++it)
+      {
+        found=false;
+        for (int i=0; i<tw->rowCount();i++)
+        {
+            qDebug() << tw->item(i,0)->text().toFloat();
+            float col1=tw->item(i,0)->text().toFloat();
+            //float col2=tw->item(i,1)->text().toFloat();
+            if(it->first==col1)
+            {
+                found = true;
+                qDebug()<<found << "/" << it->first <<"/" << col1 << endl;
+                tw->setItem(i, 0, new QTableWidgetItem(QString::number(it->first)));
+                tw->setItem(i, 1, new QTableWidgetItem(QString::number(it->second)));
+            }
+        }
+        if(found == false)
+        {
+            qDebug() << "false " <<it->first << "/" << it->second << endl;
+            int insertRow;
+            insertRow=tw->rowCount();
+            tw->insertRow(insertRow);
+            tw->setItem(insertRow, 0, new QTableWidgetItem(QString::number(it->first)));
+            tw->setItem(insertRow, 1, new QTableWidgetItem(QString::number(it->second)));
+
+        }
+      }
 }

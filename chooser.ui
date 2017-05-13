@@ -41,7 +41,7 @@
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="tabsClosable">
       <bool>false</bool>
@@ -504,7 +504,7 @@
         <rect>
          <x>60</x>
          <y>350</y>
-         <width>202</width>
+         <width>250</width>
          <height>192</height>
         </rect>
        </property>
@@ -930,7 +930,7 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>190</y>
+         <y>300</y>
          <width>142</width>
          <height>86</height>
         </rect>
@@ -1006,7 +1006,6 @@ border-radius: 15px;</string>
       <zorder>label_progressArith</zorder>
       <zorder>layoutWidget_5</zorder>
       <zorder>arithControl</zorder>
-      <zorder>shadowToggleArith</zorder>
      </widget>
      <widget class="QWidget" name="tabMoyRec">
       <attribute name="title">
@@ -1505,6 +1504,16 @@ border-radius: 15px;</string>
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
+      <widget class="QTableWidget" name="rec_results_table">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>430</y>
+         <width>250</width>
+         <height>192</height>
+        </rect>
+       </property>
+      </widget>
       <zorder>recChooser</zorder>
       <zorder>gridLayoutWidget_2</zorder>
       <zorder>layoutWidget_2</zorder>
@@ -1523,6 +1532,7 @@ border-radius: 15px;</string>
       <zorder>label_progressRec</zorder>
       <zorder>layoutWidget_6</zorder>
       <zorder>RecControl</zorder>
+      <zorder>rec_results_table</zorder>
      </widget>
      <widget class="QWidget" name="tabMoySD">
       <attribute name="title">
@@ -1962,6 +1972,16 @@ border-radius: 15px;</string>
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
+      <widget class="QTableWidget" name="SD_results_table">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>460</y>
+         <width>250</width>
+         <height>192</height>
+        </rect>
+       </property>
+      </widget>
       <zorder>SDChooser</zorder>
       <zorder>gridLayoutWidget_3</zorder>
       <zorder>label_4</zorder>
@@ -1977,6 +1997,7 @@ border-radius: 15px;</string>
       <zorder>label_progressSD</zorder>
       <zorder>layoutWidget_7</zorder>
       <zorder>SDControl</zorder>
+      <zorder>SD_results_table</zorder>
      </widget>
      <widget class="QWidget" name="tabSAP">
       <attribute name="title">
@@ -2495,6 +2516,16 @@ border-radius: 15px;</string>
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
+      <widget class="QTableWidget" name="SAP_results_table">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>480</y>
+         <width>250</width>
+         <height>192</height>
+        </rect>
+       </property>
+      </widget>
       <zorder>SAPChooser</zorder>
       <zorder>gridLayoutWidget_4</zorder>
       <zorder>layoutWidget_4</zorder>
@@ -2513,6 +2544,7 @@ border-radius: 15px;</string>
       <zorder>label_progressSAP</zorder>
       <zorder>layoutWidget_8</zorder>
       <zorder>SAPControl</zorder>
+      <zorder>SAP_results_table</zorder>
      </widget>
     </widget>
    </item>

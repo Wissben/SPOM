@@ -143,6 +143,7 @@ public:
     QPushButton *shadowToggleRec;
     QLabel *label_21;
     QSlider *RecControl;
+    QTableWidget *rec_results_table;
     QWidget *tabMoySD;
     QPushButton *SDChooser;
     QWidget *gridLayoutWidget_3;
@@ -177,6 +178,7 @@ public:
     QPushButton *shadowToggleSD;
     QLabel *label_22;
     QSlider *SDControl;
+    QTableWidget *SD_results_table;
     QWidget *tabSAP;
     QPushButton *SAPChooser;
     QWidget *gridLayoutWidget_4;
@@ -218,6 +220,7 @@ public:
     QPushButton *shadowToggleSAP;
     QLabel *label_23;
     QSlider *SAPControl;
+    QTableWidget *SAP_results_table;
 
     void setupUi(QWidget *Chooser)
     {
@@ -430,7 +433,7 @@ public:
         counterGrad->setAlignment(Qt::AlignCenter);
         grad_results_table = new QTableWidget(tabGradiantMorph);
         grad_results_table->setObjectName(QStringLiteral("grad_results_table"));
-        grad_results_table->setGeometry(QRect(60, 350, 202, 192));
+        grad_results_table->setGeometry(QRect(60, 350, 250, 192));
         tabWidget->addTab(tabGradiantMorph, QString());
         layoutWidget->raise();
         gridLayoutWidget->raise();
@@ -593,7 +596,7 @@ public:
 
         layoutWidget_5 = new QWidget(tabMoyArith);
         layoutWidget_5->setObjectName(QStringLiteral("layoutWidget_5"));
-        layoutWidget_5->setGeometry(QRect(90, 190, 142, 86));
+        layoutWidget_5->setGeometry(QRect(90, 300, 142, 86));
         verticalLayout_3 = new QVBoxLayout(layoutWidget_5);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -639,7 +642,6 @@ public:
         label_progressArith->raise();
         layoutWidget_5->raise();
         arithControl->raise();
-        shadowToggleArith->raise();
         tabMoyRec = new QWidget();
         tabMoyRec->setObjectName(QStringLiteral("tabMoyRec"));
         recChooser = new QPushButton(tabMoyRec);
@@ -826,6 +828,9 @@ public:
         RecControl->setObjectName(QStringLiteral("RecControl"));
         RecControl->setGeometry(QRect(10, 230, 321, 20));
         RecControl->setOrientation(Qt::Horizontal);
+        rec_results_table = new QTableWidget(tabMoyRec);
+        rec_results_table->setObjectName(QStringLiteral("rec_results_table"));
+        rec_results_table->setGeometry(QRect(50, 430, 250, 192));
         tabWidget->addTab(tabMoyRec, QString());
         recChooser->raise();
         gridLayoutWidget_2->raise();
@@ -845,6 +850,7 @@ public:
         label_progressRec->raise();
         layoutWidget_6->raise();
         RecControl->raise();
+        rec_results_table->raise();
         tabMoySD = new QWidget();
         tabMoySD->setObjectName(QStringLiteral("tabMoySD"));
         SDChooser = new QPushButton(tabMoySD);
@@ -1010,6 +1016,9 @@ public:
         SDControl->setObjectName(QStringLiteral("SDControl"));
         SDControl->setGeometry(QRect(10, 260, 321, 20));
         SDControl->setOrientation(Qt::Horizontal);
+        SD_results_table = new QTableWidget(tabMoySD);
+        SD_results_table->setObjectName(QStringLiteral("SD_results_table"));
+        SD_results_table->setGeometry(QRect(40, 460, 250, 192));
         tabWidget->addTab(tabMoySD, QString());
         SDChooser->raise();
         gridLayoutWidget_3->raise();
@@ -1026,6 +1035,7 @@ public:
         label_progressSD->raise();
         layoutWidget_7->raise();
         SDControl->raise();
+        SD_results_table->raise();
         tabSAP = new QWidget();
         tabSAP->setObjectName(QStringLiteral("tabSAP"));
         SAPChooser = new QPushButton(tabSAP);
@@ -1223,6 +1233,9 @@ public:
         SAPControl->setObjectName(QStringLiteral("SAPControl"));
         SAPControl->setGeometry(QRect(10, 300, 321, 20));
         SAPControl->setOrientation(Qt::Horizontal);
+        SAP_results_table = new QTableWidget(tabSAP);
+        SAP_results_table->setObjectName(QStringLiteral("SAP_results_table"));
+        SAP_results_table->setGeometry(QRect(40, 480, 250, 192));
         tabWidget->addTab(tabSAP, QString());
         SAPChooser->raise();
         gridLayoutWidget_4->raise();
@@ -1242,13 +1255,14 @@ public:
         label_progressSAP->raise();
         layoutWidget_8->raise();
         SAPControl->raise();
+        SAP_results_table->raise();
 
         gridLayout_6->addWidget(tabWidget, 0, 0, 1, 1);
 
 
         retranslateUi(Chooser);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Chooser);
