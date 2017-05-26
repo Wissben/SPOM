@@ -75,6 +75,8 @@ public:
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(0, 0, 480, 640));
         label->setPixmap(QPixmap(QString::fromUtf8("Resources/backgrouds/Plandetravail1VGA.png")));
+        label->setAlignment(Qt::AlignCenter);
+        label->setMargin(0);
         aboutText = new QTextBrowser(Welcome);
         aboutText->setObjectName(QStringLiteral("aboutText"));
         aboutText->setEnabled(false);

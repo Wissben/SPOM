@@ -133,6 +133,12 @@ color: 000000;
    <property name="pixmap">
     <pixmap>Resources/backgrouds/Plandetravail1VGA.png</pixmap>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="margin">
+    <number>0</number>
+   </property>
   </widget>
   <widget class="QTextBrowser" name="aboutText">
    <property name="enabled">

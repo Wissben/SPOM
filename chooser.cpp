@@ -88,7 +88,7 @@ Chooser::Chooser(QWidget *parent) :
     ui->SAP_results_table->setColumnCount(2);
     ui->SAP_results_table->verticalHeader()->setVisible(false);
     ui->SAP_results_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->SAP_results_table->setHorizontalHeaderItem(0, new QTableWidgetItem("alpha"));
+    ui->SAP_results_table->setHorizontalHeaderItem(0, new QTableWidgetItem("Mul"));
     ui->SAP_results_table->setColumnWidth(1,200);
     ui->SAP_results_table->setColumnWidth(0,48);
     ui->SAP_results_table->setHorizontalHeaderItem(1, new QTableWidgetItem("temps en secondes"));
@@ -97,7 +97,7 @@ Chooser::Chooser(QWidget *parent) :
     ui->SD_results_table->setColumnCount(2);
     ui->SD_results_table->verticalHeader()->setVisible(false);
     ui->SD_results_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->SD_results_table->setHorizontalHeaderItem(0, new QTableWidgetItem("alpha"));
+    ui->SD_results_table->setHorizontalHeaderItem(0, new QTableWidgetItem("N"));
     ui->SD_results_table->setColumnWidth(1,200);
     ui->SD_results_table->setColumnWidth(0,48);
     ui->SD_results_table->setHorizontalHeaderItem(1, new QTableWidgetItem("temps en secondes"));
@@ -136,6 +136,9 @@ Chooser::Chooser(QWidget *parent) :
     str = std::to_string((float)ui->alphaChooserSAP->value()/1000).substr(0,5);
     tmp = QString(str.c_str());
     ui->labelSAPAlphaValue->setText(tmp);
+    ui->alphaChooserSAP->setVisible(false);
+    ui->labelSAPAlpha->setVisible(false);
+    ui->labelSAPAlphaValue->setVisible(false);
     //End of setting
 
     ui->labelGradAlpha->setToolTip("Alpha est le taux d'oublis (voir la section Aide/À propos)");
